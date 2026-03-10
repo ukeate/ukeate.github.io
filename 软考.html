@@ -1,0 +1,3957 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>软考</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="软考"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="软考"/><meta name="twitter:description" content="计算机基础 冯诺依曼 输入、输出、存储器(中心)、运算器控制器(CPU) 硬件图 主机(运算器、控制器、主存) 存储器: 主存、辅存 I/O设备 CPU 指令: 操作码, 地址码 运算器 ALU: 算逻运算 PSW状态寄存器 ACC MQ X 加 被加数、和 加数 减 被减数、差 减数 乘 乘积高位 乘数、乘积低位 被乘数 除 被除数、余数 商 除数 控制器 CU: 控制单元 时序部件: 时钟控制 ID: 指令译码器 IR: 指令寄存器,即将执行的指令,查MAR PC: 程序计数器,下条指令地址 存储体 MAR: 地址寄存器, 现在集成到了CPU MDR: 数据寄存器, 指令存到IR 主存 ..."/><meta property="og:description" content="计算机基础 冯诺依曼 输入、输出、存储器(中心)、运算器控制器(CPU) 硬件图 主机(运算器、控制器、主存) 存储器: 主存、辅存 I/O设备 CPU 指令: 操作码, 地址码 运算器 ALU: 算逻运算 PSW状态寄存器 ACC MQ X 加 被加数、和 加数 减 被减数、差 减数 乘 乘积高位 乘数、乘积低位 被乘数 除 被除数、余数 商 除数 控制器 CU: 控制单元 时序部件: 时钟控制 ID: 指令译码器 IR: 指令寄存器,即将执行的指令,查MAR PC: 程序计数器,下条指令地址 存储体 MAR: 地址寄存器, 现在集成到了CPU MDR: 数据寄存器, 指令存到IR 主存 ..."/><meta property="og:image:alt" content="计算机基础 冯诺依曼 输入、输出、存储器(中心)、运算器控制器(CPU) 硬件图 主机(运算器、控制器、主存) 存储器: 主存、辅存 I/O设备 CPU 指令: 操作码, 地址码 运算器 ALU: 算逻运算 PSW状态寄存器 ACC MQ X 加 被加数、和 加数 减 被减数、差 减数 乘 乘积高位 乘数、乘积低位 被乘数 除 被除数、余数 商 除数 控制器 CU: 控制单元 时序部件: 时钟控制 ID: 指令译码器 IR: 指令寄存器,即将执行的指令,查MAR PC: 程序计数器,下条指令地址 存储体 MAR: 地址寄存器, 现在集成到了CPU MDR: 数据寄存器, 指令存到IR 主存 ..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/软考"/><meta property="twitter:url" content="https://ukeate.me/软考"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="计算机基础 冯诺依曼 输入、输出、存储器(中心)、运算器控制器(CPU) 硬件图 主机(运算器、控制器、主存) 存储器: 主存、辅存 I/O设备 CPU 指令: 操作码, 地址码 运算器 ALU: 算逻运算 PSW状态寄存器 ACC MQ X 加 被加数、和 加数 减 被减数、差 减数 乘 乘积高位 乘数、乘积低位 被乘数 除 被除数、余数 商 除数 控制器 CU: 控制单元 时序部件: 时钟控制 ID: 指令译码器 IR: 指令寄存器,即将执行的指令,查MAR PC: 程序计数器,下条指令地址 存储体 MAR: 地址寄存器, 现在集成到了CPU MDR: 数据寄存器, 指令存到IR 主存 ..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="软考"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-3270"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-3270" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">软考</h1></div></div><article class="popover-hint"><ul>
+<li>
+<h1 id="计算机基础">计算机基础<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#计算机基础" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>冯诺依曼
+<ul>
+<li>输入、输出、存储器(中心)、运算器控制器(CPU)</li>
+</ul>
+</li>
+<li>硬件图
+<ul>
+<li>主机(运算器、控制器、主存)</li>
+<li>存储器: 主存、辅存</li>
+<li>I/O设备</li>
+</ul>
+</li>
+<li>CPU
+<ul>
+<li>指令: 操作码, 地址码</li>
+<li>运算器
+<ul>
+<li>ALU: 算逻运算
+<ul>
+<li>PSW状态寄存器
+<ul>
+<li>ACC 			MQ				X</li>
+</ul>
+</li>
+<li>加 	被加数、和						加数</li>
+<li>减	被减数、差						减数</li>
+<li>乘	乘积高位		乘数、乘积低位	被乘数</li>
+<li>除	被除数、余数	商				除数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>控制器
+<ul>
+<li>CU: 控制单元
+<ul>
+<li>时序部件: 时钟控制</li>
+<li>ID: 指令译码器</li>
+<li>IR: 指令寄存器,即将执行的指令,查MAR</li>
+<li>PC: 程序计数器,下条指令地址</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>存储体
+<ul>
+<li>MAR: 地址寄存器, 现在集成到了CPU</li>
+<li>MDR: 数据寄存器, 指令存到IR</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>主存
+<ul>
+<li>存储单元: 存1字节, 唯一地址用16进制数表示</li>
+<li>总线
+<ul>
+<li>地址总线: 长度表示n位二进制数地址数</li>
+<li>数据总线: 长度表示一次处理多少位，叫作1个字的长度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>存储器
+<ul>
+<li>分类
+<ul>
+<li>位置
+<ul>
+<li>内存(主存)</li>
+<li>外存(辅存)</li>
+</ul>
+</li>
+<li>材料
+<ul>
+<li>半导体
+<ul>
+<li>静态: 双稳态触发器</li>
+<li>动态: 依靠电容上的电荷存储，主存</li>
+</ul>
+</li>
+<li>磁介质: 磁性材料的不同状态存储，外存</li>
+<li>光: 利用光斑、晶像的变化表示信息，外存</li>
+</ul>
+</li>
+<li>工作方式
+<ul>
+<li>读/写RAM</li>
+<li>只读
+<ul>
+<li>固定ROM: 用户不可写</li>
+<li>可编程PROM: 用户写1次</li>
+<li>可擦除可编程EPROM: 可多次编程，紫外线擦除</li>
+<li>电擦除可编程EEPROM: 可多次编程，电擦除</li>
+<li>闪存: 接近EEPROM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>访问方式
+<ul>
+<li>按地址访问的</li>
+<li>按内容访问的</li>
+</ul>
+</li>
+<li>寻址方式
+<ul>
+<li>随机RAM: 按地址访问任一单元，主存</li>
+<li>顺序SAM: 访问时按顺序查找目标地址，磁带</li>
+<li>直接DAM: 按照数据块所在位置访问，磁盘</li>
+<li>相联：按照内容进行访问，Cache</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>校验码
+<ul>
+<li>类别
+<ul>
+<li>奇偶校验码
+<ul>
+<li>只能发现奇数个位出错</li>
+</ul>
+</li>
+<li>海明码
+<ul>
+<li>奇偶校验、分组校验</li>
+<li>n为数据位个数，求校验位个数k: 2^k >= n+k+1</li>
+</ul>
+</li>
+<li>CRC循环冗余校验码</li>
+</ul>
+</li>
+<li>码距: 任意两个码字的最小距离
+<ul>
+<li>检测出e个误码，要求码距d>=e+1</li>
+<li>纠正t个误码，要求码距d>=2t+1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>指令
+<ul>
+<li>指令周期</li>
+<li>执行
+<ul>
+<li>顺序执行</li>
+<li>重叠执行</li>
+<li>流水线
+<ul>
+<li>建立时间: 第一条指令执行完毕时间</li>
+<li>流水线周期: 部件(取指、分析、执行)执行时间最长的一段</li>
+<li>全部执行完时间
+<ul>
+<li>理论公式: (t1+t2+…+tk) + (n-1)*t</li>
+<li>实践公式: (k+n-1)*t</li>
+</ul>
+</li>
+<li>吞吐率: 指令条数/执行时间</li>
+<li>最大吞吐率: 1/流水线周期时间</li>
+<li>加速比: 不使用流水线时间/使用流水线时间</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>高速缓存
+<ul>
+<li>局部性原理
+<ul>
+<li>时间局部性: 经常使用</li>
+<li>空间局部性: 相临空间内容</li>
+</ul>
+</li>
+<li>架构
+<ul>
+<li>地址总线、数据总线</li>
+<li>地址映射、变换机构
+<ul>
+<li>直接映像: 放到cache第0页。简单，但不灵活，块冲突率高
+<ul>
+<li>离cpu近时用</li>
+</ul>
+</li>
+<li>全相联映像: 灵活但变换复杂
+<ul>
+<li>离cpu远时用</li>
+</ul>
+</li>
+<li>组相联映像: 组间直接映像, 主存区映射到cache页, 组内全相联映像。
+<ul>
+<li>离cpu近时用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>主存装入或替换</li>
+</ul>
+</li>
+<li>平均访问时间: ta=Hctc+(1-HC)tm</li>
+<li>写策略
+<ul>
+<li>写直达(write-through): 同步修改主存</li>
+<li>写回法(write-back): cache被替换时写主存</li>
+<li>标记法: 有效位1未修改,0时读主存</li>
+</ul>
+</li>
+<li>替换算法
+<ul>
+<li>随机算法</li>
+<li>先进先出(FIFO)</li>
+<li>近期最少使用(LRU)</li>
+<li>最不经常使用(LFU): 有时间窗口的LRU</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>磁盘存储器
+<ul>
+<li>磁盘、磁头、磁道、扇区、数据块、柱面</li>
+<li>存取时间: 寻道时间 + 等待时间 + 读/写时间(可忽略)</li>
+</ul>
+</li>
+<li>计算机系统结构分类
+<ul>
+<li>Flynn分类法
+<ul>
+<li>指令流: 执行的指令序列</li>
+<li>数据流: 指令流调用的数据序列, 包括输入数据和中间结果</li>
+</ul>
+</li>
+<li>Flynn类别
+<ul>
+<li>单指令流单数据流(SISD)</li>
+<li>单指令流多数据流(SIMD)</li>
+<li>多指令流单数据流(MISD): 少见</li>
+<li>多指令流多数据流(MIMD)</li>
+</ul>
+</li>
+<li>指令系统
+<ul>
+<li>复杂指令系统(CISC)
+<ul>
+<li>指令多, 大概100-250条</li>
+<li>只有20%常用</li>
+<li>寻址方式多(5-20种)</li>
+<li>变长指令电路复杂</li>
+<li>直接交互主存速度慢</li>
+<li>用微程序而非硬布线逻辑电路控制</li>
+</ul>
+</li>
+<li>精简指令系统(RISC)
+<ul>
+<li>指令数量少</li>
+<li>寻址方式少，通常只有寄存器寻址、立即数寻址、相对寻址</li>
+<li>指令长度固定</li>
+<li>硬布线逻辑控制为主</li>
+<li>流水线技术</li>
+<li>优化的编译器，编译简化</li>
+<li>交互CPU寄存器, 一般32个以上</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总线
+<ul>
+<li>位置分类
+<ul>
+<li>内部</li>
+<li>外部</li>
+</ul>
+</li>
+<li>功能分类
+<ul>
+<li>地址</li>
+<li>数据</li>
+<li>控制</li>
+</ul>
+</li>
+<li>数据线多少分类
+<ul>
+<li>并行: 速率高，近距离传输(内部部件系统总线)</li>
+<li>串行: 速率不高，长距离传输</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>磁盘阵列
+<ul>
+<li>RAID 0: 无冗余无校验, 存储性能最高</li>
+<li>RAID 1: 磁盘镜像阵列</li>
+<li>RAID 2: 海明码纪错, 增加3个校验盘提供单纠错和双验错。大量数据时I/O性能高，应用少</li>
+<li>RAID 3、4: 奇偶校验码, 3采用位交叉, 4采用块交叉。3适用大型文件且I/O需求不频繁, 4适用大型文件读取</li>
+<li>RAID 5: 无独立校验盘，校验信息分布在组内所有盘上，用户实际空间是N-1块盘。大批量和小批量数据的读写性能好了，适用I/O需求频繁的应用。应用多</li>
+<li>RAID 6: 独立数据盘+2个独立的分布式校验盘，用户实际空间是N-2块。效率一般，应用少</li>
+<li>RAID 7: 独立存储计算机，带操作系统和管理工具</li>
+<li>RAID 10: RAID 1+0结合。RAID 0下挂RAID 1, 应用多</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="操作系统基础">操作系统基础<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#操作系统基础" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>处理机管理
+<ul>
+<li>进程状态
+<ul>
+<li>三状态: 运行、就绪、阻塞</li>
+<li>组成: 程序、数据、PCB(进程唯一标识)
+<ul>
+<li>PCB结构
+<ul>
+<li>线性方式</li>
+<li>链接方式</li>
+<li>索引方式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>前驱图: 有向无循环图</li>
+<li>PV操作
+<ul>
+<li>加锁(P操作信号量-1, 可能锁别的进程), 信号量为0时产生临界区</li>
+<li>解锁(V操作信号量+1, 发现信号量为负时唤醒别的进程)</li>
+<li>同步问题
+<ul>
+<li>缓冲区满时不写空时不读，每个时刻只能一个操作(存或取)</li>
+<li>关键操作前P，关键操作后V</li>
+<li>两个信号量,加互斥信号量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>存储器管理
+<ul>
+<li>逻辑地址、物理地址
+<ul>
+<li>静态重定位: 绝对地址=相对地址+程序存放的内存起始地址
+<ul>
+<li>运行前确定映射关系</li>
+<li>装入后不能移动</li>
+<li>占用连续的内存空间</li>
+</ul>
+</li>
+<li>动态重定位: 绝对地址=重写位寄存器的值(BR)+逻辑地址寄存器的值(VR)。硬件加寄存器实现地址转换
+<ul>
+<li>程序占用的内存空间可动态变化</li>
+<li>不要求连续的内存空间</li>
+<li>便于多进程共享代码</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>存储管理
+<ul>
+<li>分区管理: 主存用户区划分区域，每个区域分配给一个用户，并限制用户只能在区域中
+<ul>
+<li>固定分区: 空间浪费</li>
+<li>可变分区: 根据程序大小选择合适分区
+<ul>
+<li>首次适应算法</li>
+<li>最佳适应算法</li>
+<li>最差适应算法</li>
+</ul>
+</li>
+<li>可重定位分区</li>
+</ul>
+</li>
+<li>分页管理
+<ul>
+<li>逻辑地址
+<ul>
+<li>页号: 20位</li>
+<li>页内地址: 12位</li>
+</ul>
+</li>
+<li>物理地址
+<ul>
+<li>块号</li>
+<li>块内地址: 等于页内地址</li>
+</ul>
+</li>
+<li>页表
+<ul>
+<li>硬件生成</li>
+<li>页起始地址、页长度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分段管理
+<ul>
+<li>逻辑地址: 段号、段内地址</li>
+<li>物理地址</li>
+<li>段表: 基址、段长</li>
+</ul>
+</li>
+<li>段页式管理
+<ul>
+<li>逻辑地址: 段号、页号、页内地址</li>
+<li>物理地址:</li>
+</ul>
+</li>
+<li>虚拟存储
+<ul>
+<li>请求分页</li>
+<li>请求分段</li>
+<li>请求段页式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设备管理: 输入输出控制方式
+<ul>
+<li>程序控制: 串行
+<ul>
+<li>无条件传送</li>
+<li>程序查询</li>
+</ul>
+</li>
+<li>中断: 并行</li>
+<li>DMA(直接内存访问): 设备访问内存，CPU不能访问内存</li>
+</ul>
+</li>
+<li>文件管理
+<ul>
+<li>文件索引
+<ul>
+<li>一个节点占4字节</li>
+<li>直接索引: 检索范围小</li>
+<li>间接索引
+<ul>
+<li>一级</li>
+<li>二级</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用情况: bitmap标记
+<ul>
+<li>字长x字编号</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="计算机网络基础">计算机网络基础<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#计算机网络基础" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>OSI七层
+<ul>
+<li>应用层
+<ul>
+<li>HTTP、Telnet、FTP、SMTP、NFS</li>
+</ul>
+</li>
+<li>表示层
+<ul>
+<li>JPEG、ASCII、GIF、DES、MPEG</li>
+</ul>
+</li>
+<li>会话层
+<ul>
+<li>RPC、SQL</li>
+</ul>
+</li>
+<li>传输层
+<ul>
+<li>TCP、UDP、SPX</li>
+</ul>
+</li>
+<li>网络层
+<ul>
+<li>IP、IPX、ICMP</li>
+</ul>
+</li>
+<li>链路层
+<ul>
+<li>MAC(媒介访问层)、LLC(逻辑链路层)</li>
+<li>IEEE802.3/.2、HDLC、PPP、ATM</li>
+</ul>
+</li>
+<li>物理层
+<ul>
+<li>RS232、V.35、RJ-45、FDDI</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IP协议
+<ul>
+<li>IPV4: 32位
+<ul>
+<li>A类: 0开头: 1-126</li>
+<li>B类: 10开头: 128-191</li>
+<li>C类: 110开头: 192-223</li>
+<li>D类: 1110开头: 224-239, 组播</li>
+<li>E类: 1110开头: 240-255, 保留</li>
+</ul>
+</li>
+<li>子网
+<ul>
+<li>三级IP地址: 子网号主机号中借出来</li>
+<li>子网掩码
+<ul>
+<li>A类地址的: 255.0.0.0</li>
+<li>B类地址的: 255.255.0.0</li>
+<li>C类地址的: 255.255.255.0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IPV4数据报
+<ul>
+<li>版本</li>
+<li>首部长度</li>
+<li>区分服务</li>
+<li>总长度: 2^16-1=65535字节</li>
+<li>标识</li>
+<li>标志: DF不分片, MF: 片未分完</li>
+<li>片偏移</li>
+<li>生存时间</li>
+<li>协议</li>
+<li>首部校验和</li>
+<li>可选字段</li>
+<li>填充: 达到4的倍数</li>
+</ul>
+</li>
+<li>IPV6: 128位，共8段用:分开, 每段4个16进制数
+<ul>
+<li>支持单播/多播/组播/任播</li>
+<li>支持自动配置</li>
+</ul>
+</li>
+<li>IPV4过渡IPV6
+<ul>
+<li>双协议栈</li>
+<li>遂道</li>
+<li>NAT-PT</li>
+</ul>
+</li>
+<li>IPV6数据报
+<ul>
+<li>版本</li>
+<li>流量分类: 相当于区分服务</li>
+<li>流标签</li>
+<li>有效负载长度: 除基本首部外的字节数</li>
+<li>下一头部: 相当于协议</li>
+<li>跳数限制: 相当于生存时间</li>
+</ul>
+</li>
+<li>TCP/UDP
+<ul>
+<li>TCP
+<ul>
+<li>数据报标记序号</li>
+<li>确认、校验、定时器，重传</li>
+<li>窗口机制流量调整</li>
+</ul>
+</li>
+<li>TCP协议
+<ul>
+<li>校验和: 校验所有数据</li>
+</ul>
+</li>
+<li>UDP
+<ul>
+<li>无连接</li>
+<li>尽最大努力交付</li>
+<li>面向报文</li>
+<li>无拥塞控制</li>
+<li>支持1对1、1对多、多对1通信</li>
+<li>首部小，只有8字节。TCP20字节</li>
+</ul>
+</li>
+<li>UDP协议
+<ul>
+<li>校验和: 不校验或校验头部</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络设计
+<ul>
+<li>接入层: 收集用户信息如Ip、MAC、访问日志。管理功能如MAC地址、计费管理</li>
+<li>汇聚层: 网络访问策略控制，数据包处理、过滤、寻址</li>
+<li>核心层: 双机冗余热备份</li>
+<li>出口层</li>
+</ul>
+</li>
+<li>综合布线系统
+<ul>
+<li>工作区子系统: 插座</li>
+<li>水平子系统: 楼层, 接入管理子系统</li>
+<li>管理子系统</li>
+<li>垂直(干线)子系统: 主设备间至各层管理间</li>
+<li>设备间子系统: 连接跳线架及支撑硬件，防雷电，是中心单元</li>
+<li>建筑群子系统: 楼间连线</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>域名和地址
+<ul>
+<li>DNS: UDP协议
+<ul>
+<li>结构
+<ul>
+<li>根: 用.表示</li>
+<li>顶级域: com, edu, gov</li>
+<li>二级域: baidu</li>
+<li>子域: 最多63个字符</li>
+<li>主机</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>域名
+<ul>
+<li>服务器
+<ul>
+<li>主域名服务器: 本区域名解析</li>
+<li>辅助域名服务器: 备份</li>
+<li>缓存域名服务器: 缓存查询结果</li>
+<li>转发域名服务器: 非本地缓存中没有的，先查自身缓存，没有时转发到指定域名服务器</li>
+</ul>
+</li>
+<li>查询方式
+<ul>
+<li>递归
+<ul>
+<li>本服务器解析名字</li>
+</ul>
+</li>
+<li>迭代
+<ul>
+<li>问别的服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设备
+<ul>
+<li>中继器: 物理层，信号再生和发送,只直到扩展传输距离的作用，个数有限(以太网4个)</li>
+<li>网桥: 数据链路层, 物理地址转发，只能连接相同MAC层的网络</li>
+<li>路由器: 网络层</li>
+<li>网关: 4-7层</li>
+<li>集线器: 多端口中继器</li>
+<li>二层交换机: 数据链路层，传统交换机，多端口网桥</li>
+<li>三层交换机: 网络层，带路由功能的二层交换机</li>
+<li>多层交换机: 4-7层，带协议转换</li>
+</ul>
+</li>
+<li>网络存储
+<ul>
+<li>DAS: 直接附加存储, 设备通过SCSI电缆直接连到服务器，无操作系统存储的操作依赖于服务器。也叫作SAS(服务器附加存储)</li>
+<li>NAS: 网络附加存储, 不再通过I/O总线附属特定服务器，而是通过网络接口与网络直接相连，用户通过网络访问。专用的文件服务器，即插即用</li>
+<li>SAN: 存储区域网络, 专用交换机连接磁盘阵列与服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="数据库基础">数据库基础<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据库基础" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>结构
+<ul>
+<li>开发人员: 三级模式，DBMS管理
+<ul>
+<li>内模式: 内部视图, 只有一个</li>
+<li>概念模式: 概念视图, 公共视图, 只有一个</li>
+<li>外模式: 外部视图, 可以多个</li>
+</ul>
+</li>
+<li>最终用户:
+<ul>
+<li>单用户</li>
+<li>主从</li>
+<li>分布式</li>
+<li>客户-服务器</li>
+<li>浏览器-应用服务器/数据库服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>独立性
+<ul>
+<li>逻辑独立性: 数据的逻辑独立性
+<ul>
+<li>模式改变时，只改变映像</li>
+</ul>
+</li>
+<li>物理独立性
+<ul>
+<li>存储结构改变，只改变映像</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据模型
+<ul>
+<li>概念数据模型: E-R图</li>
+<li>基本数据模型: 计算机的观点来建模，用于DBMS实现
+<ul>
+<li>分类
+<ul>
+<li>层次模型</li>
+<li>网状模型</li>
+<li>关系模型</li>
+<li>面向对象模型</li>
+</ul>
+</li>
+<li>关注
+<ul>
+<li>数据结构</li>
+<li>数据操作</li>
+<li>数据约束条件
+<ul>
+<li>主属性非空</li>
+<li>参照完整性: 外键，可以空但不能没有</li>
+<li>用户定义完整性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>概念
+<ul>
+<li>关系: 表名</li>
+<li>元组: 记录</li>
+<li>属性: 列</li>
+<li>域: 取值范围</li>
+<li>关键字: 一组唯一标识元组的属性</li>
+<li>关系模式: 表结构</li>
+</ul>
+</li>
+<li>关系代数
+<ul>
+<li>U: 并</li>
+<li>: 差</li>
+<li>n: 交</li>
+<li>x: 笛卡尔积</li>
+<li>o: 选择, 取得符合条件的行</li>
+<li>π: 投影, 取得符合条件的列</li>
+<li>
+<blockquote>
+<p>&lt;: 连接</p>
+</blockquote>
+<ul>
+<li>等值连接: 笛卡尔积筛选属性相等的元组</li>
+<li>自然连接: 等值连接去重复的列</li>
+<li>外连接
+<ul>
+<li>左外连接</li>
+<li>右外连接</li>
+<li>完全外连接</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>函数依赖
+<ul>
+<li>X<span>→</span>Y
+<ul>
+<li>X函数确定Y</li>
+<li>Y函数依赖于X</li>
+</ul>
+</li>
+<li>平凡
+<ul>
+<li>X<span>→</span>Y Y不包含于X，X<span>→</span>Y非平凡函数依赖</li>
+<li>X<span>→</span>Y Y包含于X，X<span>→</span>Y平凡函数依赖</li>
+</ul>
+</li>
+<li>完全
+<ul>
+<li>完全函数依赖: 条件都用上, 完全依赖于主键</li>
+<li>部分函数依赖: 条件过剩, 对主键有传递依赖</li>
+<li>传递依赖</li>
+</ul>
+</li>
+<li>Armstrong公理
+<ul>
+<li>自反律: 内部包含的关系, Y属于X属于U，则X<span>→</span>Y</li>
+<li>增广律: X<span>→</span>Y被F蕴含，则XZ<span>→</span>YZ被F蕴含</li>
+<li>传递律: 推导, X<span>→</span>Y, Y<span>→</span>Z, 则X<span>→</span>Z</li>
+<li>合并规则: X<span>→</span>Y, X<span>→</span>Z，则X<span>→</span>YZ</li>
+<li>伪传递规则: X<span>→</span>Y, WY<span>→</span>Z，则WX<span>→</span>Z</li>
+<li>分解规则: X<span>→</span>Y, Z属于Y, 则X<span>→</span>Z</li>
+</ul>
+</li>
+<li>超键: 主键和其它键组合</li>
+<li>主键: 无多余属性</li>
+<li>候选键: 无多余属性可成为主键的键</li>
+<li>外键: 关联其它表主键</li>
+<li>主属性非主属性: 主键中的属性是主属性</li>
+<li>全码: 属性全是主键</li>
+</ul>
+</li>
+<li>规范化: 拆分表
+<ul>
+<li>1NF: 每个属性(列)不可再分
+<ul>
+<li>不满足后果
+<ul>
+<li>冗余大</li>
+<li>插入入异常、删除异常、修改异常</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2NF: 非主属性不完全依赖主键，即有对主键的部分依赖，不满足</li>
+<li>3NF: 有非主属性的传递依赖不完全依赖主键(比如依赖其它非主键属性)，不满足</li>
+<li>BC范式: 主键包含依赖的所有决定性因素(所有主属性)
+<ul>
+<li>不满足后果
+<ul>
+<li>冗余大</li>
+<li>插入异常、删除异常</li>
+<li>修改复杂</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4NF: 没有多值属性</li>
+<li>5NF</li>
+<li>无损连接, 函数依赖性</li>
+</ul>
+</li>
+<li>设计
+<ul>
+<li>规划阶段: 必要性、可行性</li>
+<li>需求分析: 产出需求规格说明书、数据字典
+<ul>
+<li>调查重点是”数据”、“处理”</li>
+<li>数据字典: 数据项、数据流、数据存储、数据加工(结构化语言、判定数、判定表)</li>
+</ul>
+</li>
+<li>概念设计: E-R图, 不依赖DBMS
+<ul>
+<li>局部E-R图，实体联系，消除冲突(属性冲突、结构冲突、命名冲突)成全局E-R图</li>
+</ul>
+</li>
+<li>逻辑设计: 逻辑模型，产出关系模式
+<ul>
+<li>实体<span>→</span>关系</li>
+<li>属性<span>→</span>属性
+<ul>
+<li>复合属性、多值属性、派生属性、BLOB型属性、联系属性</li>
+</ul>
+</li>
+<li>关键字<span>→</span>关键字</li>
+</ul>
+</li>
+<li>物理设计: 建立物理模型, create table</li>
+</ul>
+</li>
+<li>反规范化
+<ul>
+<li>增加冗余列、派生列</li>
+<li>重新组表</li>
+<li>分割表: 水平分割、垂直分割</li>
+</ul>
+</li>
+<li>事务管理ACID
+<ul>
+<li>原子性Atomicity</li>
+<li>一致性Consistency</li>
+<li>隔离性Isolation</li>
+<li>持久性Durability</li>
+</ul>
+</li>
+<li>并发控制
+<ul>
+<li>封锁
+<ul>
+<li>排他锁(X)</li>
+<li>共享锁(S)</li>
+</ul>
+</li>
+<li>协议
+<ul>
+<li>一级: 加X锁</li>
+<li>二级: 加S锁，读完后释放</li>
+<li>三级: 加S锁，事务结束释放</li>
+<li>两段: 封锁阶段(扩展)加锁，释放阶段(收缩) 解锁
+<ul>
+<li>可串行化，但可能死锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分布式数据库
+<ul>
+<li>特点
+<ul>
+<li>分布性、统一性、透明性</li>
+</ul>
+</li>
+<li>相对集中式数据库优点
+<ul>
+<li>坚固性好</li>
+<li>可扩充性好</li>
+<li>可改善性能</li>
+<li>自治性好</li>
+</ul>
+</li>
+<li>问题
+<ul>
+<li>异构数据库集成复杂</li>
+</ul>
+</li>
+<li>分布透明性
+<ul>
+<li>分片透明: 透明性的最高层次</li>
+<li>位置透明: 用户需要了解分片，但不用了解存储场地</li>
+<li>局部数据透明: 需要了解分片和存储场地，不必了解局部场地的数据类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>故障恢复
+<ul>
+<li>事务故障: 系统扫描日志恢复</li>
+<li>系统故障
+<ul>
+<li>正向扫描日志，已提交的redo, 未提交的undo</li>
+<li>撤销队列的事务撤销</li>
+<li>重做队列重做</li>
+</ul>
+</li>
+<li>介质故障: 装入新副本，redo</li>
+<li>计算机病毒: 装入新副本，redo</li>
+</ul>
+</li>
+<li>检查点恢复
+<ul>
+<li>建立检查点时刻所有正在执行的事务清单</li>
+<li>找到最后一个检查点, redo, undo</li>
+</ul>
+</li>
+<li>备份
+<ul>
+<li>物理备份: 冷备、热备</li>
+<li>逻辑备份</li>
+</ul>
+</li>
+<li>备份类型
+<ul>
+<li>完全备份</li>
+<li>增量备份: 需要恢复上次完全备份后的所有增量</li>
+<li>差异备份: 每次备份上次完全备份的差异</li>
+<li>数据仓库
+<ul>
+<li>特点
+<ul>
+<li>面向主题的、集成的、相对稳定的、反映历史变化的</li>
+<li>数据库是面向即时的</li>
+</ul>
+</li>
+<li>建立
+<ul>
+<li>自顶向下</li>
+<li>自底向上</li>
+<li>混合法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据挖掘
+<ul>
+<li>流程
+<ul>
+<li>问题定义，建立数据挖掘库，分析数据，调整数据，模型化，评价和解释</li>
+</ul>
+</li>
+<li>方式
+<ul>
+<li>关联分析，序列分析，分类分析，聚类分析，预测，时间序列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NoSQL
+<ul>
+<li>ACID</li>
+<li>CAP
+<ul>
+<li>Consistency</li>
+<li>Availability</li>
+<li>Partition tolerance</li>
+</ul>
+</li>
+<li>BASE
+<ul>
+<li>Basically available</li>
+<li>Soft state</li>
+<li>Eventually consistent</li>
+</ul>
+</li>
+<li>类型
+<ul>
+<li>键值</li>
+<li>列族: 关心的是属性列，适合分析
+<ul>
+<li>列族，列限定符，行键，时间戳</li>
+</ul>
+</li>
+<li>文档</li>
+<li>图</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="专业知识">专业知识<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#专业知识" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+<li>
+<h2 id="软件工程">软件工程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件工程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>历史
+<ul>
+<li>1960年软件危机: 价格贵、质量差、不符合用户需求、文档不完整、可维护性差</li>
+<li>1946-1956: 程序设计时代</li>
+<li>1956-1968: 程序系统时代</li>
+<li>1968: 软件工程时代</li>
+</ul>
+</li>
+<li>过程
+<ul>
+<li>需求分析: 效果图
+<ul>
+<li>用例图</li>
+</ul>
+</li>
+<li>软件设计
+<ul>
+<li>类图</li>
+<li>活动图</li>
+<li>状态图</li>
+</ul>
+</li>
+<li>软件实现</li>
+<li>软件交付</li>
+</ul>
+</li>
+<li>生命周期
+<ul>
+<li>定义
+<ul>
+<li>定义问题、可行性研究、需求分析</li>
+</ul>
+</li>
+<li>开发
+<ul>
+<li>概要设计、详细设计、编码、测试</li>
+</ul>
+</li>
+<li>运维
+<ul>
+<li>更正性维护、适应性维护、预防性维护、完善性维护</li>
+</ul>
+</li>
+<li>消亡
+<ul>
+<li>报废</li>
+<li>遗留系统</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>开发方法
+<ul>
+<li>开发风范分类
+<ul>
+<li>自顶向下</li>
+<li>自底向上</li>
+</ul>
+</li>
+<li>性质分类
+<ul>
+<li>形式化
+<ul>
+<li>基于数学，一般用于一致性检查、类型检查、有效性验证、行为预测、设计求精验证</li>
+<li>包括: 有限状态机、Petri网、VDM语言、Z语言等</li>
+</ul>
+</li>
+<li>非形式化
+<ul>
+<li>结构化: 面向过程
+<ul>
+<li>结构化方法
+<ul>
+<li>设计</li>
+<li>分析(SA, Structured Analysis)
+<ul>
+<li>适用面向过程、数据流</li>
+<li>数据流图DFD: 功能
+<ul>
+<li>数据流
+<ul>
+<li>存储和实体, 实体实体间必须经过加工。看输入输出是否缺失</li>
+<li>分类: 写、读、输入、输出</li>
+</ul>
+</li>
+<li>加工
+<ul>
+<li>实现: 结构化语言、判定表、判定树</li>
+<li>分类: 黑洞、奇迹、灰洞</li>
+</ul>
+</li>
+<li>数据存储</li>
+<li>外部实体: 人、物品、其它系统</li>
+</ul>
+</li>
+<li>状态转换图STD:</li>
+<li>数据字典
+<ul>
+<li>条目: 数据流、数据项、数据存储、基本加工</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>程序设计</li>
+</ul>
+</li>
+<li>特点
+<ul>
+<li>目标清晰</li>
+<li>工作阶段化</li>
+<li>文档规范</li>
+<li>设计方法结构化</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>串行开发周期长</li>
+<li>要求需求明确, 难以适应变化</li>
+<li>很少考虑数据结构</li>
+<li>要向上回溯所以要文档齐全</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>面向对象
+<ul>
+<li>喷泉模型
+<ul>
+<li>面向对象方法</li>
+<li>步骤: 分析、设计、实现、维护、演化</li>
+<li>特点
+<ul>
+<li>过程节点无间隙</li>
+<li>迭代</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>V模型: 测试模型, 基准于瀑布模型
+<ul>
+<li>编码: 单元测试</li>
+<li>详细设计: 集成测试</li>
+<li>概要设计: 系统测试</li>
+<li>需求分析: 验收测试</li>
+</ul>
+</li>
+<li>实现: 对象标识、对象属性、对象方法、对象消息</li>
+<li>分类: 面向对象分析OOA, 面向对象设计OOD, 面向对象程序设计OOP</li>
+<li>方法
+<ul>
+<li>Coad/Yourdon: OOA,OOD, 不需要表示法的转换</li>
+<li>Booch
+<ul>
+<li>开发模型
+<ul>
+<li>静态模型: 逻辑模型(类图、对象图)，物理模型(模块图、进程图)</li>
+<li>动态模型: 状态图、顺序图</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OMT: 建模的思想
+<ul>
+<li>对象模型(对象图)，动态模型(状态图)，功能模型(DFD)</li>
+</ul>
+</li>
+<li>OOSE
+<ul>
+<li>用例取代了DFD</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分析
+<ul>
+<li>功能模型: 用例图(取代DFD数据流图)
+<ul>
+<li>组成: 参与者、用例、通信关联</li>
+<li>方法:
+<ul>
+<li>识别参与者(外部实体): 人、物、其它系统、时钟</li>
+<li>合并需求获得用例</li>
+<li>细化用例描述: 用例名称、简要说明、事件流(主事件流、备选事件流)、非功能性需求、前置条件、后置条件、扩展点、优先级</li>
+<li>调整用例模型: 用例间关系调整
+<ul>
+<li>包含关系(属于依赖关系): 基用例指向子用例</li>
+<li>扩展关系(属于依赖关系): 扩展用例指向基用例</li>
+<li>泛化关系(继承关系): 子用例指向父用例</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>行为模型: 活动图、顺序图、状态图(取代状态转换图)</li>
+<li>数据模型: 类图(取代ER图)
+<ul>
+<li>步骤
+<ul>
+<li>定义概念类: 显而易见的类、明显无意义的类、不确定的类
+<ul>
+<li>发现类: 名词短语法</li>
+<li>发现用例: 动词</li>
+</ul>
+</li>
+<li>确定类之间的关系: 形成领域模型
+<ul>
+<li>关联</li>
+<li>聚合、组合、</li>
+<li>依赖、泛化、实现</li>
+</ul>
+</li>
+<li>为类添加职责</li>
+<li>建立交互图</li>
+</ul>
+</li>
+<li>设计
+<ul>
+<li>用例图表示需求</li>
+<li>用例模型提炼领域模型，用例的实现用交互图</li>
+<li>领域模型和用例图形成类图</li>
+<li>包图和类图形成体系结构图</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>构件(组件)化开发: 装配式思想
+<ul>
+<li>RAD快速应用开发; 基于瀑布模型
+<ul>
+<li>步骤
+<ul>
+<li>规划</li>
+<li>设计实现, 不断迭代</li>
+<li>运行</li>
+</ul>
+</li>
+<li>不适合新技术, 因为适用性窄还好拆成熟构件</li>
+</ul>
+</li>
+<li>UP/RUP统一过程模型: 基于面向对象，比较重型
+<ul>
+<li>内容组织
+<ul>
+<li>核心工作过程
+<ul>
+<li>核心过程工作流</li>
+<li>商业建模</li>
+<li>需求</li>
+<li>分析和设计</li>
+<li>实现</li>
+</ul>
+</li>
+<li>支持工作过程
+<ul>
+<li>测试</li>
+<li>部署</li>
+<li>配置和变更管理</li>
+<li>项目管理</li>
+<li>环境</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>时间组织
+<ul>
+<li>阶段
+<ul>
+<li>初始: 明确项目规模、评估项目风险、制定项目计划、阶段技术评审</li>
+<li>细化: 确定架构、制定构建阶段计划、建立支持环境、选择构件、阶段技术评审</li>
+<li>构建: 详细设计，编码、测试、集成</li>
+<li>交付: 全面测试、补充文档、产品移交用户</li>
+</ul>
+</li>
+<li>迭代: 每个步骤都有迭代</li>
+</ul>
+</li>
+<li>思想
+<ul>
+<li>用例驱动</li>
+<li>以架构为中心</li>
+<li>迭代</li>
+<li>增量</li>
+</ul>
+</li>
+<li>4+1视图
+<ul>
+<li>逻辑视图: 类图、对象图、状态图、协作图</li>
+<li>进程(过程)视图: 活动图</li>
+<li>实现(开发)视图: 包图、组件图</li>
+<li>物理视图</li>
+<li>场景(用例视图)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>连接件</li>
+<li>构件和对象
+<ul>
+<li>构件: 包含对象可独立部署、是组装单元、没有外部可见状态</li>
+<li>对象: 有唯一标志，具有外部可见状态，封装了自己的状态和行为</li>
+</ul>
+</li>
+<li>构件与类
+<ul>
+<li>构件不一定包含类，一个类只属于一个构件</li>
+</ul>
+</li>
+<li>构件间消息通过接口</li>
+</ul>
+</li>
+<li>面向服务: 构件化开发发展而来
+<ul>
+<li>SOA: 可跨平台</li>
+<li>组成: ESB</li>
+<li>SO方法
+<ul>
+<li>操作层</li>
+<li>服务层: 操作分组</li>
+<li>业务流程层: 服务编排</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原型法: 需求不明确时
+<ul>
+<li>原型(演化)模型
+<ul>
+<li>原型<span>→</span>交流<span>→</span>快速计划、构建、交付</li>
+<li>优点
+<ul>
+<li>引导出高质量产品要求</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>用户接触未稳定功能，对开发失去信心</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>螺旋模型
+<ul>
+<li>每一圈: 原型模型、瀑布模型</li>
+<li>有风险: 适用大项目复杂项目, 需要风险分析</li>
+</ul>
+</li>
+<li>功能划分
+<ul>
+<li>水平原型: 行为原型，用于界面</li>
+<li>垂直原型: 结构化原型，用于复杂算法</li>
+</ul>
+</li>
+<li>结果划分
+<ul>
+<li>抛弃式: 探索式，解决需求不确定性</li>
+<li>演化式: 逐步演化，用于易于升级和优化的场合</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>敏捷: 小和快
+<ul>
+<li>特点
+<ul>
+<li>以人为本</li>
+<li>与用户协作</li>
+<li>面对面沟通</li>
+<li>尽早发布增量</li>
+<li>小而自主的团队</li>
+<li>规模小的项目</li>
+</ul>
+</li>
+<li>极限编程XP
+<ul>
+<li>特点
+<ul>
+<li>更短的周期，更早反馈</li>
+<li>迭代的计划编制</li>
+<li>测试先行, 自动测试来监控开发进度, 口头交流</li>
+<li>团队紧密合作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>并列争求法Scrum
+<ul>
+<li>product backlog <span>→</span> sprint backlog</li>
+<li>sprint周期4周
+<ul>
+<li>daily meeting</li>
+<li>燃尽图</li>
+<li>评审会</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>开发方法与开发模型
+<ul>
+<li>开发方法为指导思想, 可以多模型</li>
+<li>开发模型为图形化表示，具体开发过程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>适用范围分类
+<ul>
+<li>整体性方法</li>
+<li>局部性方法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>过程管理
+<ul>
+<li>人员、技术设备、过程</li>
+<li>能力成熟度模型CMM
+<ul>
+<li>初始级</li>
+<li>可重复级: 有项目管理过程，对成、进度、功能跟踪</li>
+<li>已定义级: 文档化、标准化，形成标准软件过程</li>
+<li>已管理级: 可预测，软件过程和产品质量有度量标准</li>
+<li>优化级: 持续改进</li>
+</ul>
+</li>
+<li>能力成熟度模型集成CMMI
+<ul>
+<li>初始级</li>
+<li>已管理级: 有监督和控制</li>
+<li>已定义级: 更严谨更积极的管理</li>
+<li>已量化级: 可预测性高</li>
+<li>持续优化级: 过程与技术改进，关注整体绩效</li>
+</ul>
+</li>
+<li>连续式模型
+<ul>
+<li>CL0未完成级: 未执行</li>
+<li>CL1已执行级: 特定目标</li>
+<li>CL2已管理级: 管理过程制度化</li>
+<li>CL3已定义级: 已定义过程的制度化</li>
+<li>CL4定量管理级: 可定量管理的过程的制度化</li>
+<li>CL5优化级: 使用量化(统计学)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="系统分析">系统分析<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#系统分析" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>初始需求 <span>→</span> 逻辑模型，产出系统需求规格说明书</li>
+<li>步骤
+<ul>
+<li>详细调查: 收集资料、开调查会、个别访问、书面调查、抽样调查、现场观摩、参加业务实践</li>
+<li>现有系统分析: 获得物理模型，建立逻辑模型，建立新系统逻辑模型、推出新系统物理模型</li>
+<li>组织结构分析: 组织结构图，组织结构调查</li>
+<li>系统功能分析: 功能体系图，功能流程图</li>
+<li>业务流程分析: 价值链分析法，客户关系分析，供应链分析法，基于ERP的分析法，业务流程重组</li>
+<li>业务流程建模
+<ul>
+<li>建模方式
+<ul>
+<li>自顶向下: 企业任务目标出发</li>
+<li>自底向上: 分析现有系统</li>
+</ul>
+</li>
+<li>描述方法
+<ul>
+<li>形式化描述: 严谨可读性差</li>
+<li>图示化描述</li>
+</ul>
+</li>
+<li>建模方法
+<ul>
+<li>标杆瞄准</li>
+<li>IDEF</li>
+<li>DEMO: 交互模型、业务流程模型、事务模型、行为模型、事实模型、互约束模型</li>
+<li>Petri: 流程</li>
+<li>业务流程建模语言(文本类和图元类): UML、BPEL(文本类)、BPML(文本类, BPMI补充了图元)、BPMN、XPDL(文本+图元)</li>
+<li>基于服务的BPM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据与数据流程分析
+<ul>
+<li>收集数据，分类编码排放</li>
+<li>按业务流程自顶向下整理</li>
+<li>分类</li>
+<li>确定类型</li>
+</ul>
+</li>
+<li>数据属性分析
+<ul>
+<li>静态分析: 类型、取值范围、业务量、哪些业务使用、重要程度紧急程度</li>
+<li>动态分析:
+<ul>
+<li>动态特征: 固定值属性、固定个体变动属性、随机变动属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>存储分布</li>
+<li>流程分析: 与组织结构无关
+<ul>
+<li>组成: 输入、输出、流动、传递、处理、存储</li>
+<li>步骤
+<ul>
+<li>收集输入报表、存储介质</li>
+<li>明确各处理过程的方法</li>
+<li>调查数据制作单位、报送单位、存储单位、发生频率、发生的高峰时间和高峰量</li>
+<li>数据类型、长度、取值范围</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>结构化开发(SA)方法: 使用DFD</li>
+<li>面向对象(OO)方法: 使用对象交互，对象持久化</li>
+</ul>
+</li>
+<li>需求规格说明书
+<ul>
+<li>设计阶段依据， 验收标准之一</li>
+</ul>
+</li>
+<li>结构化方法
+<ul>
+<li>组成
+<ul>
+<li>结构化分析: 分解与抽象原则，数据流图, 系统逻辑模型</li>
+<li>结构化设计: 模块独立性准则、软件结构优化准则</li>
+<li>结构化程序设计:</li>
+</ul>
+</li>
+<li>特点
+<ul>
+<li>不适合大型项目</li>
+<li>要求需求清晰</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>结构化分析：数据流图，系统逻辑图、划清人机界限
+<ul>
+<li>数据流图平衡: 数据流条数一致
+<ul>
+<li>父图和子图</li>
+<li>子图内部</li>
+</ul>
+</li>
+<li>数据字典</li>
+</ul>
+</li>
+<li>结构化设计: 系统结构、接口、数据、过程
+<ul>
+<li>模块化
+<ul>
+<li>外部特性: 接口和功能定义</li>
+<li>内部特性: 局部数据和程序代码</li>
+</ul>
+</li>
+<li>注意点
+<ul>
+<li>抽象化
+<ul>
+<li>过程</li>
+<li>数据</li>
+<li>控制</li>
+</ul>
+</li>
+<li>自顶向下</li>
+<li>信息隐蔽: 可修改性、可测试、可移植性</li>
+<li>模块独立</li>
+</ul>
+</li>
+<li>模块原则
+<ul>
+<li>模块大小适中</li>
+<li>扇入扇出要合理: 扇入大表示复用高，扇出大表示复杂高</li>
+<li>深度和宽度适当: 层数和每层的模块数</li>
+</ul>
+</li>
+<li>内聚类型: 由高到低
+<ul>
+<li>功能: 单一功能</li>
+<li>顺序: 元素相关顺序执行</li>
+<li>通信: 元素集中在一个数据结构的区域上</li>
+<li>过程: 元素相关，按次序执行</li>
+<li>瞬时: 在同一时间间隔内执行(如初始化)</li>
+<li>逻辑: 逻辑相关的一组任务</li>
+<li>偶然: 没有关系或松散关系的任务</li>
+</ul>
+</li>
+<li>耦合类型: 由低到高
+<ul>
+<li>非直接: 没有直接联系</li>
+<li>数据: 参数表传递简单数据</li>
+<li>标记: 数据结构的一部分借助接口传递</li>
+<li>控制: 传递的信息可以控制内部逻辑</li>
+<li>外部: 与软件外环境相关</li>
+<li>公共: 多模块引用同一全局数据区</li>
+<li>内容: 访问另一模块内部数据、不通过正常入口转到另一模块内部、代码重叠、一个模块多个入口</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="软件架构设计">软件架构设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件架构设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>软件架构(体系结构)
+<ul>
+<li>接入层</li>
+<li>网关层</li>
+<li>业务服务层</li>
+<li>支撑服务</li>
+<li>平台服务</li>
+<li>基础设施层</li>
+</ul>
+</li>
+<li>生命周期
+<ul>
+<li>需求分析: 需求模型，软件架构模型（可追踪到需求模型）</li>
+<li>设计: 组成元素，体系结构描述语言ADL，4+1视图</li>
+<li>实现: 项目组织结构，配置管理，中间件，程序设计语言，逐步细化</li>
+<li>构件组装阶段、部署、后开发</li>
+</ul>
+</li>
+<li>基于架构的软件设计方法ABSD
+<ul>
+<li>商业，功能(视角视图)，非功能(质量)</li>
+<li>体系结构开发模型
+<ul>
+<li>需求: 需求获取，生成类图，对类进行分组，把类打包成构件，需求评审</li>
+<li>设计: 提出体系结构模型，映射构件，分析构件的相互作用，产生体系结构，设计评审</li>
+<li>文档化: 规格说明，质量设计说明书</li>
+<li>复审</li>
+<li>演化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>三个基础
+<ul>
+<li>功能的分解</li>
+<li>选择体系结构风格</li>
+<li>软件模板的使用</li>
+</ul>
+</li>
+<li>结构风格
+<ul>
+<li>系统家族
+<ul>
+<li>一个词汇表: 构件，连接件类型</li>
+<li>一组约束: 构件、连接件组合方式</li>
+</ul>
+</li>
+<li>反映领域中众多系统共有的结构、语义特性</li>
+<li>数据流风格
+<ul>
+<li>流动: 自由流动、近线性流动、有限循环流动</li>
+<li>类型
+<ul>
+<li>批处理风格: 粒度大，顺序执行，完整传输, 延迟高，无并发</li>
+<li>管道过滤器风格(如编译器): 粒度小，增量传输, 实时, 可以并发</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调用返回风格
+<ul>
+<li>类型
+<ul>
+<li>主程序子程序(开发语言)</li>
+<li>面向对象</li>
+<li>层次</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>独立构件风格
+<ul>
+<li>进程通信: 点对点，异步同步，远程调用</li>
+<li>事件驱动: 隐式调用，分离的交互，一对多，基于事件触发器，异步</li>
+</ul>
+</li>
+<li>虚拟机风格
+<ul>
+<li>解释器</li>
+<li>基于规则的系统</li>
+</ul>
+</li>
+<li>仓库(数据共享)风格
+<ul>
+<li>数据库系统</li>
+<li>黑板系统: 语音识别</li>
+<li>超文本系统</li>
+</ul>
+</li>
+<li>闭环(过程)控制: 数据流风格
+<ul>
+<li>空调，巡航系统</li>
+</ul>
+</li>
+<li>C2风格: 层次架构风格
+<ul>
+<li>构件顶部底部都是连接件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特定领域软件体系结构DSSA
+<ul>
+<li>层次
+<ul>
+<li>领域开发环境(领域架构师)</li>
+<li>领域特定应用开发环境(应用工程师)</li>
+<li>应用执行环境(操作员)</li>
+</ul>
+</li>
+<li>过程
+<ul>
+<li>领域分析</li>
+<li>领域设计</li>
+<li>领域实现</li>
+</ul>
+</li>
+<li>参与角色: 领域专家, 领域分析人员，领域设计人员，领域实现人员</li>
+</ul>
+</li>
+<li>二层及三层C/S架构风格
+<ul>
+<li>二层：客户机，服务器</li>
+<li>三层: 表示层，功能层，数据层</li>
+<li>B/S</li>
+</ul>
+</li>
+<li>J2EE
+<ul>
+<li>客户层：Applet</li>
+<li>Web层: Servlet</li>
+<li>业务逻辑层：EJB(Entity, Session, Message)</li>
+<li>持久层：ORM</li>
+</ul>
+</li>
+<li>多层架构优缺点
+<ul>
+<li>优点
+<ul>
+<li>可以只关注某层</li>
+<li>容易替换成新实现</li>
+<li>降低层与无尾熊依赖</li>
+<li>利于标准化</li>
+<li>利于各层逻辑复用</li>
+<li>扩展性强，不同层负责不同的层面</li>
+<li>安全性高，用户只能通过逻辑层访问</li>
+<li>项目结构更清楚，分工更明确，有利于后期的维护和升级</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>严格的分层可能有性能问题</li>
+<li>清晰的分层架构并不总容易</li>
+</ul>
+</li>
+<li>MVP: View和Model没有交互，都通过Presenter</li>
+<li>MVVM: ViewModel双向绑定</li>
+</ul>
+</li>
+<li>SOA
+<ul>
+<li>实现
+<ul>
+<li>注册中心，服务者，消费者</li>
+<li>ESB
+<ul>
+<li>作用
+<ul>
+<li>服务连接整合</li>
+<li>描述服务元数据，服务注册管理</li>
+<li>服务请求者提供者间传递数据, 并进行数据转换: 支持同步、异步</li>
+<li>发现、路由、匹配、选择。安全支持、服务质量、可管理性、负载均衡</li>
+</ul>
+</li>
+<li>技术
+<ul>
+<li>SOAP: 简单对象访问协议</li>
+<li>WSDL: Web服务描述语言</li>
+<li>UDDI: 统一描述、发现和集成</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>微服务
+<ul>
+<li>分层
+<ul>
+<li>基础设施</li>
+<li>平台服务</li>
+<li>支撑服务</li>
+<li>业务服务</li>
+<li>网关层</li>
+<li>接入层</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>质量属性
+<ul>
+<li>特点
+<ul>
+<li>非功能性需求</li>
+<li>不同的软件项目，关注不同的质量属性</li>
+<li>质量属性之间可能 相互抑制</li>
+</ul>
+</li>
+<li>评价
+<ul>
+<li>性能:
+<ul>
+<li>刺激源，刺激，制品，环境，响应，响应度量指标</li>
+<li>提升
+<ul>
+<li>资源需求
+<ul>
+<li>减少资源占用: 改进算法，减少计算开销</li>
+<li>减少处理事件的数量: 控制事件到来的速率，控制采样频率</li>
+<li>控制资源的使用: 限制执行时间，限制队列大小</li>
+</ul>
+</li>
+<li>资源管理
+<ul>
+<li>并发机制: 多核，多线程</li>
+<li>增加资源</li>
+</ul>
+</li>
+<li>资源仲裁
+<ul>
+<li>先来先服务</li>
+<li>固定优先级</li>
+<li>动态优先：时限时间最早优先，轮转调度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可靠性：容错，健壮性</li>
+<li>可用性</li>
+<li>安全性
+<ul>
+<li>提升
+<ul>
+<li>抵抗攻击
+<ul>
+<li>身份验证，授权，维护数据机密性，维护数据完整性, 限制暴露，限制访问</li>
+</ul>
+</li>
+<li>检测攻击: 入侵检测</li>
+<li>恢复: 恢复状态，识别攻击者</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可修改性: 可维护性，可扩展性，结构重组，可移植性
+<ul>
+<li>提升
+<ul>
+<li>局部化修改: 高内聚低耦合，预测变更，模块通用</li>
+<li>防止连锁反应: 信息隐藏，维持现有接口，限制通信路径, 使用中介(数据、服务(桥接，工厂，代理))</li>
+<li>推迟绑定时间: 运行时注册, 多态, 配置文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>功能性</li>
+<li>可变性</li>
+<li>互操作性</li>
+</ul>
+</li>
+<li>质量场景组成部分: 可用性
+<ul>
+<li>刺激源: 故障(系统内部或外部)</li>
+<li>刺激: 出错，系统崩溃</li>
+<li>制品: 计算、存储、网络</li>
+<li>环境: 正常，降级</li>
+<li>响应</li>
+<li>响应度量指标</li>
+</ul>
+</li>
+<li>可用性提升
+<ul>
+<li>错误检测: 心跳, Ping/echo, 异常</li>
+<li>错误恢复: 表决, 冗余, 检查点回滚, 下线, 事务</li>
+<li>错误避免: 进程监控</li>
+</ul>
+</li>
+<li>辅助条件
+<ul>
+<li>敏感点</li>
+<li>权衡点</li>
+<li>风险点</li>
+</ul>
+</li>
+<li>架构评估
+<ul>
+<li>调查问卷/检查表</li>
+<li>基于场景
+<ul>
+<li>架构权衡分析法ATAM: 对质量属性做评价和折中
+<ul>
+<li>质量效应树</li>
+<li>评估参与者: 评估小组，项目决策者，项目干系人</li>
+<li>步骤
+<ul>
+<li>描述介绍阶段: 描述ATAM方法，描述业务动机，描述架构</li>
+<li>调查分析阶段: 确定架构方法，生成质量属性效用树，分析架构方法</li>
+<li>测试阶段: 讨论场景和对场景分级，分析架构方法</li>
+<li>报告阶段: 讨论场景和对场景分级</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>软件架构分析方法SAAM: 场景优先级分类</li>
+<li>成本收益分析方法CBAM</li>
+</ul>
+</li>
+<li>基于度量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="系统设计">系统设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#系统设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>分类
+<ul>
+<li>体系结构设计</li>
+<li>数据设计</li>
+<li>接口设计</li>
+<li>过程设计</li>
+</ul>
+</li>
+<li>结构化设计
+<ul>
+<li>概要设计: 确定结构
+<ul>
+<li>模块: SC系统结构图
+<ul>
+<li>模块，模块间调用关系与通信，模块间层次结构</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>详细设计: 实现细节
+<ul>
+<li>流程设计
+<ul>
+<li>程序流程图</li>
+<li>IPO图: 每个模块内部流程</li>
+<li>N-S图：五种控制结构(顺序型，选择型，while循环型，until循环型，多分支选择型)</li>
+<li>问题分析图PAD: 相对N-S图可以展示递归</li>
+<li>过程设计语言PDL: 伪代码</li>
+<li>判定表, 判定树</li>
+</ul>
+</li>
+<li>面向对象设计</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>面向对象</li>
+</ul>
+</li>
+<li>
+<h2 id="uml">UML<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#uml" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>4种事务
+<ul>
+<li>结构: 名词</li>
+<li>行为: 动词</li>
+<li>分组: 包</li>
+<li>注释: 注释</li>
+</ul>
+</li>
+<li>视图
+<ul>
+<li>用例图
+<ul>
+<li>参与者</li>
+<li>用例: 基用例，子用例</li>
+<li>边界</li>
+<li>关系: 包含，扩展(基用例不一定执行子用例)，泛化</li>
+</ul>
+</li>
+<li>类图
+<ul>
+<li>类：实体类(名词)，控制类(执行)，边界类(用户系统交互)</li>
+<li>关系
+<ul>
+<li>依赖</li>
+<li>泛化
+<ul>
+<li>多态
+<ul>
+<li>参数多态</li>
+<li>包含多态: 用于子类型，需要运行时类型检查</li>
+<li>强制多态: 编译时强行变类型</li>
+<li>过载多态: 同名在不同上下文有不同类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>关联: 双向，单向，自关联，多重关联
+<ul>
+<li>组合，聚合</li>
+</ul>
+</li>
+<li>实现</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对象图</li>
+<li>交互图
+<ul>
+<li>序列图</li>
+<li>通信图/协作图: 不强调时间</li>
+</ul>
+</li>
+<li>状态图</li>
+<li>活动图</li>
+<li>构件图/组件图
+<ul>
+<li>部署构件: dll</li>
+<li>工作产品构件: 源代码</li>
+<li>执行构件: 执行后得到的构件</li>
+</ul>
+</li>
+<li>组合结构图</li>
+<li>部署图</li>
+<li>包图</li>
+</ul>
+</li>
+<li>分类
+<ul>
+<li>静态模型: 用例图，类图，对象图，构件图，部署图</li>
+<li>动态模型: 状态图，活动图，顺序图，协作图</li>
+</ul>
+</li>
+<li>设计模式: 类模式，对象模式
+<ul>
+<li>创建型
+<ul>
+<li>工厂方法(类)</li>
+<li>抽象工厂</li>
+<li>建造者</li>
+<li>原型</li>
+<li>单例模式</li>
+<li>适配器</li>
+<li>桥接: 抽象与实现分离</li>
+<li>组合</li>
+<li>装饰</li>
+<li>外观</li>
+<li>享元</li>
+<li>代理</li>
+<li>责任链</li>
+<li>解释器</li>
+<li>模板方法</li>
+<li>命令</li>
+<li>迭代器</li>
+<li>中介者</li>
+<li>备忘录</li>
+<li>观察者/发布订阅</li>
+<li>状态</li>
+<li>策略</li>
+<li>访问者</li>
+</ul>
+</li>
+<li>结构型</li>
+<li>行为型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="可靠性分析与设计">可靠性分析与设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#可靠性分析与设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>指标
+<ul>
+<li>平均无故障时间MTTF</li>
+<li>平均故障修改时间MTTR</li>
+<li>平均故障间隔时间MTBF=MTTF+MTTR</li>
+</ul>
+</li>
+<li>串联系统</li>
+<li>关联系统</li>
+<li>冗余
+<ul>
+<li>结构冗余: 硬件冗余，软件冗余
+<ul>
+<li>静态冗余: 三模冗余，多模冗余
+<ul>
+<li>奇数个，表决器</li>
+</ul>
+</li>
+<li>动态冗余: 检测到错误用备用模块替代</li>
+<li>混合冗余：先静态后动态</li>
+</ul>
+</li>
+<li>信息冗余: 检错码，纠错码</li>
+<li>时间冗余: 重复执行</li>
+<li>冗余附加: 冗余资源</li>
+</ul>
+</li>
+<li>软件容错技术
+<ul>
+<li>N版本程序设计：一种静态故障屏蔽，用前向恢复的策略
+<ul>
+<li>组，版本，表决器</li>
+</ul>
+</li>
+<li>恢复块方法
+<ul>
+<li>主块，备用块</li>
+</ul>
+</li>
+<li>防卫式程序设计</li>
+</ul>
+</li>
+<li>双机容错技术
+<ul>
+<li>主设备，从设备, 故障切换</li>
+<li>服务器两块网卡，一块对外服务，一块与另外服务器连接</li>
+<li>方式
+<ul>
+<li>双机热备: 从设备不工作只监控</li>
+<li>双机互备: 服务不同同时工作，可互相替代</li>
+<li>双机双工: 服务相同集群方式工作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>集群技术
+<ul>
+<li>服务器组，对外网络，心跳信号，磁盘阵列</li>
+<li>类型
+<ul>
+<li>高性能计算集群</li>
+<li>负载均衡集群: 集中式，分布式</li>
+<li>高可用性集群</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>高并发下的高可用技术
+<ul>
+<li>CDN</li>
+<li>负载均衡
+<ul>
+<li>HTTP: 重定向两次请求</li>
+<li>DNS: 基于地理位置返回不同IP, 但可能缓存导致访问失败</li>
+<li>NAT: 速度比反向代理快, 但大文件</li>
+<li>反向代理</li>
+</ul>
+</li>
+<li>负载均衡算法
+<ul>
+<li>轮询法
+<ul>
+<li>优点：简单高效，易于水平扩展</li>
+<li>缺点：木桶原理，集群性能瓶颈于性能差的服务器</li>
+</ul>
+</li>
+<li>随机法</li>
+<li>源地址hash法
+<ul>
+<li>优点: 可干预请求方向</li>
+<li>缺点: 容易负载不均衡</li>
+</ul>
+</li>
+<li>加权轮询法</li>
+<li>加权随机法</li>
+<li>键值范围法
+<ul>
+<li>优点：水平扩展容易</li>
+<li>缺点：容易负载不均衡</li>
+</ul>
+</li>
+<li>动态负载均衡
+<ul>
+<li>最小连接数法
+<ul>
+<li>优点：根据节点状况实时变化</li>
+<li>缺点：提高了复杂度</li>
+</ul>
+</li>
+<li>最快响应速度法</li>
+<li>观察模式法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>性能评价指标
+<ul>
+<li>计算机
+<ul>
+<li>主频/时钟频率
+<ul>
+<li>外频*倍频</li>
+<li>主频的倒数: 脉冲/CPU时钟周期</li>
+</ul>
+</li>
+<li>机器周期: 若干时钟周期</li>
+<li>指令周期：若干机器周期</li>
+<li>CPI: 指令平均时钟周期</li>
+<li>MIPS: 每秒百万条指令平均执行速度, 主频/CPI</li>
+<li>阿姆达尔解决方案</li>
+</ul>
+</li>
+<li>网络</li>
+<li>操作系统</li>
+<li>数据库管理系统</li>
+<li>Web服务器</li>
+</ul>
+</li>
+<li>性能评估方法
+<ul>
+<li>时钟频率法</li>
+<li>指令执行速度法MIPS</li>
+<li>等效指令速度法</li>
+<li>数据处理速率法PDR</li>
+<li>综合理论性能法</li>
+<li>基准程序法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="软件测试">软件测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>测试目的：发现错误</li>
+<li>测试类型
+<ul>
+<li>动态
+<ul>
+<li>黑盒
+<ul>
+<li>等价类划分: 等价的数据合并</li>
+<li>边值分析</li>
+<li>错误猜测</li>
+<li>因果图</li>
+<li>功能图</li>
+</ul>
+</li>
+<li>白盒
+<ul>
+<li>基本路径</li>
+<li>循环覆盖
+<ul>
+<li>单循环，嵌套循环</li>
+</ul>
+</li>
+<li>逻辑覆盖
+<ul>
+<li>语句覆盖，判定覆盖，条件覆盖，判定/条件覆盖，条件组合覆盖，点覆盖，边覆盖，路径覆盖</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>灰盒: 表征性现象，判断内部运行状态</li>
+</ul>
+</li>
+<li>静态
+<ul>
+<li>桌前检查</li>
+<li>代码审查</li>
+<li>代码走查</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>测试阶段
+<ul>
+<li>单元测试</li>
+<li>集成/组装/联合测试
+<ul>
+<li>概要设计阶段计划</li>
+<li>自顶向下，自底向上，混合/三明治</li>
+<li>冒烟/版本验证/提交测试</li>
+</ul>
+</li>
+<li>确认测试
+<ul>
+<li>有效性测试, 需求分析阶段计划</li>
+<li>类型：内部确认测试，Alpha测试，Beta测试，验收测试</li>
+</ul>
+</li>
+<li>系统测试
+<ul>
+<li>软件，硬件，网络，外部支持硬件、软件、数据等系统元素结合</li>
+<li>系统分析阶段(需求分析阶段)完成计划</li>
+<li>包括：功能测试，健壮性测试，性能测试, 用户界面测试，安全性测试，安装与反安装测试</li>
+<li>回归测试</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>性能测试
+<ul>
+<li>目的
+<ul>
+<li>评估系统的能力，识别体系中的弱点，系统调优，检测软件中的问题，验证稳定性和可靠性</li>
+</ul>
+</li>
+<li>分类
+<ul>
+<li>负载压力测试：超负荷情况</li>
+<li>强度测试: 资源低的情况下运行情况</li>
+<li>容量测试: 同时在线的最大用户数</li>
+</ul>
+</li>
+<li>指标: 客户端，网络，服务器</li>
+</ul>
+</li>
+<li>第三方测试</li>
+<li>面向对象测试
+<ul>
+<li>层次
+<ul>
+<li>算法层</li>
+<li>类层</li>
+<li>模板层</li>
+<li>系统层</li>
+</ul>
+</li>
+<li>方案
+<ul>
+<li>逻辑覆盖</li>
+<li>等价划分</li>
+<li>边界值分析</li>
+<li>错误推测</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>软件维护
+<ul>
+<li>软件生命周期
+<ul>
+<li>规划</li>
+<li>开发: 分析，设计，实施，验收</li>
+<li>运维</li>
+<li>解散/升级</li>
+</ul>
+</li>
+<li>类型
+<ul>
+<li>改正性维护</li>
+<li>适应性维护</li>
+<li>完善性维护</li>
+<li>预防性维护</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="安全性保密性设计">安全性保密性设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#安全性保密性设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>安全防范体系层次
+<ul>
+<li>物理层</li>
+<li>系统层</li>
+<li>网络层</li>
+<li>应用层</li>
+<li>安全管理</li>
+</ul>
+</li>
+<li>数据加密
+<ul>
+<li>对称加密: 分组密码，序列密码
+<ul>
+<li>DES: 分组密码, 3DES</li>
+<li>IDEA: 明文密文64，密钥128</li>
+</ul>
+</li>
+<li>非对称加密
+<ul>
+<li>RSA, 公私钥</li>
+</ul>
+</li>
+<li>认证技术
+<ul>
+<li>确保发送者接收者的真实性，报文的完整性</li>
+<li>数字签名
+<ul>
+<li>非对称加密</li>
+<li>杂凑算法: 摘要(MD5), 安全散列算法(SHA)</li>
+<li>数字证书: X.509</li>
+<li>身份认证: 口令，动态口令，生物特征</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>密钥管理体制
+<ul>
+<li>KMI密钥管理基础设施
+<ul>
+<li>适用于
+<ul>
+<li>开放网的PKI(公钥基础设施)</li>
+<li>规模化专用网的SPK(种子化公钥)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>通信与网络安全
+<ul>
+<li>防火墙
+<ul>
+<li>功能类型：包过滤型，电路级网关型，应用网关型，代理服务型，状态检测型，自适应代理型</li>
+<li>实现模式：宿主机模式，屏蔽主机模式，屏蔽子网模式</li>
+</ul>
+</li>
+<li>安全协议
+<ul>
+<li>SSL</li>
+<li>HTTPS</li>
+<li>PGP: 邮件加密</li>
+<li>IPSec: 防止Sniffer、数据篡改、身份欺骗等应用层攻击、中间人攻击、拒绝服务攻击</li>
+</ul>
+</li>
+<li>入侵检测与入侵防护IDS
+<ul>
+<li>基于数据源分类：基于主机的IDS, 基于网络的IDS</li>
+<li>基于检测方法：异常检测，误用检测</li>
+</ul>
+</li>
+<li>入侵防护系统IPS</li>
+<li>访问控制
+<ul>
+<li>自主访问控制DAC：ACL, 不能组上间接访问</li>
+<li>强制访问控制MAC</li>
+<li>基于角色的访问控制RBAC</li>
+<li>基于任务的访问控制TBAC</li>
+<li>基于对象的访问控制OBAC</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="中间件">中间件<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中间件" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>功能
+<ul>
+<li>客户机和之间的连接和通信</li>
+<li>提供应用层不同服务之间的互操作机制, 以及应用层与数据库之间的连接和控制机制</li>
+<li>提供多层架构的应用开发和运行平台，以及应用开发框架</li>
+<li>屏蔽硬件、操作系统、网络和数据库的差异</li>
+<li>负载均衡, 高可用</li>
+<li>通用的服务，避免重复工作</li>
+</ul>
+</li>
+<li>类型
+<ul>
+<li>通信处理(消息)</li>
+<li>事务处理(交易)</li>
+<li>数据存取管理</li>
+<li>Web服务器</li>
+<li>安全</li>
+<li>跨平台和架构</li>
+<li>专用平台</li>
+<li>网络</li>
+</ul>
+</li>
+<li>应用服务器
+<ul>
+<li>J2EE: 建立标准，控制构件生命周期
+<ul>
+<li>构件: 应用客户端、EJB、Servlets和JSP、Applet</li>
+<li>构成：容器，组件，服务</li>
+<li>分层
+<ul>
+<li>表示层</li>
+<li>业务逻辑层(中间层、领域层)
+<ul>
+<li>实体Bean: 表映射到对象</li>
+<li>会话Bean: 与客户端交互
+<ul>
+<li>有状态，无状态</li>
+</ul>
+</li>
+<li>消息驱动Bean</li>
+</ul>
+</li>
+<li>数据访问层</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>.NET
+<ul>
+<li>分层
+<ul>
+<li>通用语言运行时CLR: 受控代码</li>
+<li>基础类库</li>
+<li>ADO.NET: XML支持, 数据缓冲区</li>
+<li>ASP.NET</li>
+<li>通用语言规范</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>企业应用集成EAI
+<ul>
+<li>分类
+<ul>
+<li>应用集成</li>
+<li>业务过程集成</li>
+<li>数据集成: 单一数据库</li>
+</ul>
+</li>
+<li>Java企业应用框架
+<ul>
+<li>MVC</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="进阶知识">进阶知识<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#进阶知识" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+<li>
+<h2 id="信息系统基础">信息系统基础<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#信息系统基础" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>控制论：维纳</li>
+<li>信息论：香农</li>
+<li>认识论: 主观角度</li>
+<li>质量属性：精确性，完整性，可靠性，及时性，经济性，可验证性，安全性</li>
+<li>信息化
+<ul>
+<li>层次：产品，企业，产业，国民经济，社会生活</li>
+<li>主体：全体社会成员</li>
+<li>空域：政治、经济、文化、军事、社会生活一切领域</li>
+<li>时域: 长期的过程</li>
+<li>资源是核心，信息技术应用是龙头，信息网络是基础，信息技术和产业是国家信息化建设基础，人才是关键，政策法规和标准规范是保障</li>
+</ul>
+</li>
+<li>战略纲要
+<ul>
+<li>2017-2020：网信先行</li>
+<li>2025: 技术先进，产业发达，应用领先，网络安全</li>
+<li>21世纪中叶：网络强国，引领全球信息化发展</li>
+</ul>
+</li>
+<li>两化融合: 信息化和工业化</li>
+<li>电子政务:
+<ul>
+<li>G2G: 政府对政府</li>
+<li>G2B: 政府对企业</li>
+<li>G2C: 政府对公民</li>
+<li>G2E: 政府对公务员</li>
+</ul>
+</li>
+<li>电子商务
+<ul>
+<li>发展
+<ul>
+<li>原始电子商务</li>
+<li>现代电子商务：使用了EDI(电子数据交换)</li>
+</ul>
+</li>
+<li>结构
+<ul>
+<li>网络</li>
+<li>网络基础设施</li>
+<li>多媒体内容和网络出版的基础设施</li>
+<li>FAX, E-mail, EDI, HTTP</li>
+<li>报文和信息传播的基础设施</li>
+<li>目录服务、安全、认证、电子付款</li>
+<li>商业服务的基础设施</li>
+<li>电子商务应用</li>
+</ul>
+</li>
+<li>类型
+<ul>
+<li>网络划分
+<ul>
+<li>EDI(电子数据交换)商务</li>
+<li>Internet(互联网)商务</li>
+<li>Intranet(企业内部网)商务</li>
+<li>Extranet(企业外部网)商务</li>
+</ul>
+</li>
+<li>交易内容划分
+<ul>
+<li>直接电子商务
+<ul>
+<li>无形商品</li>
+<li>各种服务</li>
+</ul>
+</li>
+<li>间接电子商务
+<ul>
+<li>有形商品</li>
+<li>相关服务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>交易对象规划
+<ul>
+<li>O2O: 线上购买线下</li>
+<li>C2C: 淘宝</li>
+<li>B2C: 京东</li>
+<li>B2B
+<ul>
+<li>阶段: 电子数据交换(EDI), 基本的电子商务，电子交易集市，协同商务</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基本原则
+<ul>
+<li>企业主体，政府推动。统筹兼顾，虚实结合。着力创新，注重实效。规范发展，保障安全。</li>
+</ul>
+</li>
+<li>支撑保障体系</li>
+</ul>
+</li>
+<li>企业信息化
+<ul>
+<li>大吃小变为快吃慢</li>
+<li>原则: 效益原则、一把手原则、中长期与短期建设相结合原则、规范化和标准化原则，以人为本原则</li>
+<li>“两网一站四库十二金”工程
+<ul>
+<li>政务内网(物理隔离)，政务外网(逻辑隔离)</li>
+<li>中华人民共和国政府网站</li>
+<li>基础信息库：人口库，法人库，资源地理，宏观经济</li>
+<li>办公业务资源系统，宏观经济管理系统，金税，金审，金财，金融监管，金关，金盾，金保，金农，金水，金质</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>信息系统
+<ul>
+<li>集成</li>
+<li>生命周期
+<ul>
+<li>立项</li>
+<li>开发: 分析、设计、实施、验收</li>
+<li>运维: 纠错性维护，适应性维护，预防性维护，完善性维护</li>
+<li>消亡</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IT服务管理ITSM
+<ul>
+<li>低成本高质量，以服务为中心, 以客户为中心提供服务, 可准确计价</li>
+<li>原理：“二次转换”
+<ul>
+<li>梳理: 技术管理转化为流程管理</li>
+<li>打包: 流程管理转化为服务管理</li>
+</ul>
+</li>
+<li>服务级别管理SLA</li>
+<li>事件管理，问题管理</li>
+<li>监理：四控三管一协调
+<ul>
+<li>质量控制、进度控制、投资控制、变更控制</li>
+<li>安全管理、合同管理、信息管理</li>
+<li>项目组织协调</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IT服务构成ITSS
+<ul>
+<li>四要素PPTR
+<ul>
+<li>人员</li>
+<li>过程</li>
+<li>技术</li>
+<li>资源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>软件工程
+<ul>
+<li>需求分析与定义
+<ul>
+<li>需求必须可以被验证</li>
+<li>目标：检测和解决需求之间的冲突，发现系统的边界，详细描述系统需求</li>
+</ul>
+</li>
+<li>软件设计</li>
+<li>软件测试</li>
+<li>配置管理
+<ul>
+<li>权限：Read, Check, Add, Destroy</li>
+</ul>
+</li>
+<li>过程管理: 项目启动和范围定义，项目规划，项目实施、项目监控与评审、项目收发与关闭</li>
+<li>软件开发工具</li>
+<li>软件复用</li>
+<li>面向对象系统分析与设计
+<ul>
+<li>对象：标识、状态、行为</li>
+</ul>
+</li>
+<li>UML
+<ul>
+<li>5种视图: 用例视图，逻辑视图，实现视图，过程视图，部署视图</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>应用集成技术
+<ul>
+<li>数据仓库: 面向主题，集成的，相对稳定的，反映历史变化的</li>
+<li>WebService
+<ul>
+<li>不适合场景: 单机应用，局域网应用</li>
+<li>适合场景: 跨防火墙，应用程序集成，B2B集成，软件重用</li>
+</ul>
+</li>
+<li>软件中间件
+<ul>
+<li>数据库访问: ODBC, JDBC</li>
+<li>远程过程调用RPC</li>
+<li>面向消息中间件MOM: IBM的MQSeries</li>
+<li>分布式对象中间件: OMG的CORBA, Java的RMI/EJB, Microsoft的DCOM</li>
+<li>事务中间件: IBM/BEA的Tuxedo, JavaEE的EJB</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络技术
+<ul>
+<li>OSI七层协议</li>
+<li>TCP/IP体系的四层协议：网络接口层，网际层，传输层，应用层</li>
+<li>网络分类
+<ul>
+<li>地理分类：局域网，城域网，广域网</li>
+<li>链路传输控制技术：以太网(总线争用)，令牌网，FDDI网，ATM网(异步传输模式), 帧中继网，ISDN(综合业务数据网)</li>
+<li>拓扑结构：总线型，星型，树型，环型，网状</li>
+</ul>
+</li>
+<li>数据交换：电路交换，分组交换，ATM交换，全光交换，标记交换</li>
+<li>接入：光纤，同轴电缆，铜线，无线</li>
+<li>无线网络：无线个域网，无线局域网，无线城域网，蜂窝移动通信网</li>
+<li>存储技术
+<ul>
+<li>与个人计算机差异：多用户多任务</li>
+<li>技术：DAS, NAS, SAN</li>
+</ul>
+</li>
+<li>机房
+<ul>
+<li>综合布线系统
+<ul>
+<li>6个子系统</li>
+</ul>
+</li>
+<li>分区: 主机区，存储器区，数据输入区，数据输出区，通信区，监控调度区</li>
+<li>供电：双回路供电，三相五线制</li>
+<li>接地方式: 交流工作接地，安全工作接地，直流工作接地，防雷接地</li>
+<li>温湿度
+<ul>
+<li>开机:
+<ul>
+<li>A级机房
+<ul>
+<li>温度: 夏季23度, 冬季20度</li>
+<li>湿度: 45%-65%</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>停机</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RJ45接头需求量：m = nx4 + nx4x15%, m为总需求量，n为信息点总量，nx4x15%为富余量</li>
+<li>信息模块需求量：m = n + nx3%, m为总需求量，n为信息点总量，nx3%为富余量</li>
+<li>曲率半径
+<ul>
+<li>光缆30cm, 同轴粗电缆30cm, 同轴细电缆20cm</li>
+</ul>
+</li>
+<li>暗敷管路
+<ul>
+<li>应直线为主</li>
+<li>弯曲时曲率半径不小于管外径的6倍(暗管外径大于50mm，不小于10倍)</li>
+<li>转弯夹角不小于90度，不应有两个以上弯曲(应设在弯管段落两端，长度不超过15m, 段落内不应有S形弯或U形弯)</li>
+<li>段长超过20m，应装接头箱(接头盒或过渡盒)</li>
+</ul>
+</li>
+<li>规划、设计和实施
+<ul>
+<li>局域网主要是交换以太网</li>
+<li>拓扑结构考虑主要因素: 地理环境，传输介质，传输距离，可靠性</li>
+<li>汇聚层是否存在，取决于网络规模的大小</li>
+<li>网络通信设备选型：核心交换机选型，汇聚层/接入层交换机选型，远程接入与访问设备选型</li>
+</ul>
+</li>
+<li>安全
+<ul>
+<li>要素: 机密性，完整性，可用性，可控性，可审查性</li>
+<li>工作：制定安全策略，用户验证，加密，访问控制，审计，管理</li>
+<li>典型网络攻击步骤：信息收集，试探寻找突破口，实施攻击，消防记录，保留访问权限</li>
+<li>安全的5个等级：用户自主保护级，系统审计保护级, 安全标记保护级, 结构化保护级，访问验证保护级</li>
+<li>基本属性：完整性，可用性，保密性，可控性，可靠性</li>
+<li>活动: 定义策略，定义范围，风险评估，确定管理目标和管理措施，准备适用性申明</li>
+<li>等级保护(破坏后): 定级，备案，安全建设整改，等级评测，安全检查</li>
+<li>风险保护：秘密，机密，绝密</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>大数据
+<ul>
+<li>特点5V: Volume(大量), Velocity(高速), Variety(多样), Value(价值), Veracity(真实性)</li>
+<li>5个环节: 数据准备，存储，计算，分析，知识展现</li>
+<li>关键技术: HDFS, HBase, MapReduce, Chukwa</li>
+</ul>
+</li>
+<li>云计算
+<ul>
+<li>分层
+<ul>
+<li>设施层：供电，制冷，布线</li>
+<li>资源层
+<ul>
+<li>物理资源：服务器，存储设备，网络，数据库</li>
+<li>虚拟资源：虚拟主机，虚拟块/对象存储，虚拟网络</li>
+</ul>
+</li>
+<li>资源控制层
+<ul>
+<li>分布式资源调度: 分布式算法，控制锁机制，消息队列</li>
+<li>资源管理: 虚拟机管理，分布式文件系统，分布式数据库</li>
+</ul>
+</li>
+<li>服务层
+<ul>
+<li>IaaS: VDC, VDL</li>
+<li>PaaS: 开发环境，运行环境</li>
+<li>SaaS: CRM, OA</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>物联网
+<ul>
+<li>分层
+<ul>
+<li>感知层: 物物之间信息传输</li>
+<li>网络层: 标准化程序最高</li>
+<li>应用层</li>
+</ul>
+</li>
+<li>关键技术
+<ul>
+<li>感知层为关键
+<ul>
+<li>产品和传感器(条码、RFID，传感器)自动化识别技术</li>
+<li>无线传输技术(WLAN, Bluetooth, ZigBee, UWB)</li>
+<li>自组织组网技术</li>
+<li>中间件技术</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>移动互联网: 移动通信网络+互联网内容和应用
+<ul>
+<li>特征：接入移动性，时间碎片性，生活相关性，终端多样性</li>
+<li>关键技术: SOA Web2.0, HTML5, Android, iOS, Windows Phone</li>
+</ul>
+</li>
+<li>首席信息官CIO(IT行业可合并到CTO)
+<ul>
+<li>业务专家，IT专家，管理专家</li>
+<li>职责
+<ul>
+<li>提供信息帮助企业决策</li>
+<li>帮助企业制定中长期发展战略</li>
+<li>有效管理IT部门</li>
+<li>制定信息系统 发展规划</li>
+<li>建立积极的IT文化</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="./tags/" class="tag-link internal alias" data-slug="tags/index"></a>　项目管理
+<ul>
+<li>组成：项目开发计划，范围管理，进度管理，成本管理，软件配置管理，质量管理，人力资源管理，风险管理，信息文档管理</li>
+<li>制约因素: 范围，进度，成本，质量</li>
+<li>本质：认识本质，找出规律，有效管理</li>
+<li>生命周期: 概念阶段，开发阶段，实施阶段，结束阶段</li>
+<li>目标：成果性目标，约束性目标</li>
+<li>开发计划
+<ul>
+<li>作用：展望未来，实施依据，确定团队成员和责任范围，促进团队交流，明确奋斗目标</li>
+<li>内容：工作计划，人员组织计划，设备采购和资源供应计划，配置管理计划，进度计划，成本计划，质量计划，风险计划，文档计划，支持计划</li>
+<li>监控：
+<ul>
+<li>设置里程碑</li>
+<li>正规和非正规</li>
+<li>事前控制，事中控制，事后控制</li>
+<li>直接控制，间接控制</li>
+</ul>
+</li>
+<li>编制:
+<ul>
+<li>指南：引言，项目概述，实施计划，支持条件，专题计划要点</li>
+<li>过程：逐渐求精</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>范围管理
+<ul>
+<li>产品范围(产品需求)，工作范围(工作计划)</li>
+<li>范围管理计划4W1H</li>
+<li>需求管理
+<ul>
+<li>收集需求
+<ul>
+<li>挖掘真实需求：显性利益，关系维护和交往，情感感受和信任</li>
+</ul>
+</li>
+<li>需求跟踪矩阵
+<ul>
+<li>从来源连接到可交付成果</li>
+<li>用于验收</li>
+<li>需求文件描述单一需求如何满足，用于生成范围说明书</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>范围说明书</li>
+<li>工作分解结构WBS
+<ul>
+<li>词典</li>
+<li>结果</li>
+</ul>
+</li>
+<li>范围确认：确认可交付成果</li>
+<li>范围控制</li>
+<li>范围变更的压力</li>
+<li>范围蔓延</li>
+</ul>
+</li>
+<li>进度管理
+<ul>
+<li>内容
+<ul>
+<li>1谋: 规划进度管理</li>
+<li>4备:
+<ul>
+<li>备定义出清单: 活动清单，里程碑清单</li>
+<li>备排序出路线: 排列活动顺序</li>
+<li>备资源出参数: 项目资源管理-估算活动资源</li>
+<li>备历时出长短: 活动持续时间</li>
+</ul>
+</li>
+<li>2反复:
+<ul>
+<li>反复进行进度计划编制更新</li>
+<li>反复进行进度控制与优化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>进度管理计划</li>
+<li>活动定义
+<ul>
+<li>活动清单</li>
+<li>里程碑清单</li>
+<li>活动排序</li>
+<li>提前量滞后量</li>
+<li>四种依赖关系
+<ul>
+<li>强制性依赖: 工作中固有的依赖</li>
+<li>选择性依赖: 经验和编好定义，无必然规律</li>
+<li>外部依赖: 项目组与项目组外</li>
+<li>内部依赖: 项目活动之间</li>
+</ul>
+</li>
+<li>活动时间估算
+<ul>
+<li>三点估算PERT</li>
+</ul>
+</li>
+<li>进度计划
+<ul>
+<li>总时差</li>
+<li>自由时差</li>
+<li>浮动时间</li>
+<li>关键路线</li>
+<li>赶工(时间压缩)，快速跟进(改逻辑关系为并行)</li>
+</ul>
+</li>
+<li>资源平衡
+<ul>
+<li>资源平滑</li>
+</ul>
+</li>
+<li>进度控制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>成本管理
+<ul>
+<li>包含：规划成本管理, 成本估算，制定预算，成本控制</li>
+<li>概念
+<ul>
+<li>储备：应急储备(已知的未知, 估算阶段)，管理储备(无知, 预算阶段)</li>
+<li>学习曲线</li>
+<li>质量成本</li>
+</ul>
+</li>
+<li>成本估算
+<ul>
+<li>类比估算(自上而下)</li>
+<li>自下而上</li>
+<li>参数估算</li>
+</ul>
+</li>
+<li>成本预算
+<ul>
+<li>项目总预算 = 成本基线BAC(基础成本 + 应急储备金) + 管理储备</li>
+</ul>
+</li>
+<li>成本控制
+<ul>
+<li>挣值
+<ul>
+<li>实际成本(AC)，计划值(PV)，挣值(EV)</li>
+</ul>
+</li>
+<li>进度绩效, 成本绩效</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>配置管理
+<ul>
+<li>CMMI: 9部分</li>
+<li>配置标识
+<ul>
+<li>确定配置项: 配置项命名，配置项描述</li>
+<li>基线(里程碑): 功能基线，指派基线，产品基线; 发行基线，构造基线</li>
+<li>建立配置管理系统</li>
+<li>配置库：开发库，受控库，产品库</li>
+</ul>
+</li>
+<li>变更控制
+<ul>
+<li>变更控制系统</li>
+<li>变更控制委员会CCB</li>
+<li>变更控制流程</li>
+<li>利用配置库实现变更控制</li>
+</ul>
+</li>
+<li>版本控制</li>
+<li>配置审核</li>
+<li>配置状态报告</li>
+</ul>
+</li>
+<li>质量管理
+<ul>
+<li>基础
+<ul>
+<li>核心概念
+<ul>
+<li>客户发现缺陷：代价最大</li>
+</ul>
+</li>
+<li>趋势和新兴实践
+<ul>
+<li>客户满意，持续改进，管理层责任，与供应商互利合作</li>
+</ul>
+</li>
+<li>概述
+<ul>
+<li>遵从组织质量体系QS</li>
+<li>制定质量计划QP</li>
+<li>实施质量管理QM, 包含QA</li>
+<li>落实质量控制QC</li>
+<li>坚持持续改进QI</li>
+</ul>
+</li>
+<li>ISO9000质量管理体系: 关注程序的高质量
+<ul>
+<li>八项原则</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>规划质量管理
+<ul>
+<li>质量管理体系</li>
+<li>质量成本
+<ul>
+<li>一致性成本: 预防成本，评估成本</li>
+<li>不一致性成本: 内部失败成本，外部失败成本</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>管理质量
+<ul>
+<li>质量报告</li>
+<li>亲和图，因果图，流程图，直方图，帕累托图，矩阵图，散点图</li>
+</ul>
+</li>
+<li>控制质量
+<ul>
+<li>控制图</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>人力资源管理
+<ul>
+<li>规划资源管理</li>
+<li>组织结构图和职位描述
+<ul>
+<li>责任分配矩阵RAM</li>
+</ul>
+</li>
+<li>估算活动资源</li>
+<li>获取资源
+<ul>
+<li>资源日历</li>
+</ul>
+</li>
+<li>建设团队
+<ul>
+<li>一般成长规律BruceTuckmans模型：形成，震荡，规范，成熟，解散</li>
+</ul>
+</li>
+<li>权力类型：正式，惩罚，奖励，专家，参考</li>
+<li>激励理论
+<ul>
+<li>马斯洛,需求层次5个：生理，安全，社会需求，尊重，自我实现</li>
+<li>海兹伯格，激励理论：保健因素，激励因素</li>
+<li>麦克格利格, X理论，Y理论</li>
+<li>期望理论</li>
+<li>Z理论</li>
+<li>成就动机理论</li>
+</ul>
+</li>
+<li>冲突管理</li>
+<li>管理学原理
+<ul>
+<li>彼得原理: 组织中每个人都可能朝不适合他的岗位发展</li>
+<li>光环效应：一个人某方面好，往往被认为其他方面也好</li>
+<li>墨菲定律</li>
+<li>帕金森定律：无论给多少时间，事情总是要拖到最后一刻才能完成</li>
+<li>布鲁克斯定律：为一个延误的项目增加人员，将导致更多的延误</li>
+<li>手表定律：有两块手表且走时不相同, 就不知道时间了</li>
+<li>KISS法则</li>
+<li>黄金法则：你期望别人怎样对待你，你也要怎样对待别人</li>
+</ul>
+</li>
+<li>控制资源</li>
+</ul>
+</li>
+<li>风险管理
+<ul>
+<li>已知风险，未知风险
+<ul>
+<li>已知的已知风险：直接成本</li>
+<li>已知的未知风险：应急储备</li>
+<li>未知的未知风险：管理储备</li>
+</ul>
+</li>
+<li>概念
+<ul>
+<li>风险责任人，次生风险，残余风险，弹回计划，权变措施，风险承受力，风险临界值</li>
+</ul>
+</li>
+<li>概述
+<ul>
+<li>规则风险管理</li>
+<li>识别风险: 风险登记册</li>
+<li>实施定性风险分析: 优先级排序, 风险登记册</li>
+<li>实施定量风险分析: 敏感性分析，龙卷风图，决策树分析，蒙特卡罗技术</li>
+<li>规划风险应对</li>
+<li>实施风险应对</li>
+<li>监督风险</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文档管理
+<ul>
+<li>质量等级
+<ul>
+<li>1级文档：最底限度文档</li>
+<li>2级文档：内部文档</li>
+<li>3级文档：工作文档</li>
+<li>4级文档：正式文档</li>
+</ul>
+</li>
+<li>文档标准: 开发文档，产品文档，管理文档</li>
+<li>测试报告</li>
+<li>技术报告</li>
+<li>开发总结报告</li>
+</ul>
+</li>
+<li>项目管理网络图
+<ul>
+<li>单代号网络图(工作在节点上)</li>
+<li>双代号网络图(工作在线上)
+<ul>
+<li>关键路线</li>
+<li>紧前工作, 紧后工作，虚工作</li>
+</ul>
+</li>
+<li>时标网络图</li>
+<li>计算
+<ul>
+<li>最早开始，最迟开始，最早结束，最迟结束</li>
+<li>总时差：不影响总工期, ls-es, lf-ef</li>
+<li>自由时差: 不影响紧后工作, es-ef</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>施工
+<ul>
+<li>依次施工, 平行施工, 流水施工</li>
+</ul>
+</li>
+<li>压缩
+<ul>
+<li>有充足备用资源的工作</li>
+<li>对质量和安全影响不大的工作</li>
+<li>所需增加成本最少的工作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="嵌入式">嵌入式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#嵌入式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>微处理器体系
+<ul>
+<li>哈弗体系: 地址总线数据总线，每程序独立</li>
+<li>冯诺依曼体系</li>
+</ul>
+</li>
+<li>硬件
+<ul>
+<li>核心
+<ul>
+<li>控制器</li>
+<li>运算器</li>
+<li>寄存器</li>
+</ul>
+</li>
+<li>微控制器MCU: CPU + 片内内存 + 片内外设</li>
+<li>微处理器MPU: CPU</li>
+<li>数字信号处理器DSP: 哈弗结构</li>
+<li>片上系统SoC: 片内再编程</li>
+<li>多核处理器
+<ul>
+<li>三种运行方式
+<ul>
+<li>非对称多处理AMP: 不同操作系统</li>
+<li>对称多处理SMP: 一个操作系统</li>
+<li>混合多处理BMP: 可指定某任务在某核运行</li>
+</ul>
+</li>
+<li>队列调度
+<ul>
+<li>全局队列</li>
+<li>局部队列：每个CPU一个队列</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>嵌入式操作系统EOS
+<ul>
+<li>特点：微型化，代码质量高，专业化，实时性强，可裁减可配置</li>
+</ul>
+</li>
+<li>嵌入式实时操作系统RTOS
+<ul>
+<li>硬实时：规定时间必须完成</li>
+<li>软实时：按优先级完成即可</li>
+</ul>
+</li>
+<li>系统设计
+<ul>
+<li>交叉编译</li>
+<li>低功耗: 编译优化技术，软硬件协同设计，算法优化</li>
+</ul>
+</li>
+<li>软件
+<ul>
+<li>特点: 规模小，开发难度大，实时性和可靠性要求高，固化存储</li>
+<li>层次：硬件抽象层，操作系统层，应用支撑层，应用层
+<ul>
+<li>板级支持包BSP</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="应用数学">应用数学<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#应用数学" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>运筹学
+<ul>
+<li>最大流问题, 动态规划, 线性规划</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="补充">补充<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#补充" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+<li>
+<h2 id="技术">技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>大数据
+<ul>
+<li>特点5A
+<ul>
+<li>大量Volume, 多样Variety, 价值Value, 高速Velocity, 真实性Veracity</li>
+</ul>
+</li>
+<li>架构: 采集，存储，计算，分析，展现</li>
+<li>关键环节
+<ul>
+<li>采集: ETL</li>
+<li>存储: 结构化SQL, 非结构化NoSQL</li>
+<li>管理：分布式并行处理技术MapReduce</li>
+<li>分析与挖掘</li>
+</ul>
+</li>
+<li>关键技术
+<ul>
+<li>HDFS: 分布式文件系统</li>
+<li>HBase: 分布式面向列的开源数据库，非结构化存储</li>
+<li>MapReduce: 管理技术，不会并行编程的情况下，程序运行在分布式系统</li>
+<li>Chukwa: 分布式系统的数据收集系统</li>
+<li>Flume: 日志采集、聚合、传输</li>
+<li>Kafka: Producer, Consumer</li>
+<li>Spark: 与Hadoop相似的集群计算环境</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>云计算
+<ul>
+<li>特点：超大规模, 虚拟化, 高可靠，通用性，高可扩展性，按需服务，廉价，潜在危险性</li>
+<li>三种服务类型
+<ul>
+<li>基础设施IaaS: 处理，存储，网络，其它基本计算资源</li>
+<li>平台PaaS: 操作系统，编程语言的运行环境，数据库，Web服务器</li>
+<li>软件SaaS</li>
+</ul>
+</li>
+<li>核心
+<ul>
+<li>资源池</li>
+<li>云操作系统</li>
+<li>云平台接口</li>
+</ul>
+</li>
+<li>关键技术
+<ul>
+<li>网格计算: 子任务式计算, 基础技术Web Service基于SOA</li>
+<li>虚拟化: 传统的集群计算和分区计算的结合。基础设施虚拟化，网络虚拟化，存储虚拟化</li>
+</ul>
+</li>
+<li>应用
+<ul>
+<li>公有云，私有云，混合云</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>物联网
+<ul>
+<li>两项关键技术：嵌入式，传感器</li>
+<li>架构：
+<ul>
+<li>感知层: 信息采集和物物之间的信息传输
+<ul>
+<li>采集：传感器、条码、二维码、RFID、音视频</li>
+<li>传输：远近距离数据传输，自组织组网，协同信息处理，信息采集中间件</li>
+</ul>
+</li>
+<li>网络层: 有线或无线，编码、认证，传输。标准化程序最高</li>
+<li>应用层: 提供应用，是根本目标</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>移动互联网
+<ul>
+<li>网络是核心，内容和应用是根本</li>
+<li>产业领域：关键应用服务平台，网络平台，移动智能终端软件平台、硬件平台、原材料元器件, 安全控制</li>
+<li>关键技术
+<ul>
+<li>SOA: 粗粒度松耦合</li>
+<li>Web2.0</li>
+<li>HTML5: 扩展了API使Web应用成为RIA可以在网页上调试和修改</li>
+<li>Android, iOS, Windows Phone</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>人工智能
+<ul>
+<li>国家规划
+<ul>
+<li>2020年与世界先进水平同步</li>
+<li>2025年部分技术与应用达到世界领先水平</li>
+<li>2030年总体领先，成为世界主要人工智能创新中心</li>
+</ul>
+</li>
+<li>主要成果
+<ul>
+<li>语音识别，计算机视觉，机器学习，机器人技术，自然语言处理, 自识别自学习，人机对弈，自动工程，知识工程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>区块链技术
+<ul>
+<li>分布式数据存储，点对点传输，共识机制，加密算法</li>
+<li>特征：开放，共识，去中心化，去信任机制，交易透明，双方匿名，不可篡改，可追溯</li>
+<li>技术应用
+<ul>
+<li>链式数据结构, 密码学分布式账本</li>
+<li>解决“双花”问题</li>
+<li>解决拜占庭将军问题</li>
+<li>数值货币，智能合约</li>
+<li>商品防伪、食品安全溯源，全生命周期记录</li>
+<li>版权确权</li>
+</ul>
+</li>
+<li>核心技术
+<ul>
+<li>分布式账本/去中心化</li>
+<li>哈希加密/防篡改</li>
+<li>非对称加密/数字签名</li>
+<li>共识算法(博弈论)/全民记账: 工作量证明POW</li>
+</ul>
+</li>
+<li>特点
+<ul>
+<li>去中心化</li>
+<li>自治: 机器节点自治</li>
+<li>集体维护</li>
+<li>开放性</li>
+<li>安全性</li>
+<li>匿名性：机器节点间匿名</li>
+<li>完全透明</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>互联网+: 行业间合力
+<ul>
+<li>六大特征: 跨界融合，创新驱动，重塑结构，尊重人性，开放生态，连接一切</li>
+<li>2015.3李克强提出
+<ul>
+<li>两化融合的升级版本
+<ul>
+<li>工业化、信息化</li>
+<li>战略融合，资源融合，虚实结合，信息技术与工业设备融合</li>
+</ul>
+</li>
+<li>制造业服务化：以制造为中心转向以服务为中心</li>
+<li>《互联网+先进制造业指导意见》: 推动互联网由消费领域向生产领域拓展</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>智慧中国
+<ul>
+<li>借助虚拟化、云计算、物联网、SOA架构等技术，形成”智慧”中国</li>
+<li>智慧城市：整合城市资源
+<ul>
+<li>概念
+<ul>
+<li>传感器或信息采集设备采集</li>
+<li>网络将数据关联</li>
+<li>共享与智能挖掘变成知识</li>
+<li>结合信息技术知识应用到各行各业</li>
+</ul>
+</li>
+<li>五层: 物联感知层，通信网络层，计算与存储层，数据及服务支撑层，智慧应用层</li>
+<li>三个支撑体系：安全保障，建设和运营管理，标准规范</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据仓库
+<ul>
+<li>ETL, 数据集市, OLAP服务，前端工具</li>
+<li>特点
+<ul>
+<li>面向主题, 集成的，相对稳定的，反应历史变化的</li>
+</ul>
+</li>
+<li>数据挖掘分类
+<ul>
+<li>分类: 决策树（ID3、C4\5、K最近邻、贝叶斯、人工神经网络、支持向量机）</li>
+<li>聚类: K-means, Apriori, DBSCAN</li>
+<li>序列模式分析: 因果关系</li>
+<li>关联分析: 隐藏关系</li>
+<li>离群点分析: 异常检测</li>
+<li>回归分析: 两种以上变量是否依赖</li>
+</ul>
+</li>
+<li>数据挖掘方法: 决策树，神经网络，遗传算法，关联规则挖掘算法</li>
+</ul>
+</li>
+<li>商业智能
+<ul>
+<li>商业分析和建模</li>
+<li>OLAP
+<ul>
+<li>存储方式
+<ul>
+<li>ROLAP: 基于关系数据库</li>
+<li>MOLAP: 基于多维数据库</li>
+<li>HOLAP: 基于混合数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>四阶段: 预处理，建立数据仓库，数据分析，数据展现</li>
+<li>实现步骤：需求分析，数据仓库建模，数据抽取，建立商业智能分析报表，用户培训和数据模拟测试，系统改进和完善</li>
+</ul>
+</li>
+<li>虚拟化</li>
+<li>5G
+<ul>
+<li>关键技术：超密集异构网络，自组织网络技术，内容分发网络，设备到设备通信D2D, M2M通信，信息中心网络ICN</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="项目管理网络图">项目管理网络图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#项目管理网络图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>PERT图</li>
+</ul>
+</li>
+<li>
+<h2 id="标准化与知识产权">标准化与知识产权<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#标准化与知识产权" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>著作权
+<ul>
+<li>内容
+<ul>
+<li>著作权法: 计算机保护条例
+<ul>
+<li>不论是否发表</li>
+<li>不适用具有司法性质的文件，及其官方正式译文</li>
+<li>署名权，修改权，保护作品完整权的保护期不受限制</li>
+</ul>
+</li>
+<li>专利法: 专利法实施细则</li>
+<li>商标法: 商标法实施细则</li>
+<li>商业秘密权</li>
+</ul>
+</li>
+<li>特征：无体性，专有性，地域性，时间性</li>
+</ul>
+</li>
+<li>计算机保护条例
+<ul>
+<li>权利：发表权，署名权，修改权，复制权，发行权，出租权，信息网络传播权，翻译权</li>
+</ul>
+</li>
+<li>专利权法
+<ul>
+<li>不授予专利权：科学发现，智力活动的规则和方法，疾病的诊断和治疗方法，动物和植物品种，用原子核变换方法获得的物质，印刷标识作用的设计</li>
+<li>发明专利20年，设计专利10年，申请日开始算</li>
+</ul>
+</li>
+<li>商标法
+<ul>
+<li>需要商标：烟草制品, 没有人用药品了</li>
+<li>不能用作商标的
+<ul>
+<li>国家标识，外国标识, 国际组织</li>
+<li>县级以上行政区划的地名 或公众知晓的外国地名</li>
+<li>公众熟知的商标，可请求驰名商标保护</li>
+</ul>
+</li>
+<li>协商不成，抽签决定</li>
+<li>有效期，核准注册之日起计算10年
+<ul>
+<li>期满前12个月续展，6个月宽展期</li>
+</ul>
+</li>
+<li>必需用在核准使用的地方</li>
+</ul>
+</li>
+<li>商业秘密权
+<ul>
+<li>相比著作权
+<ul>
+<li>主体不专有</li>
+<li>客体：技术信息和经营信息</li>
+<li>保护期不具有确定性</li>
+<li>无须国家审批，产生之日自动取得</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>知识产权
+<ul>
+<li>内容
+<ul>
+<li>著作权法: 计算机保护条例
+<ul>
+<li>不论是否发表</li>
+<li>不适用具有司法性质的文件，及其官方正式译文</li>
+</ul>
+</li>
+<li>专利法: 专利法实施细则</li>
+<li>商标法: 商标法实施细则</li>
+<li>商业秘密权</li>
+</ul>
+</li>
+<li>特征：无体性，专有性，地域性，时间性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="论文背">论文背<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#论文背" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>论文结构
+<ul>
+<li>大纲</li>
+<li>理论</li>
+<li>实践</li>
+<li>总结(10分钟)</li>
+</ul>
+</li>
+<li>架构风格
+<ul>
+<li>数据流
+<ul>
+<li>管理过滤器</li>
+<li>批处理</li>
+</ul>
+</li>
+<li>调用返回
+<ul>
+<li>主子程序</li>
+<li>面向对象</li>
+<li>分层</li>
+</ul>
+</li>
+<li>虚拟机
+<ul>
+<li>解释器</li>
+<li>规则</li>
+</ul>
+</li>
+<li>独立构件
+<ul>
+<li>进程通信</li>
+<li>事件驱动</li>
+</ul>
+</li>
+<li>仓库
+<ul>
+<li>数据库系统</li>
+<li>黑板</li>
+<li>超文本系统</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分布式
+<ul>
+<li>技术
+<ul>
+<li>服务治理: 服务拆分、调用、发现、依赖、关键度定义</li>
+<li>架构软件管理: 架构版本管理，整体架构生命周期管理，服务编排、聚合、事务处理</li>
+<li>DevOps: 环境构建，持续集成，持续部署</li>
+<li>自动化运维: 自动伸缩，故障迁移，配置管理，状态管理</li>
+<li>资源调度管理: 云计算IaaS的计算、存储、网络等资源调度、隔离、管理</li>
+<li>整体架构监控: 三层系统(应用层、中间件层、基础层)的监控</li>
+<li>流量控制: 流量控制，负载均衡，服务路由，熔断，降级，限流，灰度发布功能</li>
+</ul>
+</li>
+<li>优势
+<ul>
+<li>可用性：冗余无单点</li>
+<li>模块化: 提高模块重用度，系统扩展性提高</li>
+<li>开发发布速度提高：模块拆分可以并行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>高并发
+<ul>
+<li>技术
+<ul>
+<li>负载均衡: 随机，轮询，加权轮询，一致性哈希，最小连接，自适应</li>
+<li>分布式微服务</li>
+<li>缓存机制</li>
+<li>分布式关系型数据库: 垂直分表，水平分表，框架(Proxy模式，Client模式)</li>
+<li>分布式消息队列</li>
+<li>CDN: 镜像+缓存+整体负载均衡</li>
+<li>其它：分布式文件系统，大数据，NoSQL，NewSQL，分布式锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./para" class="internal">para</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>

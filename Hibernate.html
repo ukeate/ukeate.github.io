@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>Hibernate</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="Hibernate"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Hibernate"/><meta name="twitter:description" content="基础 优点 完全面向对象编程思想，无sql 减少代码 控制数据库访问，降低访问数据库的频率（第一次访问后，数据存储在内存的缓存中），提升效率 hibernate具有独立性（访问层随时可以更换） 特性 不写hbm.xml映射文件，而是基于注解的验证 对象、集合、属性的延迟加载 dao层之外使用延迟对象时，由于连接已关闭, 会报Nosession异常 目录 ."/><meta property="og:description" content="基础 优点 完全面向对象编程思想，无sql 减少代码 控制数据库访问，降低访问数据库的频率（第一次访问后，数据存储在内存的缓存中），提升效率 hibernate具有独立性（访问层随时可以更换） 特性 不写hbm.xml映射文件，而是基于注解的验证 对象、集合、属性的延迟加载 dao层之外使用延迟对象时，由于连接已关闭, 会报Nosession异常 目录 ."/><meta property="og:image:alt" content="基础 优点 完全面向对象编程思想，无sql 减少代码 控制数据库访问，降低访问数据库的频率（第一次访问后，数据存储在内存的缓存中），提升效率 hibernate具有独立性（访问层随时可以更换） 特性 不写hbm.xml映射文件，而是基于注解的验证 对象、集合、属性的延迟加载 dao层之外使用延迟对象时，由于连接已关闭, 会报Nosession异常 目录 ."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/Hibernate"/><meta property="twitter:url" content="https://ukeate.me/Hibernate"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="基础 优点 完全面向对象编程思想，无sql 减少代码 控制数据库访问，降低访问数据库的频率（第一次访问后，数据存储在内存的缓存中），提升效率 hibernate具有独立性（访问层随时可以更换） 特性 不写hbm.xml映射文件，而是基于注解的验证 对象、集合、属性的延迟加载 dao层之外使用延迟对象时，由于连接已关闭, 会报Nosession异常 目录 ."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="Hibernate"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-812"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-812" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">Hibernate</h1></div></div><article class="popover-hint"><ul>
+<li></li>
+<li>基础
+<ul>
+<li>优点
+<ul>
+<li>完全面向对象编程思想，无sql</li>
+<li>减少代码</li>
+<li>控制数据库访问，降低访问数据库的频率（第一次访问后，数据存储在内存的缓存中），提升效率</li>
+<li>hibernate具有独立性（访问层随时可以更换）</li>
+</ul>
+</li>
+<li>特性
+<ul>
+<li>不写hbm.xml映射文件，而是基于注解的验证</li>
+<li>对象、集合、属性的延迟加载
+<ul>
+<li>dao层之外使用延迟对象时，由于连接已关闭, 会报Nosession异常</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>目录
+<ul>
+<li>.                                        # hibernate程序包</li>
+<li>documentation                # 文档</li>
+<li>lib                                        # 所有依赖包</li>
+<li>project                                # 源码文件</li>
+</ul>
+</li>
+<li>加载顺序
+<ul>
+<li>后面的覆盖前面的</li>
+<li>hibernate.properties中的配置被覆盖
+<ul>
+<li>因为该文件中的配置在new Configuration() 的时候就加载，而之后的xml配置文件是调用configuration.addResource()的方法加载的，新加载的配置覆盖了原来的配置   hibernate3.6之后可以基于注解对javaBean的数据进行验证（jsr303标准）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>开发流程
+<ul>
+<li>加载配置: jdbc参数，数据库方言，hbm映射</li>
+<li>创建SessionFactory    # 内有连接池</li>
+<li>创建session</li>
+<li>事务处理</li>
+<li>关闭session</li>
+<li>关闭连接池</li>
+</ul>
+</li>
+<li>对象状态
+<ul>
+<li>𣊬时态     # 没有OID(持久化标识), 没有关联session</li>
+<li>持久态     # 有OID, 与session关联, 事务未提交</li>
+<li>脱管态     # 有OID, 没有关联session</li>
+</ul>
+</li>
+<li>缓存机制
+<ul>
+<li>一级缓存(session)
+<ul>
+<li>事务级，事务结束缓存失效    # 请求同一对象，取得同一实例</li>
+<li>总是打开</li>
+</ul>
+</li>
+<li>二级缓存
+<ul>
+<li>SessionFactory级别，session共享</li>
+<li>缓存散装持久化实例, 有不同缓存策略</li>
+<li>先设置策略，再设置过期时间与cache提供器</li>
+</ul>
+</li>
+<li>优点
+<ul>
+<li>提高速度、减小压力</li>
+<li>缓存失效时，不立即查找，而是合并sql查找</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查询方式
+<ul>
+<li>HQL</li>
+<li>QBC(命名查询)</li>
+<li>SQL</li>
+</ul>
+</li>
+<li>get与load
+<ul>
+<li>get立即加载，load延时加载</li>
+<li>get先查一级缓存，再查二级缓存，再查数据库, load查一级缓存，没有时创建代理对象，需要时再查二级缓存和数据库
+<ul>
+<li>代理对象只存id</li>
+</ul>
+</li>
+<li>get没有时返回null, load抛异常</li>
+</ul>
+</li>
+<li>检索策略            # 取关联对象
+<ul>
+<li>立即检索        # 一次全加载, select多</li>
+<li>延迟检索        # 访问游离状态代理类，需要在持久化状态时已被初始化</li>
+<li>迫切左外连接检索 # 用外连接取代select，全加载</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优化
+<ul>
+<li>数据库设计调整</li>
+<li>HQL优化</li>
+<li>api正确使用</li>
+<li>配置参数          # 日志、查询缓存，fetch_size, batch_size等</li>
+<li>映射文件优化      # id生成策略，二级缓存，延迟加载，关联优化</li>
+<li>一级缓存管理, 二级缓存策略</li>
+<li>事务控制策略</li>
+</ul>
+</li>
+<li>基本概念
+<ul>
+<li>o<span>→</span> hibernate 相当于dao层，层次划分中是访问层，解决增、删、改、查、批处理五个问题</li>
+<li>o<span>→</span> hibernate实现orm(对象关系映射标准，完全面向对象编程思想)
+<ul>
+<li>DBUtils与i/mybatis 与hibernate 是同样的，同样实现的是orm标准</li>
+<li>它们的区别在于
+<ul>
+<li>hibernate中不写sql语句</li>
+<li>ibatis中写少量sql语句</li>
+<li>DBUtils中写sql语句</li>
+</ul>
+</li>
+<li>它们的另一个相同点是
+<ul>
+<li>底层全都是jdbc</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> 结构对应 javabean中的 类，对象，属性
+<ul>
+<li>数据库中的            表，记录，字段</li>
+</ul>
+</li>
+<li>o<span>→</span> hql        hibernate query language，hibernate自己的sql语言，需要使用antlr jar包中的方法内部转换成sql语言才能使用</li>
+<li>o<span>→</span> 正向工程：JavaBean生成表，反向工程：表生成JavaBean</li>
+</ul>
+</li>
+<li>使用
+<ul>
+<li>1.导入核心包(10 + 1个)
+<ul>
+<li>hibernate3.jar                                # 核心包</li>
+<li>c3p0-0.9.1.jar</li>
+<li>antlr-2.7.6.jar                                # 转换hql到sql</li>
+<li>commons-collections-3.1.jar        # apache的集合增强包</li>
+<li>dom4j-1.6.1.jar</li>
+<li>javassist-3.9.0.GA.jar                # 动态代理</li>
+<li>jta-1.1.jar                                        # java transaction api        处理事务用</li>
+<li>slf4j-api-1.5.8.jar</li>
+<li>log4j.jar</li>
+<li>slf4j-log4j12.jar                        # 三个日志</li>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+<li>mysql-connector-java-5.1.7.bin.jar</li>
+</ul>
+</li>
+<li>2.建立目录
+<ul>
+<li>hibernate.dao
+<ul>
+<li>demo.java</li>
+</ul>
+</li>
+<li>hibernate.db
+<ul>
+<li>xx.sql</li>
+</ul>
+</li>
+<li>hibernate.domain
+<ul>
+<li>xx.java</li>
+</ul>
+</li>
+<li>hibernate.util
+<ul>
+<li>HibernateUtil.java</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.创建映射文件
+<ul>
+<li>xx.java文件的同目录下，创建
+<ul>
+<li>xx.hbm.xml</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4.创建配置文件
+<ul>
+<li>src/hibernate.cfg.xml        (可变)</li>
+<li>src/hibernate.properties</li>
+</ul>
+</li>
+<li>5.写提供hibernate session的工具类
+<ul>
+<li>HibernateUtil</li>
+</ul>
+</li>
+<li>6.demo中用hibernate session创建事务进行数据库操作
+<ul>
+<li>demo.java</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>session
+<ul>
+<li>查询不需要事务，其它都需要事务</li>
+<li>流程
+<ul>
+<li>Session session = HibernateUtil.getSession();</li>
+<li>Transaction t = session.getTransaction();</li>
+<li>t.begin();</li>
+<li>session.update(hero);</li>
+<li>session.delete(hero);</li>
+<li>t.comment();</li>
+</ul>
+</li>
+<li>批量
+<ul>
+<li>t.begin();</li>
+<li>session.save(hero);</li>
+<li>t.commit();</li>
+<li>session.clear();</li>
+<li>查询</li>
+<li>Query query = session.createQuery(hql);</li>
+<li>List<hero> heroList = query.list();</hero></li>
+<li>查询2</li>
+<li>Query query = session.createQuery(hql);</li>
+<li>query.setString(0,name);                // hql中参数从0开始</li>
+<li>query.setString(1,des);</li>
+<li>Hero hero = (Hero) query.uniqueResult();        // 只有一个结果时使用</li>
+<li>修改</li>
+<li>Query query = session.createQuery(hql);</li>
+<li>int i = query.executeUpdate();</li>
+</ul>
+</li>
+<li>结尾
+<ul>
+<li>}catch(Exception e){
+<ul>
+<li>e.printStackTrace();</li>
+<li>t.rollback();</li>
+</ul>
+</li>
+<li>}finally{
+<ul>
+<li>HibernateUtil.closeSession(); // session.close();</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>session
+<ul>
+<li>元素的状态
+<ul>
+<li>oid: object id,hibernate 的id值唯一并且与表中的数据一一对应</li>
+<li>
+<h2 id="hibernate中分辨数据只看oid">hibernate中分辨数据只看oid<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#hibernate中分辨数据只看oid" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>临时（new），无oid,不在session中.生成sql语句
+<ul>
+<li>持久化（persistence object）：session.save(hero),有oid,在session中;(saveOrUpdate(hero))</li>
+<li>游离：session.evict(hero),有oid,不在session中,session.update(hero)重新持久化</li>
+<li>删除：sesssion.delete(hero),有oid,不在session中,不可恢复,提交后可修改数据库
+<ul>
+<li>隐含将po对象转成持久化状态，并生成delete语句。提交后成delete状态，执行语句</li>
+<li>临时、持久、游离都可以调用</li>
+<li>临时调用delete时会删除数据库中相应id的值 ，危险</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>函数
+<ul>
+<li>get 与 load
+<ul>
+<li>session.get(hero.class,1),从数据库得到持久状态对象
+<ul>
+<li>与数据库交互</li>
+<li>查到时返回po</li>
+<li>查不到时返回null</li>
+</ul>
+</li>
+<li>session.load(hero.class,1)
+<ul>
+<li>不与数据库交互,返回自己创建的po(只有id)</li>
+</ul>
+</li>
+<li>访问非id值的时候，与数据库交互</li>
+</ul>
+</li>
+<li>session.clear() # session中的引用变量清空</li>
+<li>session.close() # clear() + 关闭session对象，回收资源，但session非空</li>
+<li>session.isOpen()</li>
+<li>session.flush() # 对session中的更改部分生成相应的sql语句,只在session中，不访问数据库</li>
+<li>session.update()    # 只是将游离重新持久化,不产生sql语句。（执行更新语句时加上它增加可读性）
+<ul>
+<li>update()方法执行时会检验一级缓存（session）中是否有 oid相同的po</li>
+<li>,同时会连接数据库，查询一级缓存中po与数据库中记录的一一对应关系</li>
+</ul>
+</li>
+<li>session.commit()    # flush() + 提交事务</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hibernate.cfg.xml
+<ul>
+<li>必要性
+<ul>
+<li>必须配置</li>
+</ul>
+</li>
+<li>目录与文件名
+<ul>
+<li>任意，建议 src/hibernate.cfg.xml</li>
+</ul>
+</li>
+<li>源码中的案例文件：
+<ul>
+<li>\project\tutorials\web\src\main\resources\hibernate.cfg.xml</li>
+<li>\project\etc\hibernate.cfg.xml</li>
+</ul>
+</li>
+<li>约束文件位置
+<ul>
+<li>hibernate3.jar/org/hibernate/hibernate-configuration-3.0.dtd</li>
+</ul>
+</li>
+<li>数据库连接属性与方言属性的属性名和值可以查找
+<ul>
+<li>\project\etc\hibernate.properties                # 由于xml文件中配置要覆盖的是hibernate.properties文件中的属性
+<ul>
+<li>所以属性内容从hibernate.properties文件的属性中查找</li>
+</ul>
+</li>
+<li>方言类的位置是：hibernate3.jar/org.hibernate/dialect/中查找到相应的类，
+<ul>
+<li>这是最终的路径，（oracle的通用方言类的类路径 可以用这种方法找到，hibernate.properties配置文件中没有写）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>加载
+<ul>
+<li>该配置文件属于纯人为配置，需要在Configuration类的实例中调用addResource(&quot;&quot;)方法加载</li>
+<li>addResource()方法中的参数是本配置文件相对于src/目录的全限定名</li>
+</ul>
+</li>
+<li>作用
+<ul>
+<li>1.映射数据库</li>
+<li>2.配置 类-表映射 资源xml文件的路径</li>
+</ul>
+</li>
+<li>内容</li>
+<li>&lt;?xml version=“1.0” encoding=“UTF-8”?>    - &lt;!DOCTYPE hibernate-configuration PUBLIC        - ”-//Hibernate/Hibernate Configuration DTD 3.0//EN”
+<ul>
+<li>“<a href="http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd%22%3E" class="external">http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd”><svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+</li>
+<li>&lt;hibernate-configuration>        - &lt;session-factory>            - &lt;!— 配置访问数据库需要的属性 <span>⇒</span>            - &lt;property name=“connection.driver_class”>oracle.jdbc.driver.OracleDriver&lt;/property>            - &lt;property name=“connection.url”>jdbc:oracle:thin:@localhost:1521:orcl&lt;/property>            - &lt;property name=“connection.username”>scott&lt;/property>            - &lt;property name=“connection.password”>tiger&lt;/property>            - &lt;!— 配置方言 通知hibernate访问哪种数据库的语法结构<span>⇒</span>            - &lt;property name=“dialect”>org.hibernate.dialect.OracleDialect&lt;/property>            - &lt;!— 类表映射文件 <span>⇒</span>            - &lt;mapping resource=“hibernate/domain/Hero.hbm.xml”/>        - &lt;/session-factory>    - &lt;/hibernate-configuration>- hibernate.properties</li>
+<li>必要性
+<ul>
+<li>不必须配置</li>
+</ul>
+</li>
+<li>位置：
+<ul>
+<li>该文件的位置在src/目录下是不可以改变的，是hibernate加载配置的入口</li>
+</ul>
+</li>
+<li>源码中的参考文件：
+<ul>
+<li>/project/etc/hibernate.properties
+<ul>
+<li>oracle的通用驱动可以从hibernate3.jar/org.hibernate/dialect包中查找</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>作用
+<ul>
+<li>1.配置连接的数据库，更换数据库只需要更改配置文件即可</li>
+<li>2.配置数据库方言</li>
+<li>3.其它控制开关</li>
+</ul>
+</li>
+<li>方言的作用
+<ul>
+<li>更换数据库访问形式，实现通用性</li>
+</ul>
+</li>
+<li>内容
+<ul>
+<li>hibernate.dialect org.hibernate.dialect.MySQLDialect</li>
+<li>hibernate.connection.driver_class com.mysql.jdbc.Driver</li>
+<li>hibernate.connection.url jdbc:mysql:///outrun</li>
+<li>hibernate.connection.username outrun</li>
+<li>hibernate.connection.password pwd</li>
+<li>hibernate.show_sql true                # 开关：显示实际操作数据库的sql语句</li>
+</ul>
+</li>
+<li>自动创建表
+<ul>
+<li>hibernate.hbm2ddl.auto=create      # 每次都创建</li>
+<li>hibernate.hbm2ddl.auto=update      # 没有时再创建(有但是结构不同时会按照酌情增加列字段)
+<ul>
+<li>当更新或插入记录不满足条件时会出错</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>缓存
+<ul>
+<li>hibernate.cache.provider_class                # 开启二级缓存中的普通区</li>
+<li>hibernate.cache.use_query_cache                # 开启二级缓存中的查询区</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>HibernateUtil
+<ul>
+<li>目的
+<ul>
+<li>对SessionFactory返回Session的方式进行了重构，通过调用该静态工具方法</li>
+<li>实现只有一个SessionFactory实例，由它产生和销毁很多Session的工厂机制。</li>
+</ul>
+</li>
+<li>缓存
+<ul>
+<li>SessionFactory 是二级缓存</li>
+<li>Session 是一级缓存
+<ul>
+<li>查询时，先在二级缓存中查找，没有数据时查找一级缓存，最后查询数据库</li>
+<li>缓存中的数据会用镜像联系着数据库，如果数据库有更新，缓存中的数据会自动更新</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SessionFactory对象与Session对象
+<ul>
+<li>SessionFactory:只创建一次，重量级对象，线程安全，可以共享，实例变量，开始时创建</li>
+<li>Session:创建多次，轻量级对象，线程不安全，不可以共享，局部变量，临时创建</li>
+</ul>
+</li>
+<li>实现代码</li>
+<li>/**</li>
+<li>提供hibernate session</li>
+<li>并且用threadLocal跟踪实现无参删除</li>
+<li></li>
+<li>@author Administrator</li>
+<li></li>
+<li>/</li>
+<li>public final class HibernateUtil {
+<ul>
+<li>// 单例的SessionFactory工厂</li>
+<li>private static SessionFactory sessionFactory;</li>
+<li>// 单例的ThreadLocal<session>实例，但是每个调用者都有自己独有的方法？</session></li>
+<li>private static ThreadLocal<session> threadLocal;</session></li>
+<li>/**</li>
+<li>解析配置文件（properties,xml）到hibernate 的配置JavaBean,常驻内存</li>
+<li></li>
+<li>/</li>
+<li>static{
+<ul>
+<li>// 在这里加载了hibernate.properties配置文件（这里可以配置数据库），执行其它配置</li>
+<li>// 相当于jdbc中的DriverManager类（如果配置了数据库，相当于也注册了连接数据库的类文件 【Class.forName(“..Driver”)语句 ..Driver 新建实例的时候自动向DriverManager注册自己】）</li>
+<li>Configuration config = new Configuration();</li>
+<li>// 这里写xml配置文件对于src/目录的相对路径,加载映射用xml文件</li>
+<li>config.addResource(“hibernate.hbm.xml”);</li>
+<li>// 加载src/目录下的hibernate.cfg.xml配置文件</li>
+<li>config.configure();                # configure(“classpath:hibernate.cfg.xml”);
+<ul>
+<li>1.configure方法中可以加路径</li>
+<li>2.classpath:代表src/目录</li>
+</ul>
+</li>
+<li>// 导入org.hibernate.SessionFactory类而非org.hibernate.classic.SessionFactory类</li>
+<li>sessionFactory = config.buildSessionFactory();</li>
+</ul>
+</li>
+<li>}</li>
+<li>/**</li>
+<li>从单例工厂中得到被跟踪定位(每个调用者)的Session对象,没有就创建</li>
+<li></li>
+<li>@return</li>
+<li>/</li>
+<li>public static Session getSession(){
+<ul>
+<li>/* 根据不同的调用者返回跟踪的不同的Session对象,如果是第一次调用，就创建新的session，绑定到单例的ThreadLocal对象中记录，返回给调用者</li>
+<li>如果不是第一次调用 ，也能返回让其得到原来为它创建的Session对象</li>
+<li>/</li>
+<li>Session session = threadLocal.get();</li>
+<li>if(session == null){
+<ul>
+<li>session = sessionFactory.openSession();</li>
+<li>threadLocal.set(session);</li>
+</ul>
+</li>
+<li>}</li>
+<li>return session;</li>
+</ul>
+</li>
+<li>}</li>
+<li>/**</li>
+<li>删除调用者在ThreadLocal实例中的跟踪记录，并且关闭该Session实例</li>
+<li></li>
+<li>/</li>
+<li>public static void closeSession(){
+<ul>
+<li>Session session = threadLocal.get();</li>
+<li>if(session != null){
+<ul>
+<li>session.close();</li>
+<li>threadLocal.remove();</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>hql
+<ul>
+<li>hql特性
+<ul>
+<li>1.hql是hibernate专用，有专用的技术转换hql到sql,但降低效率</li>
+<li>2.hql完全面向对象,只出现类，属性，操作符和关键字,例如sum(),order by
+<ul>
+<li>而sql是面向关系的语言</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用语句
+<ul>
+<li>Query query = session.createQuery(hql);</li>
+<li>Customer c = (Customer)query.uniqueResult();        # 只返回一条结果</li>
+<li>List<customer> list = query.list();                        # 返回多条结果</customer></li>
+</ul>
+</li>
+<li>常用 api
+<ul>
+<li>session.createQuery()</li>
+<li>session.getNamedQuery()                # 从映射文件中加载<query>标签配置的与<class>标签同级的hql语句</class></query></li>
+<li>query.setString(&quot;&quot;,&quot;&quot;)</li>
+<li>Object o = query.uniqueResult();</li>
+<li>List list = query.list();</li>
+<li>分页
+<ul>
+<li>query.setFirstResult(0);        # 开始标号</li>
+<li>setMaxResults(3);              # 最多显示的条数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>query语句                习惯用别名替代类名
+<ul>
+<li>from后面出现的是类名，where中比较的是对象属性（已经在映射文件中映射到了表名与字段名）</li>
+<li>占位符
+<ul>
+<li>冒号占位符
+<ul>
+<li>“from Customer c where c.name = :cname”</li>
+<li>query.setString(“cname”,“司马懿”);</li>
+</ul>
+</li>
+<li>问号占位符
+<ul>
+<li>“from Customer c where c.name = ?”</li>
+<li>query.setString(0,“司马懿”);</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>映射文件中分离hql语句
+<ul>
+<li>&lt;query>标签与&lt;class>标签同级            - &lt;Query name=“findCustomerByAge”>        - &lt;![CDATA[            - from Customer c where c.age &lt; ?</li>
+</ul>
+</li>
+<li>]]></li>
+<li>Query query = session.getNamedQuery(“findCustomerByAge”);</li>
+<li>query.setInteger(0,60);</li>
+<li>查询
+<ul>
+<li>“from Customer where id = 1”</li>
+<li>“from Customer as c where c.name = ‘司马懿’ ”</li>
+<li>“from java.lang.Object”    # 映射中没有，写类的全称。查找 src/hibernate.cfg.xml中加载到内存中的映射的类对应的表中的所有记录</li>
+<li>“from Order o order by o.price desc”
+<ul>
+<li>投影查询
+<ul>
+<li>1.”select c.name,c.age from Customer c ”</li>
+<li>List&lt;Object[]> list = query.list();        # Object[]中存储的是查询的select 语句中的数值</li>
+<li>for(Object [] o : list){</li>
+</ul>
+</li>
+<li>System.out.println(o[0]);</li>
+<li>System.out.println(o[1]);</li>
+</ul>
+</li>
+<li>}</li>
+<li>2.”select count(o), sum(o.price),min(o.price) from Order o”                # count()中的是表类名，统计实例数，查询Order表记录对象的个数</li>
+<li>3.”select o.customer.id from Order o”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>用到过的hql
+<ul>
+<li>级联抓取
+<ul>
+<li>FROM Role r LEFT JOIN FETCH r.privilegeSet WHERE r.id = :id</li>
+</ul>
+</li>
+<li>级联抓取顶级权限表（去重复）
+<ul>
+<li>SELECT DISTINCT p FROM Privilege p LEFT JOIN FETCH p.childrenSet WHERE p.parent IS NULL</li>
+</ul>
+</li>
+<li>级联抓取角色
+<ul>
+<li>FROM Account a LEFT JOIN FETCH a.roleSet WHERE a.id = :id</li>
+</ul>
+</li>
+<li>三级级联抓取                # 对抓取的集合也可以直接抓取下一层
+<ul>
+<li>FROM Account a LEFT JOIN FETCH a.roleSet r LEFT JOIN FETCH r.privilegeSet WHERE a.login = :login AND a.pass = :pass</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>案例
+<ul>
+<li>编码
+<ul>
+<li>hibernate用用户操作系统的编码作为自己的编码</li>
+<li>mysql5.5中设置编码：根目录下my文件 default-character-set=gbk</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查询
+<ul>
+<li>hibernate的查询方式
+<ul>
+<li>1.session.get(字节码,1)</li>
+<li>2.session.load(字节码,1)</li>
+<li>3.HQL查询session.createQuery()        session.getNamedQuery()        # 后面是从配置文件中载入hql语句</li>
+<li>4.对象导航，如多表映射中
+<ul>
+<li>以对象的形式操作数据库中的表，如
+<ul>
+<li>p是person表的一个对象，c是card（身份证表）表的一个对象，p通过配置外键时定义的属性card得到自己的身份证表对象</li>
+<li>1.从表对象中：Card c = p.getCard();</li>
+<li>2.从hql语句中：select o.customer.id,o.customer.name,sum(o.price) from Order o group by o.customer.id</li>
+</ul>
+</li>
+<li>5.createSQLQuery原生sql语句查询：        # 不要用，用了以后 hibernate跨平台的特性就没有了
+<ul>
+<li>String sql = “select {a.*} from sysgroup {a} where department regexp ?”;</li>
+<li>Query query = session.createSQLQuery(sql).addEntity(“a”,SysGroup.class);
+<ul>
+<li>addEntity将表的别名与类字节码关联起来（否则返回的表字段数据是Object类型,jsp页面读取时会出错）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>连接查询的hql语法
+<ul>
+<li>只能连接有外键关系的表类，用表类中的关系类来表示第二张表，不能用笛卡尔积查询</li>
+<li>也就是说只能查一个表类</li>
+<li>注意
+<ul>
+<li>hql连接查询的语法中用where替代了sql语法中的on</li>
+<li>外连接与 sql不同，只能查询与一个表类有关系的外连接表（from语句后面不能写两个表类）</li>
+</ul>
+</li>
+<li>内连接
+<ul>
+<li>from Customer c join c.orderSet o where c.id = o.customer.id</li>
+</ul>
+</li>
+<li>外连接                # 这里与 sql不同，只能查询与一个表类有关系的外连接表
+<ul>
+<li>select c.name,count(o.orderno) from Customer c left join c.orderSet o group by c.name;</li>
+</ul>
+</li>
+<li>自连接
+<ul>
+<li>select a.name, b.name from emp a, emp b where a.mgr=b.id;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多表映射
+<ul>
+<li>主控方                # 就是只有主控方的操作成立，非主控方的改变忽略
+<ul>
+<li>inverse=“true”
+<ul>
+<li>false:主表管理，主表插入成功后，再发送n条更新语句来更新外键</li>
+</ul>
+</li>
+<li>true:从表管理，自己插入时加上：自己javabean中存放的外键关联
+<ul>
+<li>所以购物项中要关联购物车，由于购物车中已经一对多购物项，所以形成了双向关联</li>
+</ul>
+</li>
+<li>有该属性的标签
+<ul>
+<li>&lt;set>        - 缺少主控方出现的问题</li>
+<li>双向一对多中
+<ul>
+<li>1.hibernate生成的sql语句产生重复</li>
+<li>2.主键冲突                # 插入操作时，由于“一”表级联插入“多”表，“多”表也要插入自己，它们的主键是相同的，会引起主键冲突</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>级联                # 数据库只有级联删除
+<ul>
+<li>cascade=“save-update”  # 插入和更新
+<ul>
+<li>一般使用save-update，因为表一般软删除，（更新也没有，因为主键不更新，但是hibernate没有单save）</li>
+</ul>
+</li>
+<li>cascade=“delete”;  # 删除订单，级联删上层客户</li>
+<li>cascade=“none”  # 什么都不做（默认）</li>
+<li>cascade=“all”  # save-update + delete
+<ul>
+<li>有级联属性的标签
+<ul>
+<li>class标签下的
+<ul>
+<li>&lt;set>                    - &lt;one-to-one>                    - &lt;many-to-one>            - 注意</li>
+</ul>
+</li>
+<li>级联插入的子表的id内容要为空，否则会变成级联更新                # 这里和单个数据插入时设置对象的id属性不起作用【只有hibernate的主键增长策略起作用】是不同的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>单向一对多                        # 集合映射的一种
+<ul>
+<li>“一”的类中
+<ul>
+<li>private Set<order> orderSet = new LinkedHashSet<order>();</order></order></li>
+</ul>
+</li>
+<li>映射xml文件中
+<ul>
+<li>&lt;!— set标签用于映射单向一对多                 - name表示单方的关联属性
+<ul>
+<li>table表示多方对应表的名字</li>
+<li>key-column表示多方对应表的外健</li>
+<li>one-to-many-class表示单方关联属性中的每个元素的类型</li>
+</ul>
+</li>
+<li><span>→</span></li>
+<li>&lt;set name=“orderSet” table=“ORDERS” cascade=“all”>                - &lt;key column=“CUSTOMERS_ID”/>                - &lt;one-to-many class=“Order”/>            - &lt;/set>    - 单向多对一                        # 常用</li>
+</ul>
+</li>
+<li>映射xml文件中
+<ul>
+<li>&lt;!—            - many-to-one映射多方的关联属性</li>
+<li>name表示多方的关联属性名</li>
+<li>column表示多方对应表的外健(存储关联类对应表的主键)</li>
+<li>cascade 级联</li>
+<li>lazy表示“一”的类数据是否在一开始的时候就查询                # 如果lazy=“proxy”【相当于懒加载】，action类中加载“一”方数据时会出错，因为调用service类结束后线程中的session销毁,延迟加载找不到session会失败</li>
+<li>fetch表示抓取策略
+<ul>
+<li>这里产生了hibernate的n+1问题：一条查询语句查出”一”的集合，n条查询语句查出集合中每个元素的一</li>
+<li>join代表用join语句查询(一条语句),但是hibernate在多对一的时候不支持fetch=“join”</li>
+<li>默认是select，每次查询用一条select语句（多条语句）
+<ul>
+<li>解决：自己写新的查询方法查询,执行hql如：FROM Category c LEFT JOIN FETCH c.account</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>→</span></li>
+<li>&lt;many-to-one                 - name=“customer”
+<ul>
+<li>column=“CUSTOMERS_ID”</li>
+<li>cascade=“all”</li>
+</ul>
+</li>
+<li>/></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>双向一对多  # 双向映射就存在主控方的问题
+<ul>
+<li><a href="./tags/" class="tag-link internal alias" data-slug="tags/index"></a>　主表从表（外键【可以为空】）</li>
+<li>集合映射的应用</li>
+<li>1.同时配置单向一对多与单向多对一</li>
+<li>2.在”一”表中配置inverse=“true”,反转权力，“多”表为主控方</li>
+</ul>
+</li>
+<li>双向一对一      # 主表从表（从表id既是主键又是外键）
+<ul>
+<li>双方都是主控方</li>
+<li>1.两表都配置<one-to-one></one-to-one></li>
+<li>2.主表配置cascade
+<ul>
+<li>3.从表中constrained=true属性（主键是否同时为外键约束）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多对多（单向左到右，单向右到左，双向）                # 集合映射的应用
+<ul>
+<li>多对多关系中一定要有主控方，否则主键冲突问题</li>
+<li>1.创建中间表
+<ul>
+<li>中间表可以没有自己的JavaBean类文件对应，这时默认有联合主键（联合主键分别是保存的两个外键）</li>
+<li>students_id</li>
+<li>teachers_id
+<ul>
+<li>
+<h1 id="student_id-与-teachers_id为联合主键">student_id 与 teachers_id为联合主键<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#student_id-与-teachers_id为联合主键" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="sql语句是primary-keystudent_idteacher_id">sql语句是primary key(student_id,teacher_id);<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#sql语句是primary-keystudent_idteacher_id" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>创建中间表原因：
+<ul>
+<li>之所以中间表是因为两边的表中主键唯一，所以不能在一个记录中对对应另一个表的多个记录</li>
+<li>中间表相当于把多对多分成两个一对多。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2.表对象类中都有对方表的set集合</li>
+<li>3.映射xml中      # 可以用inverse,cascade
+<ul>
+<li>
+<h2 id="cascadenone时middle表中的记录也会被删除">cascade=“none”时,middle表中的记录也会被删除<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cascadenone时middle表中的记录也会被删除" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>
+<h2 id="不配置主控方的话一边更新另一边另一边也更新自己会出错">不配置主控方的话一边更新另一边，另一边也更新自己，会出错<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#不配置主控方的话一边更新另一边另一边也更新自己会出错" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+</ul>
+</li>
+<li>&lt;set table=“MIDDLES” name=“teacherSet”>            - &lt;key columnet=“STUDENTS_ID”/>             - &lt;many-to-many class=“Teacher” column=“TEACHERS_ID”/>        - 4.dao中
+<ul>
+<li>在cascade=“all”的配置下实现只删除老师与middle表中的教学关系          # 手工解除关系
+<ul>
+<li>
+<h1 id="不手工解除关系的话-表记录对象teacher-t1">不手工解除关系的话， 表记录对象：Teacher t1<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#不手工解除关系的话-表记录对象teacher-t1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>，t1删除时,级联删除middle表中数据，middle表中对应了学生的外键</li>
+<li>，由于多对一级联，会删除学生，由于该学生的主键可能会被middle表中的其它记录作为外键引用，所以不能删除，删除时会出错。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查询1号老师对应的学生,并解除关系
+<ul>
+<li>Teacher t1</li>
+<li>for(Student s: t1.getStudentSet()){
+<ul>
+<li>s.getTeacherSet().remove(t1);</li>
+</ul>
+</li>
+<li>}</li>
+<li>1号老师解除关系</li>
+<li>t1.setStudentSet(null);</li>
+<li>session.delete(t1);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="缓存">缓存<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#缓存" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>缓存
+<ul>
+<li>1.一级缓存(session)中的数据是独享的，二级缓存(sessionFactory)中的数据是共享的</li>
+<li>2.一级缓存中的数据改变时会更新二级缓存(如果二级缓存设置为read-only时，会更新出错)</li>
+<li>3.二级缓存默认不能存po(持久化对象) ，只存放连接数据库的信息和映射文件
+<ul>
+<li>
+<h1 id="这时查询数据时的顺序是-一级缓存--数据库">这时查询数据时的顺序是 一级缓存 <span>→</span> 数据库<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#这时查询数据时的顺序是-一级缓存--数据库" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>启用二级缓存                # 开启的二级缓存中可以保存po
+<ul>
+<li>
+<h2 id="二级缓存的两个空间普通缓存区getload查询缓存区query对象查询">二级缓存的两个空间：普通缓存区(get、load)、查询缓存区(query对象查询)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#二级缓存的两个空间普通缓存区getload查询缓存区query对象查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>普通缓存区</li>
+<li>hibernate.properties文件中配置
+<ul>
+<li>hibernate.cache.provider_class
+<ul>
+<li>org.hibernate.cache.HashtableCacheProvider                # 只能内存缓存</li>
+<li>org.hibernate.cache.EhCacheProvider                                # 也能磁盘缓存ehcache的jar包中ehcache-failsafe.xml配置文件中可以查到默认缓存配置
+<ul>
+<li>
+<h1 id="可以在hibernate的中文官方教程中查到缓存策略提供商的类">可以在hibernate的中文官方教程中查到缓存策略提供商的类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#可以在hibernate的中文官方教程中查到缓存策略提供商的类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+<li>
+<h2 id="hibernate32之前缓存类jar包是集成的默认是ehcache">hibernate3.2之前缓存类jar包是集成的，默认是EhCache<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#hibernate32之前缓存类jar包是集成的默认是ehcache" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>
+<h2 id="hibernate32之后缓存类jar包要自己导入">hibernate3.2之后缓存类jar包要自己导入<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#hibernate32之后缓存类jar包要自己导入" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>
+<h2 id="provider类并不是实现类而是桥接类">…Provider类并不是实现类，而是桥接类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#provider类并不是实现类而是桥接类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>cache.use_second_level_cache
+<ul>
+<li>true                                                # 开启二级缓存（默认是true,但是没有配置缓存提供商之前不开启）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hibernate.cfg.xml文件中配置使用二级缓存的类              # 可以设置<cache>的标签<class><set>
+<ul>
+<li>
+<h2 id="设置时set对应表类的也要设置标签">设置<set>时，set对应表类的也要设置<cache>标签</cache></set><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#设置时set对应表类的也要设置标签" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>&lt;class-cache usage=“read-write” class=“pojo.Goods” />            - usage属性
+<ul>
+<li>read-only：二级缓存只读(只是不能进行修改，但是从表中读取数据时一级缓存可以向二级缓存中放入数据)</li>
+<li>read-write:可读写</li>
+</ul>
+</li>
+</ul>
+</set></class></cache></li>
+<li>查询缓存区（hql语句）：默认不开启
+<ul>
+<li>
+<h1 id="因为hql命中率低要求hql语句相同才行模糊查询每次基本不同每次查找会到缓存找不到再到数据库查询完数据再存入缓存效率低">因为hql命中率低(要求hql语句相同才行，模糊查询每次基本不同),每次查找会到缓存，找不到再到数据库，查询完数据再存入缓存，效率低<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#因为hql命中率低要求hql语句相同才行模糊查询每次基本不同每次查找会到缓存找不到再到数据库查询完数据再存入缓存效率低" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+<li>
+<h2 id="不配置的话查询还会存到缓存但只提供get使用hql自己不用">不配置的话查询还会存到缓存，但只提供get使用，hql自己不用<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#不配置的话查询还会存到缓存但只提供get使用hql自己不用" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>1.首先开启普通缓存区（设置了表类可以缓存）</li>
+<li>2.在query对象中开启查询缓存区
+<ul>
+<li>query.setCacheable(true);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查询顺序：一级缓存 <span>→</span> 二级缓存 <span>→</span> 数据库</li>
+</ul>
+</li>
+<li>缓存提供商配置
+<ul>
+<li>ehcache缓存提供商
+<ul>
+<li>创建src/ehcache.xml配置文件，使用ehcache缓存时会自动加载其中的配置
+<ul>
+<li>&lt;diskStore path=“java.io.tmpdir”/>        # 设置缓存目录，java.io.tmpdir指操作系统的临时目录                - diskPersistent</li>
+<li>diskExpiryThreadIntervalSeconds                # 这两个集群中使用，上面是是否集群持久化，下面是设置持久化时间</li>
+<li>maxElementsInMemory                                        # 内存支持最大对象数目(溢出的对象会存到硬盘中)</li>
+<li>overflowToDisk                                                # 内在到最大数目时是否缓存到硬盘</li>
+<li>eternal                                                                # 缓存是否永久有效，如果为true，则timeToIdleSeconds与timeToLiveSeconds不起作用</li>
+<li>timeToLiveSeconds                                        # 内存中缓存最大存活时间，服务器启动的时间加入其中</li>
+<li>timeToIdleSeconds                                        # 缓存不被访问时最大存活时间</li>
+<li>memoryStoreEvictionPolicy                        # 内存中对象的替换算法FIFO(先进先出first in first out)
+<ul>
+<li>
+<h2 id="lru最近最未使用算法最久没有被访问的对象踢出">LRU(最近最未使用算法,最久没有被访问的对象踢出)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#lru最近最未使用算法最久没有被访问的对象踢出" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>
+<h2 id="lfu最少未被使用算法考虑了对象的访问频率踢出最近最少被访问的对象">LFU(最少未被使用算法,考虑了对象的访问频率,踢出最近最少被访问的对象)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#lfu最少未被使用算法考虑了对象的访问频率踢出最近最少被访问的对象" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>
+<h2 id="是windows自己的替换算法">是windows自己的替换算法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#是windows自己的替换算法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>清空缓存
+<ul>
+<li>一级缓存：session.clear();</li>
+<li>二级缓存：sessionFactory.close();</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="集合映射">集合映射<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#集合映射" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>作用
+<ul>
+<li>集合包含于表类中，对应其一个属性，相当于该类对应表的一个子表</li>
+<li>每种集合对应一张表，内容对应记录。</li>
+<li>把java类中经常使用的数据结构对应到表中</li>
+</ul>
+</li>
+<li>使用
+<ul>
+<li>javaBean（User）中
+<ul>
+<li>private Set<string> telSet = new LinkedHashSet<string>();</string></string></li>
+<li>private List<string> cityList = new ArrayList<string>();</string></string></li>
+<li>private Map&lt;String,String> telCityMap = new LinkedHashMap&lt;String,String>();</li>
+</ul>
+</li>
+<li>xml文件中
+<ul>
+<li>&lt;set name=“telSet” table=“TELS”>            - &lt;key column=“USERS_ID”/>        # 外键列：集合所创建的表的外键列名            - &lt;element column=“TEL” type=“string”/>      # 内容列：这里必需要有type                 - # set中也可以把<element>标签换成<one-to-many class="Order">标签来对应JaveBean作为值，这就是一对多的映射</one-to-many></element></li>
+</ul>
+</li>
+<li>&lt;list name table>            - &lt;key column/>            - &lt;list-index column=“IDX”/>      # 索引列：表中的索引号列(对应在list中的索引)            - &lt;element column type/>        - &lt;map name table>            - &lt;key>            - &lt;map-key type column>                        # map对应key的列            - &lt;element column type>        - dao中使用
+<ul>
+<li>user.getTelSet().add(“131”);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="检索策略">检索策略<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#检索策略" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>hibernate检索的两种类型
+<ul>
+<li>立刻检索:session.get,query.list        <class lazy="true">标签中类的检索策略，get方法与list都不遵循</class></li>
+<li>延迟检索:session.load      # 初始时是代理对象,使用时查询  只有load方法遵循<class lazy="true">标签中类的检索策略
+<ul>
+<li>检索方法是load时
+<ul>
+<li>lazy属性出现在<class>与<set>标签中,两个标签中lazy属性的含义是不同的，两个lazy属性都是对load方法执行时是否查询数据库进行设置。
+<ul>
+<li>
+<h1 id="标签中lazy的含义是执行load方法时是否懒于查询数据库中除了set集合之外的所有属性"><class>标签中lazy的含义是执行load方法时是否懒于查询数据库中除了set集合之外的所有属性</class><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#标签中lazy的含义是执行load方法时是否懒于查询数据库中除了set集合之外的所有属性" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+<li>
+<h2 id="标签中lazy的含义是执行load方法时是否懒于查询数据库中set集合的数据"><set>标签中lazy的含义是执行load方法时是否懒于查询数据库中set集合的数据</set><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#标签中lazy的含义是执行load方法时是否懒于查询数据库中set集合的数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>
+<h2 id="中默认lazy属性的值为true"><class>中默认lazy属性的值为true</class><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中默认lazy属性的值为true" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+<li>
+<h2 id="中默认lazy属性的值为true-1"><set>中默认lazy属性的值为true</set><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中默认lazy属性的值为true-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+</ul>
+</set></class></li>
+<li>true true 时    查类时没有查集合</li>
+<li>false true 时    查类时没有查集合</li>
+<li>false false 时    查类时查集合</li>
+<li>true false 时    查类时没有查集合</li>
+</ul>
+</li>
+</ul>
+</class></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="经验">经验<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#经验" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>删除的两种方法
+<ul>
+<li>session.delete(session.get(Category.class,id));    # 先查询再删除，效率低</li>
+<li>session.createQuery(“delete Categroy c where c.id=:id”).setInteger(“id”,id).executeUpdate();
+<ul>
+<li>
+<h1 id="执行hql语句效率高">执行hql语句，效率高<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#执行hql语句效率高" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hibernate注解
+<ul>
+<li>hibernate3.6支持注解
+<ul>
+<li>javaee5不支持，默认关闭</li>
+<li>javaee6支持，默认开启，此时不加载注解配置文件会报错，所以要关掉
+<ul>
+<li>hibernate.cfg.xml中</li>
+<li>&lt;property name=“javax.persistence.validation.mode”>none&lt;/property>    - DB Browser反射编译表的生成映射文件和类的时候，会生成项目目录下hibernate.reveng.xml的临时配置文件，可以删掉</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>映射文件class属性
+<ul>
+<li>dynamic-update=“true”                # 动态更新，只有对相同的session有效，而且性能不好
+<ul>
+<li>
+<h2 id="用字段设置中的updatefalse对象中有字段值时更新没有时不更新属性来设置动态更新">用字段设置中的update=“false”（对象中有字段值时更新，没有时不更新）属性来设置动态更新<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#用字段设置中的updatefalse对象中有字段值时更新没有时不更新属性来设置动态更新" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>映射文件set标签属性
+<ul>
+<li>Order-by=“id”                                # set中级联对象按照”id”属性进行排序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="c3p0">c3p0<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#c3p0" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>c3p0并不是hibernate默认的连接池（默认的是hibernate自带的连接池算法）
+<ul>
+<li>配置c3p0以后自动关闭Hibernate自带的连接池，而使用c3p0连接池</li>
+</ul>
+</li>
+<li>hibernate.cfg.xml文件中
+<ul>
+<li>&lt;!— 最大连接数 <span>⇒</span>         - &lt;property name=“hibernate.c3p0.max_size”>20&lt;/property>         - &lt;!— 最小连接数 <span>⇒</span>         - &lt;property name=“hibernate.c3p0.min_size”>5&lt;/property>         - &lt;!— 获得连接的超时时间,如果超过这个时间,会抛出异常，单位毫秒 <span>⇒</span>         - &lt;property name=“hibernate.c3p0.timeout”>120&lt;/property>         - &lt;!— 最大的PreparedStatement的数量 <span>⇒</span>         - &lt;property name=“hibernate.c3p0.max_statements”>100&lt;/property>         - &lt;!— 每隔120秒检查连接池里的空闲连接 ，单位是秒<span>⇒</span>         - &lt;property name=“hibernate.c3p0.idle_test_period”>120&lt;/property>         - &lt;!— 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 <span>⇒</span>         - &lt;property name=“hibernate.c3p0.acquire_increment”>2&lt;/property>         - &lt;!— 每次都验证连接是否可用 <span>⇒</span>         - &lt;property name=“hibernate.c3p0.validate”>true&lt;/property>     - hibernate.properties文件中</li>
+<li>hibernate.c3p0.min_size=5</li>
+<li>hibernate.c3p0.max_size=20</li>
+<li>hibernate.c3p0.timeout=1800</li>
+<li>hibernate.c3p0.max_statements=50</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="映射">映射<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#映射" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>hbm.xml
+<ul>
+<li>位置与名称：
+<ul>
+<li>domain.xx.java 文件同级目录 xx.hbm.xml</li>
+</ul>
+</li>
+<li>约束文件位置
+<ul>
+<li>hibernate3.jar/org/hibernate/hibernate-mapping-3.0.dtd</li>
+<li>从其中复制约束头</li>
+</ul>
+</li>
+<li>源码中的案例文件
+<ul>
+<li>\project\tutorials\中搜索 hbm.xml</li>
+</ul>
+</li>
+<li>类-表映射的特点
+<ul>
+<li>1.映射JavaBean到表字段（动态占位符），可以使用面向对象的hql语名生成sql语句</li>
+<li>2.session中保存类对象，缓存查询过的表的内容</li>
+<li>3.在映射关系的xml文件中可以设置主键的改变方式（这样以后dao类中设置的主键内容被配置文件中的设置覆盖）</li>
+</ul>
+</li>
+<li>主键
+<ul>
+<li>表中的主键
+<ul>
+<li>自然主键：有业务逻辑含义的字段（如name）（多个自然主键：联合主键）</li>
+<li>代理主键</li>
+</ul>
+</li>
+<li>hibernate中id的增加类型
+<ul>
+<li>increment  整型,不依赖数据库自增,多线程不安全</li>
+<li>uuid        缺点：占空间</li>
+<li>identity    整型，依赖数据库自增,线程安全</li>
+<li>sequence    专用于oracle数据库,要用特定名字的序列，create sequence hibernate_sequence;线程安全</li>
+<li>native(重点)    根据情况判断是identity或sequence</li>
+<li>assigned    自然主键：<id name="name" column="name">,线程不安全</id></li>
+<li>composite-id    多个自然主键,表的javaBean必须实现序列化(1.对象序列化到硬盘、数据库【其它JavaBean有id属性，hibernate自动实现序列化】2.线程间传递数据)
+<ul>
+<li>&lt;composite-id>&lt;key-property name=“firstname” column=“firstname”/>&lt;key-property name=“firstname” column=“lastname”/>        - 持久化对象的两种类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实体型：具有id属性的类，映射成一条含有id主键的完整记录</li>
+<li>值类型或组件：与上面相反(被实体型包含)，如
+<ul>
+<li>
+<h1 id="包含以后会把组件的属性添加到实体类属性的后面一起当作一张表仅此而已">包含以后会把组件的属性添加到实体类属性的后面，一起当作一张表，仅此而已<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#包含以后会把组件的属性添加到实体类属性的后面一起当作一张表仅此而已" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+</li>
+</ul>
+</li>
+<li>
+<h1 id="address">Address<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#address" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>province</li>
+<li>city</li>
+<li>area</li>
+</ul>
+</li>
+<li>映射组件型属性</li>
+<li>1.类中引用组件：private Address address</li>
+<li>2.映射 <component name="address" class="Address"><property name column></property></component></li>
+<li>3.dao中    star.setAdrress(address);</li>
+</ul>
+</li>
+<li>内容</li>
+<li>&lt;?xml version=“1.0” encoding=“UTF-8”?>        - &lt;!DOCTYPE hibernate-mapping PUBLIC             - ”-//Hibernate/Hibernate Mapping DTD 3.0//EN”
+<ul>
+<li>“<a href="http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd%22%3E" class="external">http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd”><svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+</li>
+<li>&lt;hibernate-mapping package=“hibernate.domain”>            - &lt;class name=“Hero” table=“heros” dynamic-insert=“true”>                - # 设置动态插入为true:如果是null的值，不再插入
+- <a href="./tags/" class="tag-link internal alias" data-slug="tags/index"></a> 如果不设定动态插入，会插入数据库null值，数据库中设定的默认值不会起作用
+- &lt;!— hibernate通过自己内部的类型type=&quot;&quot;,来转换java类型与sql类型之间的转换，一般不必写，自动反射 <span>⇒</span>                - &lt;!— id 是指主键，property是属性 <span>⇒</span>                - &lt;id name=“id” column=“id”>                    - &lt;!— hibernate内部的主键生成器 <span>⇒</span>                    - &lt;generator class=“increment”/>                - &lt;/id>                - &lt;property name=“name” column=“name”>&lt;/property>                - &lt;property name=“gender” column=“gender”>&lt;/property>                - &lt;property name=“age” column=“age”>&lt;/property>                - &lt;property name=“birthday” column=“birthday”>&lt;/property>                - &lt;property name=“des” column=“des”>&lt;/property>            - &lt;/class>        - &lt;/hibernate-mapping>    - javaBean</li>
+<li>实现序列化接口
+<ul>
+<li>在有名为id属性的JavaBean中，hibernate会自动实现序列化接口</li>
+<li>没有名为id属性的JavaBean中，需要我们自己实现序列化接口</li>
+</ul>
+</li>
+<li>public class Hero implements java.io.Serializable{
+<ul>
+<li>private Integer id;</li>
+<li>private String name;</li>
+<li>private String gender;</li>
+<li>private Integer age;</li>
+<li>private Date birthday;</li>
+<li>private String des;</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./Java-库" class="internal">Java 库</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>

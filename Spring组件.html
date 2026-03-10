@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>Spring组件</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="Spring组件"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Spring组件"/><meta name="twitter:description" content="监听器 原理 org.springframework.web.context.ContextLoaderListener中 this.contextLoader.initWebApplicationContext(event.getServletContext()); 加载Spring 的配置文件 ，加载Application内置对象中 initWebApplicationContext方法中 this.context = createWebApplicationContext(servletContext, parent); servletContext.setAttribute(WebA..."/><meta property="og:description" content="监听器 原理 org.springframework.web.context.ContextLoaderListener中 this.contextLoader.initWebApplicationContext(event.getServletContext()); 加载Spring 的配置文件 ，加载Application内置对象中 initWebApplicationContext方法中 this.context = createWebApplicationContext(servletContext, parent); servletContext.setAttribute(WebA..."/><meta property="og:image:alt" content="监听器 原理 org.springframework.web.context.ContextLoaderListener中 this.contextLoader.initWebApplicationContext(event.getServletContext()); 加载Spring 的配置文件 ，加载Application内置对象中 initWebApplicationContext方法中 this.context = createWebApplicationContext(servletContext, parent); servletContext.setAttribute(WebA..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/Spring组件"/><meta property="twitter:url" content="https://ukeate.me/Spring组件"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="监听器 原理 org.springframework.web.context.ContextLoaderListener中 this.contextLoader.initWebApplicationContext(event.getServletContext()); 加载Spring 的配置文件 ，加载Application内置对象中 initWebApplicationContext方法中 this.context = createWebApplicationContext(servletContext, parent); servletContext.setAttribute(WebA..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="Spring组件"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-2042"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-2042" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">Spring组件</h1></div></div><article class="popover-hint"><ul>
+<li>监听器
+<ul>
+<li>原理
+<ul>
+<li>org.springframework.web.context.ContextLoaderListener中
+<ul>
+<li>this.contextLoader.initWebApplicationContext(event.getServletContext());
+<ul>
+<li>加载Spring 的配置文件 ，加载Application内置对象中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>initWebApplicationContext方法中
+<ul>
+<li>this.context = createWebApplicationContext(servletContext, parent);</li>
+<li>servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
+<ul>
+<li>创建并存储spring的application内置对象到ServletContext中，属性名称是WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>createWebApplicationContext方法中
+<ul>
+<li>wac.setConfigLocation(sc.getInitParameter(CONFIG_LOCATION_PARAM));
+<ul>
+<li>该类文件中有：public static final String CONFIG_LOCATION_PARAM = “contextConfigLocation”;</li>
+<li>获得web.xml中配置的context-param初始化参数：contextConfigLocation的内容，并加载spring配置文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用
+<ul>
+<li>servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);</li>
+<li>ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>properties
+<ul>
+<li>spring xml配置文件中使用properties配置的属性
+<ul>
+<li>配置一个bean的class类是org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer的单例bean
+<ul>
+<li>&lt;property name=“locations” value=“classpath:public.properties” >                - &lt;array>                    - &lt;value>classpath:conn.properties&lt;/value>            - 或</li>
+<li>&lt;property name=“location” value=“classpath:conn.properties” />        - xml文件中用”${driver}“的方式引用properties中配置的属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>java类中用spring的注解注入properties配置的属性
+<ul>
+<li>要求必须是spring管理的类</li>
+<li>bean中的class类换成org.springframework.beans.factory.config.PropertiesFactoryBean</li>
+<li>id=“Xxx”其它相同</li>
+<li>java类的属性或set方法上添加注解：</li>
+<li>@Value(”#{public.basePath}#{public.filePath}”)
+<ul>
+<li>其中public 是上面配置的bean的id(xml文件中注入属性的话用不到id,所以没有配置)
+<ul>
+<li>’#{}‘代表引用属性</li>
+<li>’.’可以用’[]‘代替，如public[basePath]</li>
+<li>字符串的拼接可以用+连接</li>
+</ul>
+</li>
+<li>第一次配置@Value的时候不会成功，改一次值再试就可以了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>bean
+<ul>
+<li>创建bean的顺序
+<ul>
+<li>xml中按配置顺序的先后</li>
+<li>注解中按照字母的顺序</li>
+</ul>
+</li>
+<li>生命周期
+<ul>
+<li>配置中定义<bean></bean></li>
+<li>初始化
+<ul>
+<li>配置文件中init-method</li>
+<li>实现org.springframework.beans.factory.InitializingBean接口</li>
+</ul>
+</li>
+<li>调用</li>
+<li>销毁
+<ul>
+<li>配置文件中destroy-method</li>
+<li>实现org.springframework.bean.factory.DisposeableBean</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>scope
+<ul>
+<li>默认singleton</li>
+<li>prototype   # 每次产生新对象</li>
+<li>singleton   # 单例</li>
+<li>request     # 一个请求一个对象，只在ApplicationContext下有效</li>
+<li>session     # 一个session一个对象，只在ApplicationContext下有效</li>
+<li>global-session      # 一个全局session一个对象, 只在ApplicationContext下有效</li>
+</ul>
+</li>
+<li>内部bean
+<ul>
+<li>&lt;property>或&lt;constructor-arg>中定义的&lt;bean>,通常匿名    - 注入对象</li>
+<li>&lt;list>        - &lt;set>        - &lt;map>        - &lt;props>         # 键值都只能是string类型    - 自动装配</li>
+<li>方式
+<ul>
+<li>no      # 不自动装配，通过ref属性指定</li>
+<li>byName
+<ul>
+<li>查找类中setter</li>
+<li>容器中找id</li>
+<li>报空指针</li>
+</ul>
+</li>
+<li>byType
+<ul>
+<li>容器中找类型      # 找到多个时抛异常</li>
+</ul>
+</li>
+<li>constructor
+<ul>
+<li>byType带构造函数参数</li>
+</ul>
+</li>
+<li>autodetect
+<ul>
+<li>先试constructor, 再试byType</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>写法
+<ul>
+<li>&lt;bean>属性autowire=“byName”            - @Autowired
+<ul>
+<li>类型自动装配</li>
+<li>加上@Qualifier(value=“a”)
+<ul>
+<li>@Resource(name=“a”)注解的name装配</li>
+<li>byName装配</li>
+<li>byType装配</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>配置
+<ul>
+<li>&lt;?xml version=“1.0” encoding=“UTF-8”?>        - &lt;beans xmlns=“<a href="http://www.springframework.org/schema/beans" class="external">http://www.springframework.org/schema/beans<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”            - xmlns:xsi=“<a href="http://www.w3.org/2001/XMLSchema-instance" class="external">http://www.w3.org/2001/XMLSchema-instance<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>” xmlns:context=“<a href="http://www.springframework.org/schema/context" class="external">http://www.springframework.org/schema/context<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”
+<ul>
+<li>xsi:schemaLocation=”
+<ul>
+<li><a href="http://www.springframework.org/schema/beans" class="external">http://www.springframework.org/schema/beans<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> <a href="http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" class="external">http://www.springframework.org/schema/beans/spring-beans-2.5.xsd<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><a href="http://www.springframework.org/schema/context" class="external">http://www.springframework.org/schema/context<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> <a href="http://www.springframework.org/schema/context/spring-context-2.5.xsd%22%3E" class="external">http://www.springframework.org/schema/context/spring-context-2.5.xsd”><svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+</li>
+<li>&lt;bean                - id=“userDaoID”
+<ul>
+<li>name=&quot;&quot;</li>
+<li>class=“cn.itcast.javaee.spring.bean.life.UserDao”</li>
+<li>init-method=“getSession”</li>
+<li>destroy-method=“closeSession”</li>
+<li>factory-method=“getUserDao”</li>
+<li>scope=“singleton”</li>
+<li>lazy-init=“false”</li>
+<li>parent=“userDaoID”</li>
+<li>abstract=“true”</li>
+<li>autowire=“no”>
+<ul>
+<li>&lt;constructor-arg type=“java.lang.Integer” index ref>                        - &lt;value>2013&lt;/value>                    - &lt;constructor-arg type=“java.lang.Double”>                        - &lt;value>6000&lt;/value>                    - &lt;property name=“name” value=“aa”>&lt;/property>                    - &lt;property name=“name” ref=“dateID” />                    - &lt;property name=“telSet”>                    - &lt;set>                        - &lt;value>11&lt;/value>                    - &lt;property name=“cityList”>                    - &lt;list>                        - &lt;value>&lt;/value>                    - &lt;property name=“telCityMap”>                    - &lt;map>                        - &lt;entry key=&quot;&quot;>                            - &lt;value>&lt;/value>                    - &lt;property name=&quot;&quot;>                        - &lt;props>                            - &lt;prop key=&quot;&quot;>&lt;/prop>    - 标签、属性分析</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>bean标签：代表一个JavaBean
+<ul>
+<li>多个JavaBean配置时，先配置的先创建，先创建的后销毁</li>
+<li>id：该JavaBean的唯一标识</li>
+<li>name：可以和id一样用，但是name可以设置”/a”来绑定路径</li>
+<li>class：该JavaBean的类路径</li>
+<li>init-method：创建该JavaBean时运行的其中的方法</li>
+<li>destroy-method：销毁该JavaBean时运行的其中的方法
+<ul>
+<li>ClassPathXmlApplicationContext类的实例不监听销毁方法</li>
+<li>用AbstractApplicationContext中的close()与registerShutdownHook()方法</li>
+<li>close()直接马上销毁，registerShutdownHook()方法会注册关闭钩子,监听容器的销毁</li>
+<li></li>
+</ul>
+</li>
+<li>factory-method：创建该Bean的函数
+<ul>
+<li>得到接口实现类的方法</li>
+<li>1.通过实现类的无参构造器                # 没有factory-method属性</li>
+<li>2.没有无参构造器时，工厂静态方法创建实例
+<ul>
+<li>&lt;bean id=“userDaoID” factory-bean=“daoFactoryID” factory-method=“getUserDao”>                        - class中的内容是工厂类，而非UserDao类，factory-method是工厂类中返回UserDao类的静态方法</li>
+</ul>
+</li>
+<li>3.没有无参构造器时，工厂非静态方法创建实例
+<ul>
+<li>&lt;bean id=“daoFactoryID” class=“cn.itcast.javaee.spring.bean.create.type3.DaoFactory”>                        - &lt;bean id=“userDaoID” factory-bean=“daoFactoryID” factory-method=“getUserDao”>                            - 先实例化工厂（Spring 加载本xml文件默认实例化），然后静态方法的配置即可</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>scope：作用域
+<ul>
+<li>1.singleton（单例）是默认值，是单例的，会调用init destory方法</li>
+<li>2.prototype（原型）每次创建一个实例， 调用init方法，但不调用destory方法（实例的维护 ：javase程序交给jvm,javaee程序交给服务器）</li>
+</ul>
+</li>
+<li>lazy-init
+<ul>
+<li>1.false:为启动容器时立即创建一个实例                # singleton与prototype模式都会创建</li>
+<li>2.true:启动时不加载,获取时创建</li>
+</ul>
+</li>
+<li>parent：        继承一个Spring bean(包含其中的所有属性)
+<ul>
+<li>javaBean类中不必有实际的继承关系（但是有继承关系则必要配置parent）</li>
+</ul>
+</li>
+<li>abstract=“true”        : 配置此Bean为抽象Bean</li>
+<li>autowire=“no”:自动装配，只能装配关联属性
+<ul>
+<li>还可以进行注解装配</li>
+<li>byName      装配时根据bean中的每个属性名从spring中找id同名的bean,通过setter方法注入到该属性中</li>
+<li>byType      根据bean中的每个属性的类型找到spring中映射该类型的bean进行装配,通过setter方法注入到该属性中</li>
+<li>constructor 找满参构造器装载，构造器中的参数以byType方式注入</li>
+<li>autodetect  先找构造器装载，再set方法注入。但实际使用中只能set方法注入</li>
+<li>no          不注入</li>
+</ul>
+</li>
+<li>可以配置init-method与destroy-method属性来配置该bean创建和销毁时执行的方法</li>
+</ul>
+</li>
+<li>注入值                  # 通过setter方法注入值
+<ul>
+<li>&lt;constructor-arg type=“java.lang.Integer” index ref>                        - &lt;value>2013&lt;/value>    # 传入构造方法参数注入值，,位置不能颠倒，不调用setter方法                    - type是注入参数的类型，index是参数的标号，从0开始，ref是引用类型,有引用类型时不用<value>标签
+<ul>
+<li>&lt;property name=“name” value=“aa”/>                # 基本类型直接赋值（包括包装类型与String）                - &lt;property name=“name” ref=“dateID”/>        # 引用类型,dateID是一个Spring Bean                    - 可以直接引用Spring Bean 的id
+<ul>
+<li>&lt;set>                        - &lt;value>&lt;/value>                                                # set集合                    - &lt;list>                        - &lt;value>&lt;/value>                                                # list集合                    - &lt;map>                        - &lt;entry key=&quot;&quot;>                            - &lt;value>&lt;/value>                                        # map集合                        - 集合的值均可配置引用类型</li>
+<li>&lt;property name=&quot;&quot;>                        - &lt;props>                            - &lt;prop key=&quot;&quot;>&lt;/prop>                        # 属性类型，只能配置基本类型 （包括包装类型与String）- AOP</li>
+</ul>
+</li>
+</ul>
+</value></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实现      # 基于Aspectj</li>
+<li>原理
+<ul>
+<li>启动容器时，创建目标对象与代理对象</li>
+<li>&lt;aop:config/>加载完时,通过cglib创建目标对象的代理对象，运行时产生        - 程序员-代理对象-代理方法-目标对象-目标方法-代理对象</li>
+</ul>
+</li>
+<li>使用
+<ul>
+<li>写类文件</li>
+<li>1.jar包  aspectjweaver.jar/aspectjrt.jar/cglib-nodep-2.1_3.jar(动态代理包)</li>
+<li>2.配置xml文件头,保留aop
+<ul>
+<li>&lt;bean id class/>        # 目标对象            - &lt;bean id=“serviceBeanID” class />    # 配置增强对象            - &lt;aop:config>            # 相当于创建了代理对象                - &lt;aop:pointcut id=“xxxx” expression=&quot;&quot; />        # 切入点表达式：expression=“execution(public void addUser() throws java.lang.Exception)”                    - 可以写成execution(public void 类名.<em>()),表示匹配所有方法
+- execution(</em> <em>(..))        第一个</em>是返回值，第二个*是方法，..表示参数不限
+- 可以声明抛异常
+- 条件命名为xxxx,升级连接点到切入点
+<ul>
+<li>&lt;aop:aspect ref=“serviceBeanID”>                    - &lt;aop:before method=“writeLog” pointcut-ref=“xxxx”/>    # 前置增强，method是注入的方法，xxxx是增强的条件,只能写一个方法                    - &lt;aop:after/>                    - &lt;aop:after-returning/>      # 方法返回后执行                    - &lt;aop:after-throwing/>      # 抛出异常时执行                    - &lt;aop:around/>              # 环线，执行目标方法前、后都执行,出错则之后的函数不执行                        - public void both(ProceedingJoinPoint pjp){      # ProceedingJoinPoint是连接代理对象 与目标对象的桥梁
+- open();
+- pjp.proceed();      # 执行目标代码
+- close();
+- }
+- 目标方法出错，后置增强仍然执行,after-throwing执行，前置增强不执行,after-returning不执行
+- &lt;aop:advisor advice-ref=“txAdvice” pointcut-ref=“xxxx”/>                # 配置事务的切面    - 切入点表达式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>execution(方法的修饰符 方法的返回值类型 方法所属的类 方法名 方法中参数列表 方法抛出的异常)
+<ul>
+<li>方法的修饰符：    支持通配符*，可省略</li>
+<li>方法的返回值类型：支持通配符*，表示所有返回值，不可省</li>
+<li>方法所属的类：    支持通配符*，可省略</li>
+<li>方法名：          支持通配符*，表示所有方法，不可省</li>
+<li>方法中参数列表：  支持通配符*，不可省
+<ul>
+<li>*表示【一个】任意类型的参数</li>
+<li>..表示零个或一个或多个任何类型的参数【提倡】</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>execution(方法的返回值类型 方法名（方法中参数列表））                # 一般形式</li>
+<li>例如:</li>
+<li>execution(public void add()throws Exception)</li>
+<li>execution(public void add(..)throws Exception)</li>
+<li>execution(public void add(*)throws Exception)</li>
+<li>execution(* cn.itcast.web.spring.aop.UserDao.add(..))</li>
+<li>execution(* add()throws Exception)</li>
+<li>execution(public void *(..)throws Exception)
+<ul>
+<li>execution(public void a*(..)throws Exception)：方法名以a字符开始</li>
+</ul>
+</li>
+<li>execution(public void *d(..)throws Exception)：方法名以d字符结束</li>
+<li>execution(* add())</li>
+<li>execution(* *(..))</li>
+</ul>
+</li>
+<li>切点方法的编写
+<ul>
+<li>public void Xxx(JoinPoint joinPoint){
+<ul>
+<li>joinPoint.getTarget();                # 获取目标对象</li>
+<li>joinPoint.getSignature();        # 获取当前连接点的方法信息</li>
+<li>joinPoint.getArgs()[0];                # 获取当前连接点的第一个参数</li>
+<li>..</li>
+</ul>
+</li>
+<li>}</li>
+<li>public Goods Yxx(ProceedingJoinPoint joinPoint){
+<ul>
+<li>Object object = joinPoint.proceed();        # 得到连接点的返回值</li>
+<li>..</li>
+<li>return goods;                # 本切面返回的数据会作为切点返回的数据返回给调用它的函数</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DAO
+<ul>
+<li>使用
+<ul>
+<li>1.xml文件中</li>
+<li>&lt;!— 配置C3P0连接池 <span>⇒</span>            - &lt;bean id=“comboPooledDataSourceID” class=“com.mchange.v2.c3p0.ComboPooledDataSource”>                - &lt;property name=“driverClass” value=“com.mysql.jdbc.Driver”/>                - &lt;property name=“jdbcUrl” value=“jdbc:mysql://127.0.0.1:3306/spring”/>                - &lt;property name=“user” value=“root”/>                - &lt;property name=“password” value=“root”/>                - &lt;property name=“initialPoolSize” value=“60”/>                - &lt;property name=“acquireIncrement” value=“5”/>            - &lt;/bean>            - &lt;!— 配置JdbcTemplate <span>⇒</span>            - &lt;bean id=“jdbcTemplateID” class=“org.springframework.jdbc.core.JdbcTemplate”>                - &lt;property name=“dataSource” ref=“comboPooledDataSourceID”/>            - &lt;/bean>            - &lt;!— 配置UserDao <span>⇒</span>            - &lt;bean id=“userDaoID” class=“dao.UserDao”>                - &lt;property name=“jt” ref=“jdbcTemplateID”/>            - &lt;/bean>        - 2.Dao中
+<ul>
+<li>private JdbcTemplate jt;</li>
+<li>addUser()
+<ul>
+<li>String sql = &quot;&quot;;</li>
+<li>Object [] params = {user.getUsername(),user.getPassword()}</li>
+<li>jt.update(sql,params);</li>
+<li>批量：</li>
+<li>for(int i = 0; i &lt; ids.length; i++){
+<ul>
+<li>sqls[i] = &quot;&quot;;</li>
+</ul>
+</li>
+<li>}</li>
+<li>jt.batchUpdate(sqls);</li>
+<li>查询一个</li>
+</ul>
+</li>
+<li>return (User)jt.queryForObject(sql,params,new RowMapper(){
+<ul>
+<li>public Object mapRow(ResultSet rs,int rowNum){          # rs是查询出来的结果集,rowNum是结果集的行号,从0开始
+<ul>
+<li>Integer id = rs.getInt(“id”);</li>
+<li>User user = new User(id);</li>
+<li>return user;</li>
+</ul>
+</li>
+<li>}</li>
+<li>});</li>
+<li>查询多个                # query方法把RowMapper帮助类中返回的user分别加入到list中，返回一个list</li>
+<li>list = jt.query(sql,new RowMapper(){
+<ul>
+<li>public Object mapRow()
+<ul>
+<li>..</li>
+<li>return bean;</li>
+</ul>
+</li>
+<li>})</li>
+</ul>
+</li>
+<li>分页
+<ul>
+<li>String sql = “select * from users limit ?,?”;</li>
+<li>Object[] params = {0,3};</li>
+</ul>
+</li>
+<li>jt.query(sql,params,new RowMapper(){</li>
+<li>记录</li>
+<li>jt.queryForInt(sql);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事务
+<ul>
+<li>TransactionInterceptor
+<ul>
+<li>transactionManager          # 指定事务治理类</li>
+<li>transactionAttributes       # key方法名 value事务属性</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@Transactional(propagation = Propagation.REQUIRED)</li>
+</ul>
+</li>
+<li>手写      # TransactionDefinition
+<ul>
+<li>Public class BankServiceImpl implements BancService{
+<ul>
+<li>Private BanckDao bankDao;</li>
+<li>private TransactionDefinition txDefinition;</li>
+<li>private PlatformTransactionManager txManager;</li>
+<li>public boolean transfer(Long fromId, Long toId, double amount) {
+<ul>
+<li>TransactionStatus txStatus = txManager.getTransaction(txDefinition);</li>
+<li>boolean result = false;</li>
+<li>try {
+<ul>
+<li>result = bankDao.transfer(fromId, toId, amount);</li>
+<li>txManager.commit(txStatus);</li>
+</ul>
+</li>
+<li>} catch (Exception e) {
+<ul>
+<li>result = false;</li>
+<li>txManager.rollback(txStatus);</li>
+<li>System.out.println(“Transfer Error!”);</li>
+</ul>
+</li>
+<li>}</li>
+<li>return result;</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>手写      # TransactionTemplate
+<ul>
+<li>public class BankServiceImpl implements BankService {
+<ul>
+<li>private BankDao bankDao;</li>
+<li>private TransactionTemplate transactionTemplate;</li>
+<li>public boolean transfer(final Long fromId, final Long toId, final double amount) {
+<ul>
+<li>return (Boolean) transactionTemplate.execute(new TransactionCallback(){</li>
+<li>public Object doInTransaction(TransactionStatus status) {
+<ul>
+<li>Object result;</li>
+<li>try {
+<ul>
+<li>result = bankDao.transfer(fromId, toId, amount);</li>
+</ul>
+</li>
+<li>} catch (Exception e) {
+<ul>
+<li>status.setRollbackOnly();</li>
+<li>result = false;</li>
+<li>System.out.println(“Transfer Error!”);</li>
+</ul>
+</li>
+<li>}</li>
+<li>return result;</li>
+</ul>
+</li>
+<li>}</li>
+<li>});</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>配置      # TransactionInterceptor
+<ul>
+<li>&lt;bean id=“transactionInterceptor” class=“org.springframework.transaction.interceptor.TransactionInterceptor”>            - &lt;property name=“transactionManager” ref=“transactionManager”/>            - &lt;property name=“transactionAttributes”>                - &lt;props>                    - &lt;prop key=“transfer”>PROPAGATION_REQUIRED&lt;/prop>                - &lt;/props>            - &lt;/property>        - &lt;/bean>        - &lt;bean id=“bankServiceTarget” class=“footmark.spring.core.tx.declare.origin.BankServiceImpl”>            - &lt;property name=“bankDao” ref=“bankDao”/>        - &lt;/bean>        - &lt;bean id=“bankService” class=“org.springframework.aop.framework.ProxyFactoryBean”>            - &lt;property name=“target” ref=“bankServiceTarget”/>            - &lt;property name=“interceptorNames”>                - &lt;list>                    - &lt;idref bean=“transactionInterceptor”/>                - &lt;/list>            - &lt;/property>        - &lt;/bean>    - 配置      # TransactionProxyFactoryBean</li>
+<li>&lt;bean id=“bankServiceTarget” class=“footmark.spring.core.tx.declare.classic.BankServiceImpl”>            - &lt;property name=“bankDao” ref=“bankDao”/>        - &lt;/bean>        - &lt;bean id=“bankService” class=“org.springframework.transaction.interceptor.TransactionProxyFactoryBean”>            - &lt;property name=“target” ref=“bankServiceTarget”/>            - &lt;property name=“transactionManager” ref=“transactionManager”/>            - &lt;property name=“transactionAttributes”>                - &lt;props>                    - &lt;prop key=“transfer”>PROPAGATION_REQUIRED&lt;/prop>                - &lt;/props>            - &lt;/property>        - &lt;/bean>    - 配置      # tx空间</li>
+<li>&lt;?xml version=“1.0” encoding=“UTF-8”?>        - &lt;beans xmlns=“<a href="http://www.springframework.org/schema/beans" class="external">http://www.springframework.org/schema/beans<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”            - xmlns:xsi=“<a href="http://www.w3.org/2001/XMLSchema-instance" class="external">http://www.w3.org/2001/XMLSchema-instance<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”
+<ul>
+<li>xmlns:aop=“<a href="http://www.springframework.org/schema/aop" class="external">http://www.springframework.org/schema/aop<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”</li>
+<li>xmlns:context=“<a href="http://www.springframework.org/schema/context" class="external">http://www.springframework.org/schema/context<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”</li>
+<li>xmlns:tx=“<a href="http://www.springframework.org/schema/tx" class="external">http://www.springframework.org/schema/tx<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”</li>
+<li>xsi:schemaLocation=”
+<ul>
+<li><a href="http://www.springframework.org/schema/aop" class="external">http://www.springframework.org/schema/aop<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> <a href="http://www.springframework.org/schema/aop/spring-aop-2.5.xsd" class="external">http://www.springframework.org/schema/aop/spring-aop-2.5.xsd<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><a href="http://www.springframework.org/schema/beans" class="external">http://www.springframework.org/schema/beans<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> <a href="http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" class="external">http://www.springframework.org/schema/beans/spring-beans-2.5.xsd<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><a href="http://www.springframework.org/schema/context" class="external">http://www.springframework.org/schema/context<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> <a href="http://www.springframework.org/schema/context/spring-context-2.5.xsd" class="external">http://www.springframework.org/schema/context/spring-context-2.5.xsd<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><a href="http://www.springframework.org/schema/tx" class="external">http://www.springframework.org/schema/tx<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> <a href="http://www.springframework.org/schema/tx/spring-tx-2.5.xsd%22%3E" class="external">http://www.springframework.org/schema/tx/spring-tx-2.5.xsd”><svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&lt;!—配置c3p0连接池<span>⇒</span>        - &lt;!— 配置JdbcTemplate类 <span>⇒</span>        - &lt;!— 配置Dao <span>⇒</span>        - &lt;!— 配置jdbc事务管理器 <span>⇒</span>        - &lt;bean id=“dataSourceTransactionManagerID” class=“org.springframework.jdbc.datasource.DataSourceTransactionManager”>            - &lt;property name=“dataSource” ref=“comboPooledDataSourceID”/>        - &lt;/bean>        - &lt;!— 配置事务增强(服务对象) <span>⇒</span>        - &lt;tx:advice id=“txAdvice” transaction-manager=“dataSourceTransactionManagerID”>        - &lt;tx:attribute>            - &lt;tx:method name=“addUsers”                      # 可以用通配符”*users”                - propagation=“required”                  # 传播行为：事务开始、结束的时间。required 保证方法执行时事务已开始，事务开始时不创建，没有开始时创建
+- isolation=“default”                     # 隔离级别
+- timeout=“-1”                            # 事务超时,-1代表不超时，用数据库底层的配置
+- rollback-for:“java.lang.Exception”      # 何时回滚
+- read-only=“false”                       # 不只读
+- name 方法名的匹配模式
+- required : 外部存在事务，则加入外部事务，不存在则新建事务
+- requires_new : 总是新建事务
+- mandatory : 外部必须存在事务
+- never : 外部不能存在事务
+- supports : 外部存在则加入，不存在则不以事务方式运行
+- not_supported : 总是非事务
+- nested : 外部存在事务，嵌套执行，不存在则新建
+- no-rollback-for 以逗号分隔异常，这些异常不会导致事务回滚
+- rollback-for 导致事务回滚的异常
+<ul>
+<li>/></li>
+</ul>
+</li>
+<li>&lt;tx:attribute>        - &lt;!— 配置AOP <span>⇒</span>        - &lt;aop:config>            - &lt;aop:pointcut id=“xxxx” expression=“execution(public void *Users(..))”/>            - <a href="./tags/" class="tag-link internal alias" data-slug="tags/index"></a>
+<ul>
+<li>任意公共方法的执行：</li>
+<li>execution(public * *(..))</li>
+<li>任何一个以“set”开始的方法的执行：</li>
+<li>execution(* set*(..))</li>
+<li>AccountService 接口的任意方法的执行：</li>
+<li>execution(* com.xyz.service.AccountService.*(..))</li>
+<li>定义在service包里的任意方法的执行：</li>
+<li>execution(* com.xyz.service.<em>.</em>(..))</li>
+<li>定义在service包和所有子包里的任意类的任意方法的执行：</li>
+<li>execution(* com.xyz.service..<em>.</em>(..))</li>
+<li>定义在pointcutexp包和所有子包里的JoinPointObjP2类的任意方法的执行：</li>
+<li>execution(* com.test.spring.aop.pointcutexp..JoinPointObjP2.*(..))”)</li>
+<li>&lt;!— 将事务代码切入点addUser()方法中，从而产生事务 <span>⇒</span>            - &lt;aop:advisor advice-ref=“txAdvice” pointcut-ref=“xxxx”/>        - &lt;/aop:config>- spring mybatis</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基础
+<ul>
+<li>与$
+<ul>
+<li><a href="./tags/相当于解析成引号" class="tag-link internal alias" data-slug="tags/相当于解析成引号">相当于解析成引号</a>, 防止sql注入</li>
+<li>$变量引用, 不能防止sql注入，用于传入表名之类</li>
+</ul>
+</li>
+<li>特点
+<ul>
+<li>sql易维护，传参方便</li>
+<li>orm</li>
+</ul>
+</li>
+<li>Mapper接口
+<ul>
+<li>方法名与配置id相同</li>
+<li>输入输出参数类型对应定义的parameterType类型和resultType类型</li>
+<li>类路径是配置的namespace</li>
+</ul>
+</li>
+<li>缓存
+<ul>
+<li>基于PerpetualCache的HashMap</li>
+<li>一级缓存
+<ul>
+<li>存在本地</li>
+<li>作用域为session, session flush后清空</li>
+</ul>
+</li>
+<li>二级缓存
+<ul>
+<li>可定义存储服务</li>
+<li>作用域为namespace</li>
+<li>配置
+<ul>
+<li>&lt;cache/>                        - readOnly=“true” 时，缓存实例单例，false时返回缓存拷贝</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>更新
+<ul>
+<li>create, update, delete后，作用域下所有select缓存clear</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>与hibernate区别
+<ul>
+<li>都通过SessionFactoryBuilder从配置生成SessionFactory, 再生成Session</li>
+<li>都支持jdbc和jta</li>
+<li>mybatis可细致优化sql, hibernate移植性好</li>
+<li>mybatis学习成本低</li>
+<li>mybatis本身缓存不好，hibernate对象维护和缓存好</li>
+<li>hibernate dao层封开发简单(不用维护映射)，crud方便</li>
+</ul>
+</li>
+<li>使用
+<ul>
+<li>编程
+<ul>
+<li>创建SqlSessionFactory</li>
+<li>创建SqlSession</li>
+<li>执行数据库操作</li>
+<li>session.commit()</li>
+<li>session.close()</li>
+</ul>
+</li>
+<li>导入ibatis jar包</li>
+<li>配置文件
+<ul>
+<li>SqlMap.properties        # 属性名可以修改
+<ul>
+<li>driver=oracle.jdbc.driver.OracleDriver</li>
+<li>url=jdbc:oracle:thin:@127.0.0.1:1521:orcl</li>
+<li>username=root</li>
+<li>password=root</li>
+</ul>
+</li>
+<li>SqlMapConfig.xml                # 总配置文件
+<ul>
+<li>&lt;sqlMapConfig>                    - &lt;properties recource=“SqlMap.properties”/>                    - &lt;transactionManager type=“JDBC”>                        - &lt;dataSource type=“SIMPLE”>                            - &lt;property value=”${driver}” name=“JDBC.Driver”/>                            - &lt;property value=”${url}” name=“JDBC.ConnectionURL”/>                            - &lt;property value=”${username}” name=“JDBC.Username”/>                            - &lt;property value=”${password}” name=“JDBC.Password”/>                        - &lt;/dataSource>                        - &lt;sqlMap resource=“Student.xml”/>                    - &lt;/transactionManager>                - &lt;/sqlMapConfig>            - Student.xml                                # 映射xml文件</li>
+<li>&lt;sqlMap>                    - &lt;typeAlias alias=“Student” type=“com.Student”/>                        - &lt;select id=“selectAllStudent” resultClass=“Student”>                            - select * from Student
+- &lt;/select>                    - &lt;/typeAlias>                - &lt;/sqlMap>            - 辅助类Student.java                 # 要求有无参构造方法</li>
+<li>private sid = 0;</li>
+<li>private String name = null;</li>
+<li>private String major = null;</li>
+<li>private Date birth = null;</li>
+<li>private float score = 0;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Xxx.java
+<ul>
+<li>private static SqlMapClient sqlMapClient = null;</li>
+<li>static{
+<ul>
+<li>Reader reader = Resources.getResourceAsReader(总配置文件);</li>
+<li>sqlMapClient = SqlMapClientBuilder.buildSqlMapClient(reader);</li>
+<li>reader.close();</li>
+</ul>
+</li>
+<li>}</li>
+<li>public List<student> queryAllStudent(){
+<ul>
+<li>List<student> studentList = sqlMapClient.queryForList(“selectAllStudent”);</student></li>
+<li>return studentList;</li>
+</ul>
+</student></li>
+<li>}</li>
+<li>@Test</li>
+<li>public void testHere(){
+<ul>
+<li>for(Student student: this.queryAllStudent()){
+<ul>
+<li>System.out.println(student.getName);</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>配置
+<ul>
+<li>sqlMapConfig.xml
+<ul>
+<li>mybatis加载属性顺序
+<ul>
+<li>properties中property中的属性</li>
+<li>properties中resource或url中的属性</li>
+<li>parameterType中传递一属性
+<ul>
+<li>properties中配的属性会影响到mapper.xml中${}的sql拼接，因为都是ognl</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>配置标签
+<ul>
+<li>properties</li>
+<li>settings
+<ul>
+<li>ibatis有性能优化的参数，mybatis会自动调优，不用设置了</li>
+</ul>
+</li>
+<li>typeAliases
+<ul>
+<li>针对parameterType和resultType指定的类型定义别名</li>
+<li>java.lang.Integer在mybatis中默认别名为int</li>
+</ul>
+</li>
+<li>typeHandlers
+<ul>
+<li>类型处理器，jdbc类型和java类型的转换</li>
+<li>一般mybatis提供的类型处理器够用了</li>
+</ul>
+</li>
+<li>objectFactory</li>
+<li>plugins</li>
+<li>environments</li>
+<li>mappers</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>mapper.xml
+<ul>
+<li>内容
+<ul>
+<li>#{}接收简单类型, pojo的ognl属性注入</li>
+<li>${}是字符串的拼接</li>
+</ul>
+</li>
+<li>SELECT * FROM USER WHERE id=#{id}</li>
+<li>SELECT * FROM USER WHERE username LIKE ’%${value}%’
+<ul>
+<li>sql 注入</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输入输出映射
+<ul>
+<li>parameterType
+<ul>
+<li>java类型</li>
+<li>hashmap
+<ul>
+<li>#{key}来取value</li>
+</ul>
+</li>
+<li>pojo</li>
+<li>包装类型</li>
+</ul>
+</li>
+<li>resultType
+<ul>
+<li>指定一条数据的类型，在java方法的返回类型中list或pojo来体现数据条数</li>
+<li>mybatis判断mapper代理中使用selectOne或者selectType</li>
+<li>pojo
+<ul>
+<li>返回字段可以是别名，但要与pojo中的属性名相同</li>
+<li>如果有记录返回但没有pojo中匹配的属性名对应，则直接不创建该对象</li>
+</ul>
+</li>
+<li>java类型
+<ul>
+<li>在返回结果只有一行一列时，可以是简单类型</li>
+</ul>
+</li>
+<li>hashmap
+<ul>
+<li>key是字段的字，value是字段的值</li>
+<li>多条数据时，list里面存hashmap</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>resultMap
+<ul>
+<li>查询出来的字段名与pojo属性名不一致</li>
+<li>定义resultMap</li>
+<li>使用resultMap</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>动态sql
+<ul>
+<li>&lt;where>            - &lt;if>            - sql片段<sql></sql></li>
+<li>&lt;foreach>        - 高级映射</li>
+</ul>
+</li>
+<li>缓存</li>
+<li>逆向
+<ul>
+<li>要求
+<ul>
+<li>
+<ol>
+<li>mapper.xml中namespace 写mapper接口</li>
+</ol>
+<ul>
+<li>&lt;mapper namespace=“com.otr.tea.mapper.UserMapper”>                - 2. mapper.java中方法名与mapper.xml的statementid一致</li>
+</ul>
+</li>
+<li>
+<ol start="3">
+<li>mapper.java中方法的输入类型与mapper.xml中的parameterType一致</li>
+</ol>
+<ul>
+<li>由于传入的参数只有一个，所以用包装类型的pojo来传多个参数，不利于业务层的可扩展性</li>
+</ul>
+</li>
+<li>
+<ol start="4">
+<li>mapper.java中方法的返回类型与mapper.xml中的resultType一致</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>机制
+<ul>
+<li>如果Mapper中返回类型为pojo, 则调用selectOne, 如果是List, 则调用selectList</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>api
+<ul>
+<li>sqlSessionFactory</li>
+<li>sqlSession                        # 是线程不安全的，因为它的类中有数据和属性
+<ul>
+<li>＃ 是多例的，在方法中局部变量使用</li>
+<li>Executor                # 执行器操作数据库（基本执行器，缓存执行器）</li>
+</ul>
+</li>
+<li>mapped statement                # 封装sql语句、输入参数、输出结果类型</li>
+<li>例子
+<ul>
+<li>InputStream is = Resources.getResourceAsStream(“SqlMapConfig.xml”);
+<ul>
+<li>Resources是mybatis提供的资源加载类</li>
+</ul>
+</li>
+<li>SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);</li>
+<li>SqlSession sqlSession = factory.openSession();</li>
+<li>User user = sqlSession.selectOne(“test.findUserById”, 1);
+<ul>
+<li>＃ selectList()</li>
+<li>insert(“test.insertUser”, user)
+<ul>
+<li>sqlSession.commit();</li>
+<li>user.getId() 会主键返回
+<ul>
+<li>mysql中LAST_INSERT_ID()在insert语句后接着执行可以得到刚刚自成的id</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>sqlSession.close();</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>案例
+<ul>
+<li>返回id
+<ul>
+<li>mysql
+<ul>
+<li>&lt;insert id=“insert” parameterType=“com.test.User” keyProperty=“userId” useGeneratedKeys=“true” >            - oracle</li>
+<li>&lt;insert id=“insert” parameterType=“com.test.User”>                    - &lt;selectKey resultType=“INTEGER” order=“BEFORE” keyProperty=“userId”>                        - SELECT SEQ_USER.NEXTVAL as userId from DUAL
+<ul>
+<li>&lt;/selectKey>                    - insert into user (user_id, user_name, modified, state)</li>
+<li>values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},</li>
+<li>#{modified,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER})</li>
+</ul>
+</li>
+<li>&lt;/insert>- spring struts2</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原理
+<ul>
+<li>tomcat启动日志：没有整合时不能加载struts-plugin.xml（spring-struts-plugin.jar包中的配置文件 ）</li>
+<li>struts中struts-default中常量配置加载com.opensymphony.xword2.ObjectFactory类作为默认struts创建action的类</li>
+<li>加载后struts-plugin.xml 中 修改了常量为struts-spring-plugin中的类来创建struts的类，也就是整个struts2创建action类的类被更改了</li>
+</ul>
+</li>
+<li>整合
+<ul>
+<li>jar包 struts2/lib/struts2-spring-plugin-2.3.1.1.jar                        # 为了在struts的xml配置文件中的class找spring 的容器</li>
+<li>配置web.xml   # \samples\petclinic\war\WEB-INF\web.xml目录下有示例
+<ul>
+<li>&lt;listener>          # 监听器，web程序启动时加载spring bean            - &lt;listener-class>org.springframework.web.context.ContextLoaderListener            - &lt;context-param>     # （可选）配置spring 配置文件的路径，                - 从示例文件中查到，默认文件目录是/WEB-INF/applicationContext.xml(我们示例文件也是从源码/simple项目下的这个开头的文件中找的)
+<ul>
+<li>&lt;param-name>contextConfigLocation                - &lt;param-value>/WEB-INF/classes/struts2/xxx.xml        - UserAction 中    # 不用值栈是因为通用性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>spring.xml        # action类由spring 产生
+<ul>
+<li>&lt;bean id=“userActionID” class=&quot;&quot; scope=“prototype”/>        - struts2的配置文件中，替换class属性为spring beanid，其它一样</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总结
+<ul>
+<li>spring的web配置是由下向上，一个个依赖注入的过程
+<ul>
+<li>comboPooledDataSourceID <span>→</span></li>
+<li>localSessionFactoryBeanID <span>→</span></li>
+<li>hibernateTemplateID <span>→</span></li>
+<li>SysStaffDaoID <span>→</span></li>
+<li>SysStaffServiceID <span>→</span></li>
+<li>SysStaffActionID <span>→</span></li>
+<li>struts.xml配置中的<action class="SysStaffActionID"></action></li>
+</ul>
+</li>
+<li>最后给Dao中的方法加入事务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>spring mvc
+<ul>
+<li>原理
+<ul>
+<li>DispatchServlet doService()捕获请求, doDispatch()用HandlerMapping映射url得到HandlerExcutionChain(执行链, 包括拦截器和handler)</li>
+<li>handler getHandlerAdapter得到适配器来处理handler, 返回ModelAndView
+<ul>
+<li>HandlerAdapter分三类: Servlet、Controller, HttpRequest</li>
+</ul>
+</li>
+<li>DispatchServlet用ViewResolver(视图解析器)解析ModelAndView成View
+<ul>
+<li>ModelAndView是逻辑视图，DispatchServlet转化成视图View</li>
+</ul>
+</li>
+<li>返回View</li>
+</ul>
+</li>
+<li>与struts2区别
+<ul>
+<li>spring mvc方法对应请求, struts2是类</li>
+<li>spring mvc请求是方法调用，struts2创建Action实例</li>
+<li>spring mvc用aop处理请求，struts2用独有的拦截器(interceptor)</li>
+<li>spring mvc入口是servlet, struts2入口是filter</li>
+<li>spring mvc集成ajax(@ResponseBody), struts2需要插件</li>
+<li>spring mvc验证支持JSR303, struts2不支持</li>
+<li>spring mvc与spring无缝</li>
+<li>spring mvc不需要配置</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@RequestMapping             # url映射</li>
+<li>@RequestBody                # 转换参数到对象</li>
+<li>@ResponseBody               # 返回对象转json</li>
+<li>开启注解处理器
+<ul>
+<li>springmvc.xml
+<ul>
+<li>&lt;mvc:annotation-driven>    - 乱码问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>post
+<ul>
+<li>web.xml中配置CharacterEncodingFilter</li>
+</ul>
+</li>
+<li>get
+<ul>
+<li>tomcat配置文件修改项目编码</li>
+<li>new String(Request.getParameter(“a”).getBytes(“ISO8859-1”), “utf-8”)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>quartz
+<ul>
+<li>执行：ApplicationContext类加载后自动执行</li>
+<li>导包：quartz-all.jar包 与  commons-collections.jar包 与 commons-logging.jar</li>
+<li>xml配置：
+<ul>
+<li>&lt;!— 任务类 ,其中有个叫execute的方法<span>⇒</span>        - &lt;bean id=“myTaskID” class=“jee.quartz.MyTask”/>        - &lt;!— spring提供专用于定时任务类 <span>⇒</span>        - &lt;bean id=“methodInvokingJobDetailFactoryBeanID” class=“org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean”>            - &lt;!— 要定时执行的实例的spring bean id <span>⇒</span>            - &lt;property name=“targetObject”>                - &lt;ref bean=“myTaskID”/>            - &lt;/property>            - &lt;!— spring bean中定时执行的方法 <span>⇒</span>            - &lt;property name=“targetMethod”>                - &lt;value>execute&lt;/value>            - &lt;/property>        - &lt;/bean>        - &lt;!— spring提供专用于任务频率类，给上面的任务指定频率 <span>⇒</span>        - &lt;bean id=“cronTriggerBeanID” class=“org.springframework.scheduling.quartz.CronTriggerBean”>            - &lt;property name=“jobDetail”>                - &lt;ref bean=“methodInvokingJobDetailFactoryBeanID”/>            - &lt;/property>            - &lt;property name=“cronExpression”>                - &lt;value>0 0/1 * * * ?&lt;/value>            - &lt;/property>        - &lt;/bean>        - &lt;!— spring提供的专用于任务频率工厂类 <span>⇒</span>        - &lt;bean id=“schedulerFactoryBeanID” class=“org.springframework.scheduling.quartz.SchedulerFactoryBean”>            - &lt;property name=“triggers”>                - &lt;ref bean=“cronTriggerBeanID”/>            - &lt;/property>        - &lt;/bean>    - 任务频率cronTriggerBean的配置：</li>
+<li>cron解析器:
+<ul>
+<li>反斜线（/）字符表示增量值。例如，在秒字段中“5/15”代表从第 5 秒开始，每 15 秒一次。</li>
+<li>问号（?）字符和字母 L 字符只有在月内日期和周内日期字段中可用。问号表示这个字段不包含</li>
+<li>具体值。</li>
+<li>所以，如果指定月内日期，可以在周内日期字段中插入“?”，表示周内日期值无关紧要。字母</li>
+<li>L 字符是 last 的缩写。放在月内日期字段中，表示安排在当月最后一天执行。在周内日期字</li>
+<li>段中，如果“L”单独存在，就等于“7”，否则代表当月内周内日期的最后一个实例。所以“0L”</li>
+<li>表示安排在当月的最后一个星期日执行。</li>
+<li>在月内日期字段中的字母（W）字符把执行安排在最靠近指定值的工作日。把“1W”放在月内</li>
+<li>日期字段中，表示把执行安排在当月的第一个工作日内。</li>
+<li>井号（#）字符为给定月份指定具体的工作日实例。把“MON2”放在周内日期字段中，表示把任</li>
+<li>务安排在当月的第二个星期一。</li>
+<li>星号（*）字符是通配字符，表示该字段可以接受任何可能的值。</li>
+</ul>
+</li>
+<li>顺序：秒 分 时 日 月 周 年（年可以忽略）</li>
+<li>例子
+<ul>
+<li>0 0 10,14,16 * * ?                  每天上午10点，下午2点，4点</li>
+<li>0 0/30 9-17 * * ?            朝九晚五工作时间内每半小时</li>
+<li>0 0 12 ? * WED                          表示每个星期三中午12点</li>
+<li>0 0 12 * * ?                          每天中午12点触发</li>
+<li>0 15 10 ? * *                          每天上午10:15触发</li>
+<li>0 15 10 * * ?                          每天上午10:15触发</li>
+<li>0 15 10 * * ? *                  每天上午10:15触发</li>
+<li>0 15 10 * * ? 2013          2013年的每天上午10:15触发</li>
+<li>0 * 14 * * ?                          在每天下午2点到下午2:59期间的每1分钟触发</li>
+<li>0 0/5 14 * * ?                          在每天下午2点到下午2:55期间的每5分钟触发</li>
+<li>0 0/5 14,18 * * ?                  在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</li>
+<li>0 0-5 14 * * ?                          在每天下午2点到下午2:05期间的每1分钟触发</li>
+<li>0 10,44 14 ? 3 WED                  每年三月的星期三的下午2:10和2:44触发</li>
+<li>0 15 10 ? * MON-FRI                周一至周五的上午10:15触发</li>
+<li>0 15 10 15 * ?                          每月15日上午10:15触发</li>
+<li>0 15 10 L * ?                            每月最后一日的上午10:15触发</li>
+<li>0 15 10 ? * 6L                    每月的最后一个星期五上午10:15触发</li>
+<li>0 15 10 ? * 6L 2014-2018        2014年至2018年的每月的最后一个星期五上午10:15触发</li>
+<li>0 15 10 ? * 63                        每月的第三个星期五上午10:15触发</li>
+<li>0/1 * * * * ?                        每秒钟触发一次</li>
+<li>0 0/1 * * * ?                        每分钟解发一次</li>
+<li>0 0 0/1 * * ?                        每小时解发一次</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>远程调用
+<ul>
+<li>rmi:remote message invoke</li>
+<li>服务端
+<ul>
+<li>1.自定义接口IServer,自定义抽象方法int rax(int)</li>
+<li>2.写接口实现类ServerImpl</li>
+<li>3.配置spring.xml 文件
+<ul>
+<li>&lt;!— 服务端实现类 <span>⇒</span>            - &lt;bean id=“serverImplID” class=“jee.server.ServerImpl”/>            - &lt;!— spring提供的专用于RMI服务端注册器 <span>⇒</span>            - &lt;bean id=“rmiServiceExporterID” class=“org.springframework.remoting.rmi.RmiServiceExporter”>                - &lt;property name=“serviceInterface”>                    - &lt;value>jee.server.IServer&lt;/value>                - &lt;/property>                - &lt;property name=“service”>                    - &lt;ref bean=“serverImplID”/>                - &lt;/property>                - &lt;property name=“serviceName”>                    - &lt;value>XXXX&lt;/value>                - &lt;/property>            - &lt;/bean>    - 客户端</li>
+</ul>
+</li>
+<li>配置spring.xml 文件
+<ul>
+<li>&lt;!— spring提供专用于RMI远程服务代理工厂类 <span>⇒</span>            - &lt;bean id=“rmiProxyFactoryBeanID” class=“org.springframework.remoting.rmi.RmiProxyFactoryBean”>                - &lt;!— 协议名://远程提供服务的IP地址:提供服务的端口/提供服务的名称 <span>⇒</span>                - &lt;property name=“serviceUrl”>                    - &lt;value>rmi://127.0.0.1:1099/XXXX&lt;/value>                - &lt;/property>                - &lt;property name=“serviceInterface”>                    - &lt;value>jee.client.IServer&lt;/value>                - &lt;/property>            - &lt;/bean>    - 执行：</li>
+</ul>
+</li>
+<li>服务端加载 ApplicationContext类</li>
+<li>客户端
+<ul>
+<li>加载 ApplicationContext类 ac</li>
+<li>ac.getBean方法中得到RmiProxyFactoryBean实际类型（可变类型）的实例，强转成服务端自定义的接口IServer的实现类（实现类由服务器决定）</li>
+<li>执行IServer实现类中的方法int rax(int)，实现了远程调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>websocket
+<ul>
+<li>handler
+<ul>
+<li>extends TextWebSocketHandler
+<ul>
+<li>@Override</li>
+<li>handleTextMessge()                      # 处理client.send()的数据</li>
+<li>@Override</li>
+<li>afterConnectionEstablished(WebSocketSession)                    # 连接事件</li>
+<li>@Override</li>
+<li>handleTransportError()                  # 出错事件</li>
+<li>@Override</li>
+<li>afterConnectionClosed()                 # 断开事件</li>
+<li>@Override</li>
+<li>supportsPartialMessages()               # 并行处理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>config
+<ul>
+<li>@EnableWebSocket</li>
+<li>implements WebSocketConfigurer
+<ul>
+<li>@Override</li>
+<li>registerWebSocketHandlers()
+<ul>
+<li>registry.addHandler(handler, “/ws”)                         # 路由handler</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>client
+<ul>
+<li>extends WebSocketClient
+<ul>
+<li>constructor(uri)
+<ul>
+<li>super(new URI(uri))</li>
+</ul>
+</li>
+<li>@Override</li>
+<li>onOpen()</li>
+<li>@Override</li>
+<li>onClose()</li>
+<li>@Override</li>
+<li>onError()</li>
+<li>@Override</li>
+<li>onMessage()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>service
+<ul>
+<li>init()
+<ul>
+<li>client = new Client(“ws://127.0.0.1:8001/ws”)</li>
+<li>client.connectBlocking()</li>
+</ul>
+</li>
+<li>send()
+<ul>
+<li>while(!client.getReadyState().equals(ReadyState.OPEN)){
+<ul>
+<li>log(“connecting”)</li>
+</ul>
+</li>
+<li>}</li>
+<li>client.send(&quot;&quot;)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>runner
+<ul>
+<li>implements ApplicationRunner
+<ul>
+<li>run()
+<ul>
+<li>service.init()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./Spring" class="internal">Spring</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>

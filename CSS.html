@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>CSS</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="CSS"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CSS"/><meta name="twitter:description" content="cascading style sheet 基础 层级匹配 不同级 style属性 style标签 link标签 浏览器中用户自定义样式表 浏览器默认样式 # 浏览器对每个元素定义了默认的样式表 !important color: black !important 同级 # 评估得出最特殊的样式, 评分相同时，使用最后的 id值的数目 其它属性和伪类的数目 元素名和伪元素的数目 继承 部分元素继承父元素样式 外观继承 布局不继承 inherit # 指明使用父元素样式 border: inherit 三种引入方式 内联式 &lt;div style=“color:000;”>&lt;/..."/><meta property="og:description" content="cascading style sheet 基础 层级匹配 不同级 style属性 style标签 link标签 浏览器中用户自定义样式表 浏览器默认样式 # 浏览器对每个元素定义了默认的样式表 !important color: black !important 同级 # 评估得出最特殊的样式, 评分相同时，使用最后的 id值的数目 其它属性和伪类的数目 元素名和伪元素的数目 继承 部分元素继承父元素样式 外观继承 布局不继承 inherit # 指明使用父元素样式 border: inherit 三种引入方式 内联式 &lt;div style=“color:000;”>&lt;/..."/><meta property="og:image:alt" content="cascading style sheet 基础 层级匹配 不同级 style属性 style标签 link标签 浏览器中用户自定义样式表 浏览器默认样式 # 浏览器对每个元素定义了默认的样式表 !important color: black !important 同级 # 评估得出最特殊的样式, 评分相同时，使用最后的 id值的数目 其它属性和伪类的数目 元素名和伪元素的数目 继承 部分元素继承父元素样式 外观继承 布局不继承 inherit # 指明使用父元素样式 border: inherit 三种引入方式 内联式 &lt;div style=“color:000;”>&lt;/..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/CSS"/><meta property="twitter:url" content="https://ukeate.me/CSS"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="cascading style sheet 基础 层级匹配 不同级 style属性 style标签 link标签 浏览器中用户自定义样式表 浏览器默认样式 # 浏览器对每个元素定义了默认的样式表 !important color: black !important 同级 # 评估得出最特殊的样式, 评分相同时，使用最后的 id值的数目 其它属性和伪类的数目 元素名和伪元素的数目 继承 部分元素继承父元素样式 外观继承 布局不继承 inherit # 指明使用父元素样式 border: inherit 三种引入方式 内联式 &lt;div style=“color:000;”>&lt;/..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="CSS"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-363"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-363" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">CSS</h1></div></div><article class="popover-hint"><ul>
+<li>cascading style sheet</li>
+<li>基础
+<ul>
+<li>层级匹配
+<ul>
+<li>不同级
+<ul>
+<li>
+<ol>
+<li>style属性</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>style标签</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>link标签</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>浏览器中用户自定义样式表</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>浏览器默认样式             # 浏览器对每个元素定义了默认的样式表</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>!important
+<ul>
+<li>color: black !important</li>
+</ul>
+</li>
+<li>同级                            # 评估得出最特殊的样式, 评分相同时，使用最后的
+<ul>
+<li>
+<ol>
+<li>id值的数目</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>其它属性和伪类的数目</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>元素名和伪元素的数目</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>继承
+<ul>
+<li>部分元素继承父元素样式
+<ul>
+<li>外观继承</li>
+<li>布局不继承</li>
+</ul>
+</li>
+<li>inherit                         # 指明使用父元素样式
+<ul>
+<li>border: inherit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>三种引入方式
+<ul>
+<li>内联式
+<ul>
+<li>&lt;div style=“color:000;”>&lt;/div>        - 嵌入式</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">style</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> type=&quot;text/css&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">    div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">color</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">#000</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">style</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>引用式
+<ul>
+<li>&lt;link href=“css.css” rel=“stylesheet” type=“text/css” />            - @
+<ul>
+<li>@charset “UTF-8”        # 默认UTF-8, 在import前</li>
+<li>@import “styles.css”    # 静态引用, 效率比<link/>标签慢</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>单位
+<ul>
+<li>颜色
+<ul>
+<li>名称, 如silver, gray</li>
+<li>0xffffff</li>
+<li>rgb(112, 128, 144)</li>
+<li>rgb(112, 128, 114, 0.4)</li>
+<li>hsl(120, 100%, 22%)         # 色相(hue), 饱和度(saturation), 明度(lightness)</li>
+<li>hsl(120, 100%, 22%, 0.4)</li>
+</ul>
+</li>
+<li>长度
+<ul>
+<li>绝对单位                      # 只有在打印和设计文档时才用绝对单位
+<ul>
+<li>cm</li>
+<li>pt                      # 磅</li>
+<li>in                      # 英寸</li>
+<li>mm</li>
+<li>pc                      # pica 等于12磅</li>
+</ul>
+</li>
+<li>相对长度
+<ul>
+<li>em                      # 元素字号</li>
+<li>ex                      # 元素字体的’x高度’，字体基线到中线的距离，一般与x的高度相当，大致等于0.5em</li>
+<li>rem                     # 根元素(html元素)字号</li>
+<li>px                      # css像素，假定了设备的分辨率为96dpi, 是1英寸的1/96(windows系统标准像素密度, 其它平台浏览器自己转换), css在定义中px是相对单位，但浏览器实现中全是绝对单位</li>
+<li>%                       # 不是所有元素都可以用, 不同属性中%定义不同，如font-size挂钩继承的font-size值, width挂钩元素包含块的宽度</li>
+</ul>
+</li>
+<li>算式                        # css3 未得到广泛支持
+<ul>
+<li>width: calc(80% - 20px);</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>角度
+<ul>
+<li>deg                         # 度, 0 - 360</li>
+<li>grad                        # 百分度 0 - 400</li>
+<li>rad                         # 弧度 0 - 6.28</li>
+<li>turn                        # 圆周 1 turn = 360 deg</li>
+</ul>
+</li>
+<li>时间
+<ul>
+<li>s</li>
+<li>ms</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>选择器
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                               # 所有元素</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;type</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                          # 标签</span></span>
+<span data-line><span style="--shiki-light:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic;">.&lt;class</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                        # 样式</span></span>
+<span data-line><span style="--shiki-light:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic;">#&lt;id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                           # id</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">attr</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]                          # 属性, 如[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">title</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">] {}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">attr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;val&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">attr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">^=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;val&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]                   # 以val开头</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">attr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">$=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;val&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">attr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">*=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;val&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]                   # 包含val</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">attr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">~=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;val&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]                   # 属性多值有val, 空格隔开</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">class</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">~=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;class2&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">] {}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">attr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">|=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;val&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]                   # 属性多值有val, - 隔开</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">lang</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> |=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;en&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">] </span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, &lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          # 同时匹配</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> &lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">           # 后代</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> &lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">         # 直接后代</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> +</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> &lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">         # </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 之后的第一个兄弟a</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ~</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> &lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">         # </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 之后所有兄弟a</span></span></code></pre></figure>
+</li>
+<li>o<span>→</span> 伪元素                       # 直接使用匹配所有
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">::first-line</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                    # 块级元素文本首行</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">::first-letter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                  # 块级元素文本首字母</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:before</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                         # 之前插入内容</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">content</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'a'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:after</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                          # 之后插入内容</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> 伪类                         # 直接使用匹配所有
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:root</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                           # 文档根元素, 总是返回html元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:first-child</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                    # 第一子元素</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">    p</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ></span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;"> span</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">first-child</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> , </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 下面第一个span元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:last-child</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:only-child</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                     # 只有一个子元素的该元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:only-of-type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                   # 同上但指定类型，直接使用时会匹配更多，因为很多某类型的唯一元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:nth-child</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">n</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)                   # </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">body</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ></span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> :nth-child</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:nth-last-child</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">n</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:nth-of-type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">n</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:nth-last-of-type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">n</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> UI  伪类
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:enabled</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                        # 已启用的元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:disabled</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                       # 禁用的元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:checked</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                        # 选中的单选或复选按钮</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:default</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                        # 默认的元素, 如 &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">button</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> type=&quot;submit&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, 常和outline属性一起使用</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:valid</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                          # 输入验证有效的元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:invalid</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:in-range</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                       # 范围内的input元素, 未广泛支持</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:out-of-range</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:required</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                       # 允许使用required属性的input元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:optional</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                       # 非required</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> 动态伪类
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:link</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                           # 未访问的a元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:visited</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                        # 已访问过的a元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:hover</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:active</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                         # 当前激活的元素(鼠标按下)</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:focus</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                          # 获得焦点的元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:not</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(&lt;selector</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)                # </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">a</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:not</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">([</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">href</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">*=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;apress&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">])</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:empty</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                          # 无子元素的元素</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:lang</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(&lt;language>)               # lang属性为指定值</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    :lang</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">en</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) 匹配 &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">a</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> lang=&quot;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">en-us</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:target</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                         # url hash(片段标识符) 定向id所在的元素</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>例子
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">o-</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">span</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">.class2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {}</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">o-</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">body</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ></span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;"> *</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ></span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;"> span</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">tr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ></span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;"> th</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {}</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">o-</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 计数器</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">body</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">counter-reset</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: paracount;}</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:before</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    content</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">counter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">paracount</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot; &quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    counter-increment</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: paracount;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        # </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">counter-increment</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: paracount </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">; 可以增加2</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">o-</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">:checked</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> +</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;"> span</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>属性
+<ul>
+<li>布局
+<ul>
+<li>position                        # 默认static, top等属性不起作用
+<ul>
+<li>static</li>
+<li>absolute</li>
+<li>fixed                       # fixed滚动固定</li>
+<li>relative</li>
+</ul>
+</li>
+<li>left</li>
+<li>right</li>
+<li>top</li>
+<li>bottom</li>
+<li>z-index</li>
+<li>columns                         # 列数和列宽的简写属性</li>
+<li>column-count                    # 多列布局的列数
+<ul>
+<li>column-fill                 # 列间内容分布方式</li>
+<li>column-gap                  # 列间隔</li>
+<li>column-rule                 # 列间规则的简写属性</li>
+<li>column-rule-color</li>
+<li>column-rule-style</li>
+<li>column-rule-width</li>
+<li>column-span                 # 元素跨列数</li>
+<li>column-width</li>
+</ul>
+</li>
+<li>flex-align                      # 弹性盒子布局, 未实现
+<ul>
+<li>flex-direction</li>
+<li>flex-order</li>
+<li>flex-pack</li>
+<li>webkit-box-align           # 内容高度小于容器高度时
+<ul>
+<li>start(顶边放置), end(底边放置), center(中间放置), baseline, stretch(拉伸元素)</li>
+<li>webkit-box-flex        # 元素可伸缩性</li>
+<li>webkit-box-pack        # 元素伸缩到最大尺寸(max-width)时怎么做
+<ul>
+<li>start(左边放置), end(右边放置), center(中间放置), justify(平均分配到各个元素间)</li>
+</ul>
+</li>
+<li>webkit-box-direction   # 内部盒子排列顺序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>例子
+<ul>
+<li>o<span>→</span> 多列布局
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">column-count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: 3;</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">column-fill</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: balance;</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">column-rule</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: medium solid black;</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">column-gap</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: 1.5em;</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">column-width</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: 10em;</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> 弹性盒
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#container</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    display</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">-webkit-box</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-box-direction</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">reverse</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-box-align</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">end</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-box-pack</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">justify</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#first</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">-webkit-box-flex</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;}</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#second</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">-webkit-box-flex</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;}</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> css表格
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#table</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">display</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">table</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;}</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">div</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">.row</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">display</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">table-row</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;}</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">display</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">table-cell</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;}</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>盒模型
+<ul>
+<li>box-sizing                      # 尺寸样式(如width, height)应用到哪部分
+<ul>
+<li>content-box, padding-box, border-box, margin-box</li>
+</ul>
+</li>
+<li>display
+<ul>
+<li>inline                      # 显示为文本行中的字
+<ul>
+<li>inline时，忽略width, height, margin属性</li>
+</ul>
+</li>
+<li>block                       # 显示为段落, 在垂直方向有所区别</li>
+<li>inline-block                # 显示为文本行, 整体作为inline, 但内部作为block, 这样认width, height, margin属性</li>
+<li>list-item                   # 显示为列表项</li>
+<li>run-in                      # 类型取决于周围元素
+<ul>
+<li>包含display:block元素，就是block</li>
+<li>兄弟都是block时，为inline</li>
+<li>其它都为block</li>
+</ul>
+</li>
+<li>compact                     # 为块或标记盒(类list-item), 一般不支持</li>
+<li>flexbox                     # 弹性盒布局用
+<ul>
+<li>webkit-box</li>
+</ul>
+</li>
+<li>table                       # 表格布局用
+<ul>
+<li>inline-table</li>
+<li>table-caption           # 类似caption</li>
+<li>table-row-group         # 类似tbody</li>
+<li>table-header-group      # 类似thead</li>
+<li>table-footer-group      # 类似tfoot</li>
+<li>table-row               # 类似tr</li>
+<li>table-column-group      # 类似colgroup</li>
+<li>table-column            # 类似col</li>
+<li>table-cell              # 类似td</li>
+</ul>
+</li>
+<li>ruby                        # ruby注释的文本布局用
+<ul>
+<li>ruby-base</li>
+<li>ruby-text</li>
+<li>ruby-base-group</li>
+<li>ruby-text-group</li>
+</ul>
+</li>
+<li>none                        # 元素不可见，不占空间</li>
+</ul>
+</li>
+<li>float                           # 元素左边界或右边界移动到包含块或另一个浮动盒的边界。其余inline部分流式环绕
+<ul>
+<li>left, right, none</li>
+</ul>
+</li>
+<li>clear                           # 左右边界不能挨着另外浮动元素
+<ul>
+<li>left, right, both, none</li>
+</ul>
+</li>
+<li>padding
+<ul>
+<li>padding-bottom</li>
+<li>padding-left</li>
+<li>padding-right</li>
+<li>padding-top</li>
+</ul>
+</li>
+<li>margin
+<ul>
+<li>margin-bottom</li>
+<li>margin-left</li>
+<li>margin-right</li>
+<li>margin-top</li>
+</ul>
+</li>
+<li>height                          # 长度或百分比</li>
+<li>width
+<ul>
+<li>max-height</li>
+<li>max-width</li>
+<li>min-height</li>
+<li>min-width</li>
+</ul>
+</li>
+<li>overflow
+<ul>
+<li>auto                        # 同scroll, 但自动加滚动条</li>
+<li>hidden                      # 剪掉</li>
+<li>on-content                  # 移除内容, 已废弃</li>
+<li>on-display                  # 隐藏内容, 已废弃</li>
+<li>scroll, visible             # 溢出</li>
+</ul>
+</li>
+<li>overflow-x</li>
+<li>overflow-y</li>
+<li>visibility                      # 元素可见性
+<ul>
+<li>collapse                    # 不可见，不占据空间, 只能用在表相关内容，如tr, td</li>
+<li>hidden                      # 不可见，占据空间</li>
+<li>visible</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>边框
+<ul>
+<li>border                          # border: 30px dashed 000</li>
+<li>border-width                    # 可以是长度值, 百分比, thin, medium, thick
+<ul>
+<li>border-width: 15px 5px 15px 5px</li>
+</ul>
+</li>
+<li>border-style
+<ul>
+<li>none 默认</li>
+<li>dashed 破折线</li>
+<li>dotted 圆点</li>
+<li>double 双线</li>
+<li>groove 槽线</li>
+<li>inset 内嵌效果</li>
+<li>outset 外凸效果</li>
+<li>ridge 脊线</li>
+<li>solid 实线</li>
+<li>border-style: solid dotted dashed double 定义了上、右、下、左的样式</li>
+<li>border-style: none的时候，边框其它属性无意义</li>
+</ul>
+</li>
+<li>border-color
+<ul>
+<li>blue rgb(25%, 35%, 45%) 909090 red;</li>
+</ul>
+</li>
+<li>border-image                    # 不广泛支持
+<ul>
+<li>border-image-outset</li>
+<li>border-image-repeat
+<ul>
+<li>stretch 拉伸</li>
+<li>repeat 平铺</li>
+<li>round 不截断下拉伸</li>
+<li>space不截断下图片间保留间距平铺</li>
+</ul>
+</li>
+<li>border-image-slice</li>
+<li>border-image-source</li>
+<li>border-image-width</li>
+<li>o<span>→</span></li>
+<li>webkit-border-image, -moz-border-image, -o-border-image</li>
+<li>border-image: url(a.png) 30 / 50px round repeat; 九宫格切分长度都为30, 宽度为50, 横round, 竖repeat</li>
+</ul>
+</li>
+<li>border-left
+<ul>
+<li>border-left-style</li>
+<li>border-left-color</li>
+<li>border-left-width</li>
+</ul>
+</li>
+<li>border-right
+<ul>
+<li>border-right-color</li>
+<li>border-right-style</li>
+<li>border-right-width</li>
+</ul>
+</li>
+<li>border-top
+<ul>
+<li>border-top-style</li>
+<li>border-top-color</li>
+</ul>
+</li>
+<li>border-top-width</li>
+<li>border-top-left-radius
+<ul>
+<li>border-top-left-radius: 20px 15px; x半径20, y半径15</li>
+</ul>
+</li>
+<li>border-top-right-radius</li>
+<li>border-bottom
+<ul>
+<li>border-bottom-style</li>
+<li>border-bottom-width</li>
+<li>border-bottom-color</li>
+<li>border-bottom-left-radius</li>
+<li>border-bottom-right-radius</li>
+</ul>
+</li>
+<li>border-radius
+<ul>
+<li>border-radius: 20px / 15px;</li>
+<li>border-radius: 50% 20px 25% 5em / 25% 15px 40px 55%</li>
+</ul>
+</li>
+<li>box-shadow
+<ul>
+<li>box-shadow: hoffset voffset blur spread color inset</li>
+<li>水平偏移量, 正向右，负向左。垂直偏移量，正向下，负向上。模糊值。阴影延伸半径，正向各方向延伸，负缩小。颜色。内嵌阴影</li>
+<li>可设置多组阴影，用, 隔开</li>
+</ul>
+</li>
+<li>outline                         # 轮廓不属于页面，不影响布局, &lt;颜色> &lt;样式> &lt;宽度>
+<ul>
+<li>outline-color</li>
+<li>outline-offset              # 距元素边框边缘的偏移量</li>
+<li>outline-style               # 同border-style</li>
+<li>outline-width               # 同border-width</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>背景
+<ul>
+<li>不继承</li>
+<li>background                      # background: <background-color> <background-position> <background-size> <background-repeat> <background-origin> <background--clip> <background-attachment> <background-image></background-image></background-attachment></background--clip></background-origin></background-repeat></background-size></background-position></background-color></li>
+<li>background-attachment           # 背景附着方式
+<ul>
+<li>fixed 固定到视窗上, 不随文字滚动</li>
+<li>local 随文字滚动</li>
+<li>scroll 固定到元素上(使用浏览器的滚动条), 不随文字滚动</li>
+</ul>
+</li>
+<li>background-color                # 原点在border外边缘
+<ul>
+<li>函数
+<ul>
+<li>linear-gradient(transparent, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 0.5) 65%, rgba(0, 0, 0, 0.66))
+<ul>
+<li>线性渐变</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>background-image                # 原点在padding外边缘，也就是border内边缘
+<ul>
+<li>background-image: url(“bg.jpg”)</li>
+</ul>
+</li>
+<li>background-position             # 起始位置, 可以是长度, top, left, right ,bottom, center, 第一个值控制垂直位置, 第二个值控制水平位置
+<ul>
+<li>0px 0px                     # 左上偏移0, 0</li>
+<li>right ？                    # 位置在右边显示</li>
+<li>left ？                     # 位置在左连显示(默认)</li>
+<li>？ bottom</li>
+<li>center center               # 位置在中间显示、内容从中间开始显示(默认)</li>
+<li>? top                       # 内容从上开始显示</li>
+</ul>
+</li>
+<li>background-repeat
+<ul>
+<li>no-repeat</li>
+<li>repeat 水平和垂直同时平铺</li>
+<li>repeat-x 水平平铺</li>
+<li>repeat-y</li>
+<li>space 水平或垂直平铺, 统一间距,不截断, round 水平或垂直拉伸, 不截断</li>
+</ul>
+</li>
+<li>background-size                 # 可以长度值或百分比
+<ul>
+<li>contain 等比缩放, 宽高适应匹配, 不超出容器</li>
+<li>cover 等比缩放, 宽高最大适应匹配, 可超出容器</li>
+<li>auto 本身尺寸显示</li>
+</ul>
+</li>
+<li>background-origin               # 定位显示原点
+<ul>
+<li>border-box 边框盒子内</li>
+<li>padding-box 内边距盒子内</li>
+<li>content-box 内容盒子内</li>
+</ul>
+</li>
+<li>background-clip                 # 裁剪, 属性同上</li>
+</ul>
+</li>
+<li>色彩
+<ul>
+<li>opacity</li>
+<li>color                           # 前景颜色
+<ul>
+<li>rgba(255, 255, 255, 0.7)</li>
+</ul>
+</li>
+<li>user-select                     # 用户不可选择</li>
+<li>filter                          # 滤镜效果, ie8 或之前使用
+<ul>
+<li>filter:alpha(opacity=50)，同opacity: .5</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文本
+<ul>
+<li>text-decoration                 # node时 a标签没有下划线</li>
+<li>text-indent                     # 首行缩进</li>
+<li>text-align
+<ul>
+<li>start 语言的起始边界，可能是右</li>
+<li>end, left, right, center, justify</li>
+</ul>
+</li>
+<li>text-justify                    # text-align: justify时来指定规则
+<ul>
+<li>auto</li>
+<li>none 禁用文本对齐</li>
+<li>inter-word 空白在单词之间</li>
+<li>inter-ideograph 中日韩</li>
+<li>inter-cluster 泰</li>
+<li>distribute, kashida 草体</li>
+</ul>
+</li>
+<li>text-transform                  # 转换大小写
+<ul>
+<li>none, capitalize, uppercase, lowercase</li>
+</ul>
+</li>
+<li>text-decoration                 # 文本装饰
+<ul>
+<li>none, underlinenone, overline, line-through, blink</li>
+</ul>
+</li>
+<li>text-shadow                     # 文本阴影, <h-shadow> <v-shadow> <blur> <color>, 水平偏移, 垂直偏移, 模糊程度, 颜色</color></blur></v-shadow></h-shadow></li>
+<li>direction                       # 文本对齐
+<ul>
+<li>ltr, rtl</li>
+</ul>
+</li>
+<li>word-spacing                    # 词间距</li>
+<li>letter-spacing # 字母间距</li>
+<li>white-space
+<ul>
+<li>normal 空白被压缩，文本行自动换行</li>
+<li>nowrap 空白压缩，文本行不换行</li>
+<li>pre 空白不压缩, 换行符换行</li>
+<li>pre-line 空白压缩，自动换行或换行符换行</li>
+<li>pre-wrap 空白不压缩, 自动换行或换行符换行</li>
+</ul>
+</li>
+<li>line-height                     # 行高, 百分比，长度</li>
+<li>word-wrap                       # 行超距单词截断
+<ul>
+<li>normal 溢出</li>
+<li>break-word</li>
+</ul>
+</li>
+<li>@font-face                      # 指定web字体, woff得到最广泛支持, 在@font-face中定义，font-family中使用
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">@font-face</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    font-family</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'MyFont'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    font-style</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">normal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    font-weight</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">normal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    src</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">url</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'http://a/MyFont.woff'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>font                            # <font-style> <font-variant> <font-weight> <font-size> <font-family>
+<ul>
+<li>简写属性
+<ul>
+<li>font-family             # serif, sans-serif, monospace, cursive, fantasy
+<ul>
+<li>font-family: MyFont, cursive</li>
+</ul>
+</li>
+<li>font-style              # normal, italic, oblique</li>
+</ul>
+</li>
+</ul>
+</font-family></font-size></font-weight></font-variant></font-style></li>
+<li>font-variant                    # normal, small-caps
+<ul>
+<li>font-weight                 # bold, bolder, lighter</li>
+<li>font-size
+<ul>
+<li>xx-small 浏览器决定的大小</li>
+<li>x-small, small, medium, large, x-large, xx-large</li>
+<li>smaller 相对父元素字体的大小</li>
+<li>larger, <length>, &lt;%></length></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>列表样式
+<ul>
+<li>list-style                      # <list-style-type> <list-style-position> <list-style-image>
+<ul>
+<li>list-style-type             # 列表项前标记
+<ul>
+<li>none, box, check, circle, diamond, disc, dash, square, decimal, binary, lower-alpha, upper-alpha</li>
+</ul>
+</li>
+<li>list-style-image            # 图片作为列表标记</li>
+<li>list-style-position         # 相对于内容框的位置
+<ul>
+<li>inside 内容框内部</li>
+<li>outside 外部</li>
+</ul>
+</li>
+</ul>
+</list-style-image></list-style-position></list-style-type></li>
+<li>vertical-align                  # 垂直对齐（文字不行）</li>
+<li>cursor
+<ul>
+<li>auto ：标准光标</li>
+<li>default ：标准箭头</li>
+<li>hand ：手形光标</li>
+<li>wait ：等待光标</li>
+<li>text ：I形光标</li>
+<li>vertical-text ：水平I形光标</li>
+<li>no-drop ：不可拖动光标</li>
+<li>not-allowed ：无效光标</li>
+<li>help ：?帮助光标</li>
+<li>all-scroll ：三角方向标</li>
+<li>move ：移动标</li>
+<li>crosshair ：十字标</li>
+<li>pointer</li>
+<li>e-resize n-resize nw-resize w-resize s-resize se-resize sw-resize ne-resize</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>表格样式
+<ul>
+<li>border-collapse                 # 相邻单元格边框样式
+<ul>
+<li>separate 默认，重复画框</li>
+<li>collapse 合并边框</li>
+</ul>
+</li>
+<li>border-spacing                  # 相邻单元格边框距离</li>
+<li>table-layout                    # 单元格行列的算法规则
+<ul>
+<li>auto</li>
+<li>fixed 由表格自身样式和每列width属性决定布局[无则设等间距]，由第一行决定列宽，以下行内容自动换行</li>
+</ul>
+</li>
+<li>caption-side                    # 表格标题的位置
+<ul>
+<li>top, bottom</li>
+</ul>
+</li>
+<li>empty-cells                     # 是否显示表格中空单元格
+<ul>
+<li>hide</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>计数器
+<ul>
+<li>counter-reset                   # 用于有序列表</li>
+<li>counter-increment</li>
+</ul>
+</li>
+<li>动画
+<ul>
+<li>介绍
+<ul>
+<li>本质是增强过渡</li>
+</ul>
+</li>
+<li>@keyframes
+<ul>
+<li>指定一个以上关键帧</li>
+<li>只在过程中有效，动画结束后即使仍hover, 也返回初始状态</li>
+</ul>
+</li>
+<li>animation
+<ul>
+<li>动画，动画完后回到初始状态。想停留在结束状态用过渡。</li>
+<li>可以用在初始布局中</li>
+<li>通过keyframe显式控制， 可重用</li>
+<li>&lt;animation-name> &lt;animation-duration> &lt;animation-timing-function> &lt;animation-delay> &lt;animation-iteration-count>                - 只是模拟属性值改变来实现动画，动画结束后属性无变化
+<ul>
+<li>可以应用到页面的初始布局中去，而transform只能应用在动作上</li>
+</ul>
+</li>
+<li>animation-delay             # 延迟，可以指定多个值，对应transition-property中的多个属性</li>
+<li>animation-direction         # 重复播放时播放方向
+<ul>
+<li>normal 每次向前播放</li>
+<li>alternate 先向前，再反向，相当于animation-iteration-count: 2</li>
+</ul>
+</li>
+<li>animation-duration          # 持续时间, 可多值</li>
+<li>animation-iteration-count   # 循环次数
+<ul>
+<li>infinite                # 无休止交替播放</li>
+</ul>
+</li>
+<li>animation-name              # 关键帧集合名称，可多个</li>
+<li>animation-play-state        # 动画状态, js中ele.style.webkitAnimationPlayState = ‘paused’
+<ul>
+<li>paused                  # 停止</li>
+<li>playing                 # 开始播放</li>
+</ul>
+</li>
+<li>animation-timing-function   # 关键帧时间插值函数
+<ul>
+<li>normal                  # 每次重复向前播放</li>
+<li>alternate               # 先向前播放，再反向播放，相当于animation-iteration-count: 2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>transform                       # 变换，动画结束后属性有变化
+<ul>
+<li>moz-transform: rotate(-45deg) scaleX(1.2)              # 逆时针旋转45度, 延x轴缩放到1.2倍</li>
+<li>函数
+<ul>
+<li>translate               # 水平、垂直或两个方向 平衡。长度，百分比</li>
+<li>translateX</li>
+<li>translateY</li>
+<li>scale                   # 数</li>
+<li>scaleX</li>
+<li>scaleY</li>
+<li>rotate                  # 角度</li>
+<li>skew                    # 倾斜, 角度</li>
+<li>skewX</li>
+<li>skewY</li>
+<li>matrix                  # 6个参数。自定义变换, 由于z缩放未被实现，后两个参数省略</li>
+</ul>
+</li>
+<li>transform-origin            # 变换的起点，默认是元素中心点
+<ul>
+<li>transform-origin right top;</li>
+<li>长度，百分比，left center right, top center, bottom</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>transition                      # <transition-property> <transition-duration> <transition-timing-function> <transition-delay>, 可以作为初始状态，也可以过渡
+<ul>
+<li>transition-delay            # 开始之间延迟时间, ms</li>
+<li>transition-duration         # 持续时间, ms</li>
+<li>transition-property         # 应用过渡的多个属性</li>
+<li>transition-timing-function              # 时间函数
+<ul>
+<li>ease 默认</li>
+<li>linear</li>
+<li>ease-in</li>
+<li>ease-out</li>
+<li>ease-in-out</li>
+<li>cubic-bezier 指定自定义曲线</li>
+</ul>
+</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">-webkit-</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">transition: </span><span style="--shiki-light:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic;">.2s</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;"> background-cololr</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">transition: </span><span style="--shiki-light:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic;">.2s</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> all</span></span></code></pre></figure>
+</li>
+</ul>
+</transition-delay></transition-timing-function></transition-duration></transition-property></li>
+<li>示例
+<ul>
+<li>o<span>→</span> 过渡
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#banana</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    font-size</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">large</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    border</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">medium</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> solid</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> black</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-transition-delay</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">10</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ms</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-transition-duration</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">250</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ms</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        # 反向过渡</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#banana:hover</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    font-size</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">x-large</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    border</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">medium</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> solid</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> white</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    background-color: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">green</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    color</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">white</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    padding</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">px</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-transition-delay</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">100</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ms</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-transition-property</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: background-color, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">color</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        padding</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, font-size, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">border</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-transition-duration</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">500</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ms</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-transition-timing-function</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">linear</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> 动画
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#banana:hover</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-animation-delay</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">100</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ms</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-animation-duration</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">500</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ms</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-animation-iteration-count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">infinite</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-animation-timing-function</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">linear</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-animation-name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'GrowShrink'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -webkit-animation-direction</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">alternate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">@-webkit-keyframes</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;"> GrowShrink</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    from</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        # 可以用0%替代</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        font-size</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">xx-small</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        background-color</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">red</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    50%</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        # 定义了变化的速率，可以用0%, 100%代替</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">from</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">和</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">to</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">子句</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        background-color</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">yellow</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        padding</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">px</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    to</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        # 可以用100%替代</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        font-size</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">x-large</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        border</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">medium</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> solid</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> white</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        background-color</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">green</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        color</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">white</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        padding</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">px</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>o<span>→</span> 变换
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">#banana</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -moz-transform</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">rotate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">-45</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">deg</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">scale</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1.2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    -moz-transform-origin</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">right</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> top</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>典型问题
+<ul>
+<li>垂直居中
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">line-height</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .content</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        height</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">100</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">px</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        line-height</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">100</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">px</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">vertical-align</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .wrapper</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">display</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">table</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;}</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .cell</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        display</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">table-cell</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        vertical-align</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">middle</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">position</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .wrapper</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">position</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">relative</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .content</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        left</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">50</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">%</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        top</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">50</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">%</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        transform</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">translate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">-50</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">%</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">-50</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">%</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">position</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .content</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        position</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">absolute</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        top</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        bottom</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        left</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        right</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        margin</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">auto</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">float填充一半</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .floater</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        float</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">left</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        height</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">50</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">%</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        margin-bottom</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">-120</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">px</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    .content</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        clear</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">both</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        height</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">240</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">px</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        position</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">relative</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>图标切分
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">background-image</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: url(/base/icons</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">.png</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">background-repeat</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">no-repeat</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">background-position</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: -910px -74px;</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>内部元素自动高度
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">.parent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    overflow</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">hidden</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">.parent</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> .children</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    overflow</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">hidden</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>工具
+<ul>
+<li><a href="./Stylus" class="internal" data-slug="Stylus">Stylus</a></li>
+<li><a href="./CSS-Compass" class="internal alias" data-slug="CSS-Compass">CSS Compass</a></li>
+<li><a href="./Blueprint" class="internal" data-slug="Blueprint">Blueprint</a></li>
+<li><a href="./Sass" class="internal" data-slug="Sass">Sass</a></li>
+<li><a href="./caniuse.com" class="internal" data-slug="caniuse.com">caniuse.com</a></li>
+<li><a href="./modernizr.com" class="internal" data-slug="modernizr.com">modernizr.com</a></li>
+<li><a href="./Less" class="internal" data-slug="Less">Less</a></li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./para" class="internal">para</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>

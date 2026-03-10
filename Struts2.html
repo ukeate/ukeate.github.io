@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>Struts2</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="Struts2"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Struts2"/><meta name="twitter:description" content="基础 介绍 struts1和WebWork的发展 引入值栈的概念 # 一次请求的参数和处理数据放在一个map结构中 原理 基于拦截器, 解耦servlet, 再提供自己的拦截器(interceptor)操作数据, 反射调用业务类 FilterDispatcher通过配置文件来映射设置请求地址与处理类 ActionMapper判断请求是否struts处理 ActionProxy扩展实现方式(如web service) ConfigurationManager对应struts.xml配置文件 ActionInvocation执行Action与拦截器 Action处理请求，封装数据 Action是..."/><meta property="og:description" content="基础 介绍 struts1和WebWork的发展 引入值栈的概念 # 一次请求的参数和处理数据放在一个map结构中 原理 基于拦截器, 解耦servlet, 再提供自己的拦截器(interceptor)操作数据, 反射调用业务类 FilterDispatcher通过配置文件来映射设置请求地址与处理类 ActionMapper判断请求是否struts处理 ActionProxy扩展实现方式(如web service) ConfigurationManager对应struts.xml配置文件 ActionInvocation执行Action与拦截器 Action处理请求，封装数据 Action是..."/><meta property="og:image:alt" content="基础 介绍 struts1和WebWork的发展 引入值栈的概念 # 一次请求的参数和处理数据放在一个map结构中 原理 基于拦截器, 解耦servlet, 再提供自己的拦截器(interceptor)操作数据, 反射调用业务类 FilterDispatcher通过配置文件来映射设置请求地址与处理类 ActionMapper判断请求是否struts处理 ActionProxy扩展实现方式(如web service) ConfigurationManager对应struts.xml配置文件 ActionInvocation执行Action与拦截器 Action处理请求，封装数据 Action是..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/Struts2"/><meta property="twitter:url" content="https://ukeate.me/Struts2"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="基础 介绍 struts1和WebWork的发展 引入值栈的概念 # 一次请求的参数和处理数据放在一个map结构中 原理 基于拦截器, 解耦servlet, 再提供自己的拦截器(interceptor)操作数据, 反射调用业务类 FilterDispatcher通过配置文件来映射设置请求地址与处理类 ActionMapper判断请求是否struts处理 ActionProxy扩展实现方式(如web service) ConfigurationManager对应struts.xml配置文件 ActionInvocation执行Action与拦截器 Action处理请求，封装数据 Action是..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="Struts2"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-2057"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-2057" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">Struts2</h1></div></div><article class="popover-hint"><ul>
+<li>基础
+<ul>
+<li>介绍
+<ul>
+<li>struts1和WebWork的发展</li>
+<li>引入值栈的概念     # 一次请求的参数和处理数据放在一个map结构中</li>
+</ul>
+</li>
+<li>原理
+<ul>
+<li>基于拦截器, 解耦servlet, 再提供自己的拦截器(interceptor)操作数据, 反射调用业务类</li>
+<li>FilterDispatcher通过配置文件来映射设置请求地址与处理类
+<ul>
+<li>ActionMapper判断请求是否struts处理</li>
+<li>ActionProxy扩展实现方式(如web service)</li>
+<li>ConfigurationManager对应struts.xml配置文件</li>
+<li>ActionInvocation执行Action与拦截器</li>
+<li>Action处理请求，封装数据
+<ul>
+<li>Action是非单例的，效率低</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>过滤器与拦截器
+<ul>
+<li>过滤器基于回调，拦截器基于反射</li>
+<li>过滤器依赖servlet, 拦截器在struts中处理action</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>思想
+<ul>
+<li>Action类中的无侵入设计（新技术中不出现旧技术）：map代替了作用域
+<ul>
+<li>ActionContext actionContext = actionContext.getContext()</li>
+<li>actionContext.getApplication()</li>
+<li>actionContext.getSession()</li>
+<li>好处
+<ul>
+<li>map是java中的api，不出现旧技术</li>
+<li>测试方便（ servlet不能测试，只能发布测试）
+<ul>
+<li>注意：Action类中用到作用域map的方法也不能测试</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>结构
+<ul>
+<li>apps: 例子程序</li>
+<li>docs:帮助文件</li>
+<li>lib:程序包</li>
+<li>src:源码</li>
+</ul>
+</li>
+<li>使用
+<ul>
+<li>要求
+<ul>
+<li>jdk5</li>
+<li>jsp2</li>
+<li>servlet api2.4</li>
+</ul>
+</li>
+<li>导入核心的8个包
+<ul>
+<li>struts2-core-2.3.1.1.jar        # struts的过滤器</li>
+<li>xwork-core-2.3.1.1.jar                # 验证工具</li>
+<li>freemarker-2.3.18.jar                # 标签</li>
+<li>javassist-3.11.0.GA.jar                # 动态代理</li>
+<li>commons-fileupload-1.2.2.jar</li>
+<li>commons-io-2.0.1.jar                # 文件处理</li>
+<li>commons-lang-2.5.jar                # 基础包</li>
+<li>ognl-3.0.3.jar                                # 表达式语言</li>
+</ul>
+</li>
+<li>web.xml文件中配置过滤器
+<ul>
+<li>&lt;filter>            - &lt;filter-name>struts&lt;/filter-name>            - &lt;filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class>        - &lt;/filter>        - &lt;filter-mapping>            - &lt;filter-name>struts&lt;/filter-name>            - &lt;url-pattern>/*&lt;/url-pattern>        - &lt;/filter-mapping>    - 写jsp页面，get或post路径为struts2的名称空间、扩展名，被配置的struts2过滤器处理</li>
+</ul>
+</li>
+<li>写Action类（继承ActionSupport类）</li>
+<li>配置src/struts.xml文件与src/struts.properties文件，映射类、方法等到请求路径，映射返回字符串到任何方式</li>
+</ul>
+</li>
+<li>核心包：8个
+<ul>
+<li>struts2-core-2.3.1.1.jar        # struts的过滤器</li>
+<li>xwork-core-2.3.1.1.jar                # 验证工具</li>
+<li>freemarker-2.3.18.jar                # 标签</li>
+<li>javassist-3.11.0.GA.jar                # 动态代理</li>
+<li>commons-fileupload-1.2.2.jar</li>
+<li>commons-io-2.0.1.jar                # 文件处理</li>
+<li>commons-lang-2.5.jar                # 基础包</li>
+<li>ognl-3.0.3.jar                                # 表达式语言</li>
+</ul>
+</li>
+<li>配置
+<ul>
+<li>struts2以包的形式管理action 包名必须唯一，包里的每个action唯一</li>
+<li>使用步骤
+<ul>
+<li>导入lib包</li>
+<li>写jsp</li>
+<li>编写Action方法</li>
+<li>web.xml中配置
+<ul>
+<li>&lt;filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter            - &lt;url-pattern>/*        - ../xx_struts.xml中配置请求响应</li>
+</ul>
+</li>
+<li>src/struts.xml 中引入配置文件
+<ul>
+<li>&lt;include file=“cn/itcast/javaee/cal/cal_struts.xml”/>    - 配置文件（配置包）路径</li>
+</ul>
+</li>
+<li>重要路径：4个
+<ul>
+<li>1./struts-default.xml[框架]
+<ul>
+<li>是框架自带的abstract包（包括上传，下载，验证等），继承它以后可以用其中的功能</li>
+</ul>
+</li>
+<li>2./org/apache/struts2/default.properties[框架]</li>
+<li>3.src/struts.xml # 必有</li>
+<li>4.src/struts.properties # 可选</li>
+</ul>
+</li>
+<li>验证返回消息的配置文件
+<ul>
+<li>struts2-core-2.3.1.1.jar包中的
+<ul>
+<li>/org/apache/struts2/struts-messages.properties文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="xml-中配置的简化">xml 中配置的简化<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#xml-中配置的简化" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<pre><code>  - o-> 只能在name 中写*_* 等
+  - o-> 引用第一个* 用{1}        引用第二个用{2} 以此类推
+</code></pre>
+</li>
+<li>类路径
+<ul>
+<li>com.opensymphony.xwork2.ActionSupport  默认关联到的类</li>
+</ul>
+</li>
+<li>处理请求的扩展名配置
+<ul>
+<li>扩展名配置只有一个会生效</li>
+<li>1./org/apache/struts2/default.properties
+<ul>
+<li>struts.action.extension=action,,</li>
+<li>框架中初始的默认扩展名，最后的’,‘代表了无扩展名</li>
+</ul>
+</li>
+<li>2.src/struts.xml中
+<ul>
+<li>&lt;constant name=“struts.action.extension” value=“do,,”>                - 必需配置</li>
+</ul>
+</li>
+<li>3.src/struts.properties中
+<ul>
+<li>struts.action.extension=xx,yy</li>
+<li>选择配置，优先级高</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>默认配置
+<ul>
+<li>struts2内置了请求字符串与基本类型的相互转换，不用手工转换</li>
+<li>/org/apache/struts2/default.properties文件中
+<ul>
+<li>struts.i18n.encoding=UTF-8        # post方式请求响应的编码方式
+<ul>
+<li>get方式的没有默认值，需要自己转码</li>
+</ul>
+</li>
+<li>struts.action.extension=action,,  # 框架中初始的默认扩展名,最后的’,‘代表了无扩展名</li>
+</ul>
+</li>
+<li>每个<package>标签中配置</package></li>
+<li>&lt;interceptor-ref name=“defaultStack”>&lt;/interceptor-ref> 为默认的拦截器    - src/struts.xml配置文件</li>
+</ul>
+</li>
+<li>src/struts.properties配置文件</li>
+</ul>
+</li>
+<li>原理流程
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">请求/qq.action -> StrutsPreparedAndExecuteFilter（核心过滤器）-> 匹配扩展名 -> 匹配命名空间</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  #（ 全限定名：org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.class）</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">      -> src/struts.xml                -> name</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">          class</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">          method</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">      -> name</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">          type</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">          内容</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">      -> 响应</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">      -> 拦截器 -> ConfigAction类</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  # 1.部署时读取src/struts.xml和src/struts.properties文件，形成JavaBean对象</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">          # 两个文件同时存在时src/struts.properties文件为准</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  ## 2.请求/*路径时，StrutsPreparedAndExecuteFilter过滤</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  ## 3.获取JavaBean中的actionName ,actionClass, actionMethod, 执行方法</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  ## 4.执行的返回值与resultName, resultType, resultContent进行比较</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  ## 5.按resultType类型返回resultContent（路径和内容）</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>8个jar包，慢，servlet 快</li>
+<li>配置繁琐</li>
+</ul>
+</li>
+<li>编码
+<ul>
+<li>struts2默认编码方式:utf-8</li>
+<li>返回的图片相对路径中有中文时设置tomcat
+<ul>
+<li>tomcat/conf/server.xml
+<ul>
+<li>&lt;Connector port=“8080” .. URIEncoding=“utf-8”/>        - 这时点击下载的请求路径中有中文时在以post方式提交 ,struts自动转码。若以get方式提交，需要在Action类的相应的get方法中转换url编码（iso8859-1）到u8</li>
+</ul>
+</li>
+<li>原理
+<ul>
+<li>改了tomcat的内部编码以后，struts中的编码是u8，放在session 中，jsp支持u8,解释后发送的html中的编码没问题，查看没问题。</li>
+<li>下载post发送请求，浏览器请求的是url编码的u8,struts中也是u8执行下载</li>
+<li>如果不改编码，struts 中是u8,如果以List方式放入session的话,session存储的是u8</li>
+<li>如果直接放入数据的话,session中存储的是8859-1,jsp取出数据需要转码为u8并设置自己的编码是u8,再发送给浏览器。</li>
+<li>浏览器这时获取图片正常,post方式提交的是u8,经过tomcat转换为8859-1,struts中自动转换编码到u8</li>
+<li>如果是以get方式提交请求，get中的中文在浏览器时进行url编码到8859-1,经过tomcat，再到struts,struts不对get方式的请自动进行转码</li>
+<li>向action类中注入参数时是8859-1编码,需要手动在action类中的属性的get方法中进行8859-1到u8的转码操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内置对象
+<ul>
+<li>struts中的6个内置对象
+<ul>
+<li>request请求进入struts中时创建，request请求结束时销毁。</li>
+<li>requestMap</li>
+<li>sessionMap</li>
+<li>applicationMap</li>
+<li>parameters</li>
+<li>attr                        # page <span>→</span> request <span>→</span> session <span>→</span> application 的顺序查找</li>
+<li>valueStack                # 定义实例变量，直接放入valueStack的 list（栈） 中,map（值）很少向内存储数据
+<ul>
+<li>定义的实例变量必须提供相应的get方法,否则ognl标签中取其数据时没有方法调用，就得不到它的值</li>
+<li>list 中的值优先访问 ，但是map 中的值起决定作用</li>
+<li>map中存放着一个大map,其中注入了所有页面的请求信息
+<ul>
+<li>requestMap sessionMap applicationMap 并不是真正的域对象，但最后通过拦截器放入到域对象中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>异常处理
+<ul>
+<li>配置src/strut.xml 文件
+<ul>
+<li>&lt;global-results> 全局结果（用来跳转全局异常等）        - &lt;global-exception-mappings> 全局异常        - &lt;exception-mapping result=“nullJsp”        exception=“java.lang.NullPointerException” />            - &lt;action>标签中的局部异常            - &lt;action>捕获标签中的实例运行抛出的异常,然后改为 返回执行结果为”nullJsp”的字符串交给本&lt;action>标签中相应的&lt;result>标签来处理    - 处理机制</li>
+<li>o<span>→</span> 多个异常时走子异常，父异常被忽略</li>
+<li>o<span>→</span> 先处理小范围异常，大范围忽略</li>
+<li>o<span>→</span>  如果异常没有处理，抛出到web服务器处理,web.xml的<error-page><error-code><location></location></error-code></error-page></li>
+</ul>
+</li>
+<li>全局异常
+<ul>
+<li>xml文件中
+<ul>
+<li>&lt;global-results>                - &lt;result name=“error”>                    - /error.jsp
+<ul>
+<li>&lt;/result>            - &lt;/global-results>            - &lt;global-exception-mappings>                - &lt;exception-mapping result=“error” exception=“java.lang.Exception”/>            - &lt;/global-exception-mappings>        - error.jsp页面中</li>
+</ul>
+</li>
+<li>&lt;%@ taglib prefix=“s” uri=“/struts-tags” %>            - 异常信息：&lt;s:property value=“exception.message”/><br/></li>
+<li>详细信息：&lt;s:property value=“exceptionStack”/><br/></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>转递方式
+<ul>
+<li>chain                        # action类之间转发</li>
+<li>dispatcher                # 转发到jsp</li>
+<li>freemarker</li>
+<li>httpheader</li>
+<li>redirect                # 重定向到页面</li>
+<li>redirectAction        # action 类之间重定向</li>
+<li>stream                        # 返回 InputStream流</li>
+<li>velocity</li>
+<li>xslt</li>
+<li>plainText</li>
+</ul>
+</li>
+<li>Action类
+<ul>
+<li>注意
+<ul>
+<li>1.所有Action类都要继承ActionSupport类，否则execute方法返回的字符串不会回到struts拦截器再根据xml文件的配置进行转发</li>
+<li>2.action类是非单例的。        # 所有多实例的对象全部是因为有私有属性，否则全部应该是单例的</li>
+<li>3.action类放在栈的顶端，用于注入数据</li>
+</ul>
+</li>
+<li>传统方式得到request,response,servletContext,pageContext
+<ul>
+<li>ServletActionContext.getPageContext()</li>
+<li>HttpServletRequest request = ServletActionContext.getRequest()</li>
+<li>ServletActionContext.getResponse()</li>
+<li>ServletActionContext.getServletContext();</li>
+</ul>
+</li>
+<li>优势
+<ul>
+<li>实现与servlet的解耦</li>
+</ul>
+</li>
+<li>验证
+<ul>
+<li>验证分类
+<ul>
+<li>前台验证：javascript等</li>
+<li>后台验证：服务器</li>
+</ul>
+</li>
+<li>struts2验证
+<ul>
+<li>后台验证</li>
+<li>1.代码式验证</li>
+<li>2.声明式验证:xml文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ActionContext类
+<ul>
+<li>调用方法</li>
+<li>ActionContext actionContext = ActionContext.getContext();</li>
+<li>得到内置对象        # 这几种得到作用域的方法均可以得到作用域中原有的值，也可以放入值</li>
+<li>request
+<ul>
+<li>actionContext.put(&quot;&quot;,&quot;&quot;);</li>
+</ul>
+</li>
+<li>application
+<ul>
+<li>Map&lt;String,Object> applicationMap = actionContext.getApplication();</li>
+</ul>
+</li>
+<li>session
+<ul>
+<li>Map&lt;String,Object> sessionMap = actionContext.getSession();
+<ul>
+<li>或 actionContext.get(“session”)得到，因为actionContext中存储着大map</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>parameters
+<ul>
+<li>Map&lt;String,Object> parametersMap = actionContext.getParameters();</li>
+</ul>
+</li>
+<li>valueStack
+<ul>
+<li>ValueStack valueStack = actionContext.getValueStack()</li>
+<li>valueStack.getRoot()                        # 得到当前值栈的顺序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>参数
+<ul>
+<li>1.action类中可以直接创建属性与其get方法得到客户端get方法或post表单请求的参数(由struts2自动注入)</li>
+<li>2.action类中可以创建 JavaBean的属性来接收struts注入的参数，这时用户请求的参数名字要写成JavaBean名.JavaBean中的属性名（这样struts2会自动调用JavaBean的set方法来注入其中相应的参数 ）</li>
+</ul>
+</li>
+<li>BaseAction
+<ul>
+<li>作用
+<ul>
+<li>权限管理</li>
+<li>存放常驻内存数据</li>
+<li>抽取常用的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>web.xml配置
+<ul>
+<li>&lt;filter>        - &lt;filter-name>struts2&lt;/filter-name>        - &lt;filter-class> org.apache.struts2.dispatcher.FilterDispatcher &lt;/filter-class>        - &lt;init-param>            - &lt;param-name>struts.action.extension&lt;/param-name>            - &lt;param-value>do&lt;/param-value>        - &lt;/init-param>    - &lt;/filter>    - &lt;filter-mapping>        - &lt;filter-name>struts2&lt;/filter-name>        - &lt;url-pattern>*.json&lt;/url-pattern>    - &lt;/filter-mapping>        - 设置全局过滤器，并且修改过滤扩展名</li>
+</ul>
+</li>
+<li>default.properties
+<ul>
+<li>src/struts.properties配置文件
+<ul>
+<li>struts.custom.i18n.resources=struts    # 使自己的普通配置生效。如：/org/apache/struts2/struts-messages.properties文件的
+<ul>
+<li>struts.messages.error.content.type.not.allowed=Content-Type not allowed: {0} “{1}” “{2}” {3}  属性，“{1}” “{2}” “{3}“是显示消息的占位符</li>
+<li>struts.action.extension=action,,可以不配置</li>
+<li>由于只加载properties文件，所以省略.properties</li>
+<li>=后面的是相对于src目录的文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="./OGNL" class="internal" data-slug="OGNL">OGNL</a></li>
+<li>strut.xml配置
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&lt;!DOCTYPE struts PUBLIC</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">        &quot;-//Apache Software Foundation//DTD Struts Configuration 2.0//EN&quot;</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">        &quot;http://struts.apache.org/dtds/struts-2.0.dtd&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&lt;struts></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;constant name=&quot;&quot; value=&quot;&quot;>&lt;/constant></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;include file=&quot;&quot;>&lt;/include></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;package name=&quot;&quot;></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;interceptors></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;interceptor name=&quot;&quot; class=&quot;&quot;>&lt;/interceptor></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;interceptor-stack name=&quot;&quot;></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                            &lt;interceptor-ref name=&quot;&quot;>&lt;/interceptor-ref></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;/interceptor-stack></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;/interceptors></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;default-interceptor-ref name=&quot;&quot;>&lt;/default-interceptor-ref></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;global-results></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;result name=&quot;&quot;>&lt;/result></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;/global-results></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;global-exception-mappings></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;exception-mapping result=&quot;&quot; exception=&quot;&quot;/></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;/global-exception-mappings></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;action name=&quot;&quot;></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;param name=&quot;&quot;>&lt;/param></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;result>&lt;/result></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;result name=&quot;input&quot;>&lt;/result></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;exception-mapping result=&quot;&quot; exception=&quot;&quot;/></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;interceptor-ref name=&quot;&quot;>&lt;/interceptor-ref></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            &lt;/action></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;/package></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&lt;/struts></span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">设置</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;constant name=&quot;struts.devMode&quot; value=&quot;true&quot;/></span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                # 开启debug模式</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                                            # debug模式，不用重启调试(添加新的方法要重启，方法中改代码不用重启)</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;constant name=&quot;struts.i18n.encoding&quot; value=&quot;utf-8&quot;/></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                                            # 配置struts的编码</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;constant name=&quot;struts.configuration.xml.reload&quot; value=&quot;true&quot;/></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                                            # 配置本属性，可以使得改动struts配置文件不用重启应用服务器</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;constant name=&quot;struts.multipart.saveDir&quot; value=&quot;/upload&quot;/></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                                            # 配置上传存储路径</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &lt;constant name=&quot;struts.action.extension&quot; value=&quot;action,do&quot; /></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                                                # 配置过滤路径</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">详细解释</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> 存放路径src/</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> 可以在struts-2.3.15.1的src\apps\blank\src\main\resources\struts.xml中参考配置文件</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;include file=&quot;struts2/cal/cal_struts.xml&quot;/>标签包含其它路径的xml配置文件</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                    #　被include的文件不能再include其它文件</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;constant name=&quot;struts.action.extension&quot; value=&quot;do,,&quot;></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            默认值</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    default.properties中配置了默扩展名：struts.action.extension=action,,</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            # 配置匹配到框架处理的扩展名，空逗号代表匹配没有扩展名</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;package name=&quot;xxPackage&quot; extends=&quot;struts-default&quot; namespace=&quot;/xx/&quot;></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            默认值</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    namespace=&quot;/&quot;</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    extends=&quot;struts-default&quot;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">        # 不可省略</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            # name是包的唯一标识，不可以写路径</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## namespace 访问路径如/xx/a.do会匹配到该包执行其中的映射，按照域命名空间链的方式匹配，如：</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                                                    /xx/yy/a.do也会匹配到该包，但是它优先匹配到/xx/yy的命名空间</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                                                    /a.do 不会匹配到该包</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    注意：匹配/sys/*的名称空间是/sys 而非 /sys/</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## struts的包有抽象包，普通包两种，通过继承可以加入包内容，相当于复制、粘贴</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## 继承的包是struts-default，其路径是/struts-default.xml</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## ，它定义了核心的bean和拦截器</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;interceptors></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;interceptor name=&quot;&quot; class=&quot;&quot;/></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    &lt;interceptor-stack name=&quot;&quot;></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                            &lt;interceptor-ref name=&quot;/&quot;></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                            # 定义拦截器、定义拦截器栈（加入拦截器）</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                            ## 拦截器栈中可以加栈</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;default-interceptor-ref name=&quot;&quot;> 默认拦截器（可以用于验证用户登录）</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;global-results> 全局结果（用来跳转全局异常等）</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;global-exception-mappings> 全局异常</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;action name=&quot;&quot; class=&quot;&quot; method=&quot;&quot;></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            默认值</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    class=&quot;com.opensymphony.xwork2.ActionSupport&quot;</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    method=&quot;execute&quot;</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            # name=&quot;aa&quot;时 .../aa.do的请求匹配到该方法执行</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## class 是类字节码路径，method是其中的方法名</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;param name=&quot;aaa&quot;>bbb&lt;/param></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            调用 &lt;action>标签中对象的实例的方法：setAaa(&quot;bbb&quot;);</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;result name=&quot;&quot; type=&quot;&quot;>/ok.jsp</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            默认值</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    name=&quot;success&quot;</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    type=&quot;dispatcher&quot;</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            # name=&quot;success&quot;时，映射的method返回&quot;success&quot;时进入该result处理</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## type是返回方式 ，如dispatcher redirect等</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    type的返回类型</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">                            dispatcher</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> : </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">转发到jsp页面</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">                            redirect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> : </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">重定向到 jsp html 等页面</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">                            chain</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> : </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Action 类之间的转发</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">                            redirectAction</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> : </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Action 类之间的重定向</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">                            stream</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> : </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">以 inputStream 的数据类型返回</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                                    stream的参数</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                        # 可以从struts-default.xml文件中对应的stream参数对应的类的源码中查看其中的set方法找到要写参数的名称</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                                            &lt;param name=&quot;contentType&quot;>image/pjpeg&lt;/param></span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                # 下载文件的类型                  另外如text/html; charset=utf-8返回给ajax异步数据</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                                            &lt;param name=&quot;bufferSize&quot;>2048&lt;/param></span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                # 缓冲byte[]的大小，单位字节</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                                            &lt;param name=&quot;contentDisposition&quot;>attachment;filename=${uuidFileName}&lt;/param></span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                # 设置下载响应头，只的下载时才设置。${uuidFileName}是一个OGNL表达式</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                                            &lt;param name=&quot;inputName&quot;>imageStream&lt;/param></span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">        # 框架调用传递给result标签结果字符串的对象中的getImageStream()方法，来获取InputStream流对象</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                            # 返回stream类型不指定返回的路径</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## 标签间的内容：/ok.jsp 是响应的路径</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;result name=&quot;input&quot; type=&quot;&quot;>/ok.jsp</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            type中的参数</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                        # 可以从struts-default.xml配置文件中查到</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    dispatcher</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">        # 转发</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    redirect</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">        # 重定向</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    chain</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                # Action类之间转发，需要加参数，参数的名字</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                            ## ：struts-default.xml文件中找到&quot;chain&quot;对应的类，按快捷键ctrl + shift + T 关联类的源码文件，查找set方法改名即可</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                            &lt;param name=&quot;actionName&quot;>to&lt;/param></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                    # action标签的 name属性值</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                            &lt;param name=&quot;namespace&quot;>/&lt;/param></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                                    # action的名称空间</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    redirectAction</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">                # Action类之间重定向</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            # 各种拦截器不通过时默认的返回input，同时向request作用域中加入了相关错误信息供struts2的jsp标签进行显示</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## 处理 返回值是input的返回信息跳转，就是处理拦截器拦截后的信息跳转</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;exception-mapping result=&quot;nullJsp&quot;        exception=&quot;java.lang.NullPointerException&quot; /></span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            # &lt;action>标签中的局部异常</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## &lt;action>捕获标签中的实例运行抛出的异常,然后改为 返回执行结果为&quot;nullJsp&quot;的字符串交给本&lt;action>标签中相应的&lt;result>标签来处理</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    o-> &lt;interceptor-ref name=&quot;loginInterceptor&quot;/></span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">            默认值</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">                    name=&quot;defaultStack&quot;</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            # 指定在本&lt;action>标签中使用的拦截器或拦截器栈</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            ## 当指定了拦截器或拦截器栈以后，默认的defaultStack将会没有,此时defaultStack中的18个拦截器将不再执行</span></span></code></pre></figure>
+</li>
+<li>使用：OGNL对象图导航语言对标签中的路径进行动态设置</li>
+</ul>
+</li>
+<li>验证
+<ul>
+<li>struts2验证
+<ul>
+<li>1.代码式: validate(),validateXxx()方法
+<ul>
+<li>单个验证与全部验证都存在时先单个验证，再全部验证，验证信息都加入验证信息集合</li>
+</ul>
+</li>
+<li>2.声明式: Action类名-validation.xml
+<ul>
+<li>Action类名-&lt;action标签的name属性>-validation.xml</li>
+<li>单个验证与全部验证都存在时先全部验证，再单个验证，验证信息都加入验证信息集合</li>
+<li>先声明验证，后代码验证</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>参数驱动
+<ul>
+<li>1.属性驱动: action中用属性收集表单参数</li>
+<li>2.模型驱动: javaBean收集参数</li>
+</ul>
+</li>
+<li>代码式（属性驱动）：
+<ul>
+<li>步骤</li>
+<li>1.需要验证的Action类  继承 ActionSupport 类
+<ul>
+<li>ActionSupport 类 实现了Validateable接口，该接口是验证接口</li>
+</ul>
+</li>
+<li>2.写验证方法
+<ul>
+<li>1> public void validate()
+<ul>
+<li>方法重写（通用验证方法，本类中的所有其它方法执行前都执行）</li>
+</ul>
+</li>
+<li>2> public void validateXxxMethod()
+<ul>
+<li>或者自定义专用验证方法 xxxMethod为要验证的方法名，首字母要大写</li>
+<li>注意，通用、专用验证方法同时存在时，先执行专用验证方法，再执行通用验证方法，但是通用验证方法的错误消息无法加入到返回的错误集合中</li>
+</ul>
+</li>
+<li>3> this.addFieldError(“password”,“密码必填”);
+<ul>
+<li>验证方法中添加错误信息到错误信息集合</li>
+<li>addFieldError(&quot;&quot;,&quot;&quot;)是从ActionSupport父类中继承的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.jsp文件中通过验证标签：
+<ul>
+<li>&lt;%@ taglib uri=“/struts-tags” prefix=“s”%>            - &lt;s:fielderror/>                # 显示所有错误信息            - &lt;s:fielderror fieldName=“password”/>            - 显示验证出错信息</li>
+</ul>
+</li>
+<li>4.xml配置
+<ul>
+<li>&lt;!— 验证错误信息处理 <span>⇒</span>                - &lt;result name=“input” type=“dispatcher”>                    - /error.jsp
+<ul>
+<li>&lt;/result>                    - 写在需要验证的方法对应的标签中，验证错误时验证方法会优先返回”input”字符串</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>声明式（属性驱动）：
+<ul>
+<li>1.验证Action类继承ActionSupport</li>
+<li>2.验证Action类目录下配置文件
+<ul>
+<li>Action类名-validation.xml</li>
+<li>Action类名-&lt;action标签的name属性>-validation.xml
+<ul>
+<li>放入此名字的配置文件就相当于加了验证，不需要做其它事情，相当于分别向Actioin类中加入了validate()validateXxx()方法进行了相应验证</li>
+<li>文件内容</li>
+<li>&lt;?xml version=“1.0” encoding=“UTF-8”?>                    - &lt;!DOCTYPE validators PUBLIC                    - ”-//Apache Struts//XWork Validator 1.0.3//EN”
+<ul>
+<li>“<a href="http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd%22%3E" class="external">http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd”><svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li>&lt;validators>                        - &lt;field name=“username”>                # 要验证的属性                            - &lt;field-validator type=“requiredstring”>                                - &lt;message>用户名必填&lt;/message>                            - &lt;/field-validator>                        - &lt;/field>                        - &lt;field-validator type=“regex”>                            - &lt;param name=“expression”>^[\u3447-\uFA29]+$&lt;/param>                            - &lt;message>UserAction2-validation<span>⇒</span>必须写中文&lt;/message>                        - &lt;/field-validator>                    - &lt;/validators>                        - xml文件的头在 xwork-core-2.3.1.1.jar包的
+- xwork-validator-1.0.3.dtd中复制
+<ul>
+<li>关联约束在
+<ul>
+<li>\struts-2.3.15.1\src\xwork-core\src\main\resources\xwork-validator-1.0.3.dtd文件</li>
+</ul>
+</li>
+<li>&lt;field-validator type=&quot;&quot;>的约束类型在xwork-core-2.3.1.1.jar包的                            - /com/opensymphony/xwork2/validator/validators/default.xml文件中
+- 16个规则
+- type=“regex”相当于调用了default.xml文件中配置的
+- RegexFieldValidator类的 setExpression方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.jsp文件中通过验证标签（同上）</li>
+<li>4.xml配置（同上）
+<ul>
+<li>出错信息
+<ul>
+<li>1.验证文件名写错，无提示，不验证</li>
+<li>2.<field-validator type>写错，有明显提示</field-validator></li>
+<li>2.<field name="salaryy">写错，获取的salaryy为空。</field></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>声明式（模型驱动）
+<ul>
+<li>1.创建bean对象，bean对象中封装属性</li>
+<li>2.验证Action类继承ActionSupport类，声明bean对象实例</li>
+<li>3.action类同目录 中  ：Action类名-&lt;action标签的name属性>-validation.xml
+<ul>
+<li>&lt;field-validator type=“visitor”>            - bean类同目录中：bean类名-validation.xml配置验证文件</li>
+</ul>
+</li>
+<li>4.jsp文件请求参数改为：action类中bean对象名.bean对象封装的属性名。用&lt;s:fielderror/>标签得到返回的错误信息</li>
+<li>5.xml配置（同上）</li>
+</ul>
+</li>
+<li>原理</li>
+<li>StrutsPreparedAndExecuteFilter
+<ul>
+<li>1.注入参数
+<ul>
+<li>setUsername()</li>
+<li>setPassword()</li>
+</ul>
+</li>
+<li>2.验证方法：validate()或validateXxx()
+<ul>
+<li>验证配置文件中验证：Action类名-validation.xml</li>
+</ul>
+</li>
+<li>3.转发：根据验证成功或失败返回消息
+<ul>
+<li>验证集合无错误消息成功Action <span>⇒</span> execute或同签名的方法</li>
+<li>验证集合有错误消息失败&lt;result name = “input” type=“dispatcher”
+<ul>
+<li>register.jsp/login.jsp</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>过滤器
+<ul>
+<li>StrutsPrepareAndExecuteFilter
+<ul>
+<li>中查看Dispathcer类，从中找到配置struts-default.xml,struts-plugin.xml,struts.xml值的属性DEFAULT_CONFIGURATION_PATHS</li>
+<li>查找引用该属性的方法为init_TraditionalXmlConfigurations</li>
+<li>查看引用该方法的方法为init</li>
+<li>回头看StrutsPrepareAndExecuteFilter中初始化dispatcher对象的方法initDispatcher
+<ul>
+<li>其中调用了dispatcher.init();方法来配置dispatcher</li>
+</ul>
+</li>
+<li>由此可以知道struts在启动时加载了struts-default.xml,struts-plugin.xml,struts.xml配置文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>拦截器
+<ul>
+<li>struts-core-2.3.1.1.jar包中的
+<ul>
+<li>struts-default.xml文件中
+<ul>
+<li>定义了32个interceptor（拦截器）
+<ul>
+<li>i18n    # 国际化</li>
+</ul>
+</li>
+<li>token  # 表单重复提交</li>
+<li>validation  # 验证</li>
+<li>params  # 参数拦截器,向Action类中注入参数</li>
+<li>cookie</li>
+</ul>
+</li>
+<li>interceptor-tack    # 拦截栈
+<ul>
+<li>拦截栈中的拦截器的先后顺序有影响</li>
+<li>basicStack</li>
+<li>defaultStack    # 每个http请求都会经过该拦截栈
+<ul>
+<li>其中的18个拦截器, <default-interceptor-ref>中定义</default-interceptor-ref></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原理
+<ul>
+<li>拦截器仿照过滤器建立，内部实现原理是完全相同的</li>
+</ul>
+</li>
+<li>执行流程
+<ul>
+<li>拦截器构构造函数 <span>→</span> action构造函数 <span>→</span> 拦截器1 in <span>→</span> 拦截器2 in <span>→</span> demo <span>→</span> 拦截器2 out <span>→</span> 拦截器1 out</li>
+<li>exception拦截器最先进，最后出</li>
+</ul>
+</li>
+<li>自定义拦截器
+<ul>
+<li>1.定义Action类，继承Interceptor接口，重写生命周期方法
+<ul>
+<li>public LoginInterceptor() {</li>
+<li>}</li>
+<li>public void destroy() {</li>
+<li>}</li>
+<li>public void init() {</li>
+<li>}</li>
+<li>public String intercept(ActionInvocation invocation)  {</li>
+<li>}</li>
+</ul>
+</li>
+<li>2.配置struts.xml文件
+<ul>
+<li>1> 定义拦截器、拦截器栈
+<ul>
+<li>&lt;interceptors>                    - &lt;interceptor name=“loginInterceptor” class=“interceptor.LoginInterceptor”/>                    - &lt;interceptor name=“roleInterceptor” class=“interceptor.RoleInterceptor”/>                    - &lt;interceptor-stack name=“crmStack”>                        - &lt;interceptor-ref name=“loginInterceptor”>&lt;/interceptor-ref>                        - &lt;interceptor-ref name=“roleInterceptor”>&lt;/interceptor-ref>                    - &lt;/interceptor-stack>                - &lt;/interceptors>            - 2> <action>标签中声明用到的拦截器或拦截器栈</action></li>
+<li>&lt;interceptor-ref name=“loginInterceptor” />                # 此时默认的defaultStack拦截器栈会被替代掉    - 自定义方法过滤拦截器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>MethodFilterInterceptor继承AbstractInterceptor继承Interceptor，前两个是struts自己实现的自己的包装类</li>
+<li>原理：自己实现intercept方法，实现对方法名的过滤。如果符合通过条件，则执行自己的doIntercept方法。所以要求用户重写doIntercept方法实现业务逻辑</li>
+<li>&lt;interceptor name=“aloginInterceptor” class=“cn.it.shop.interceptor.AloginInterceptor”>            - &lt;param name=“excludeMethods”><em>$&lt;/param>                # 除了</em>$匹配的方法都执行此拦截器                - includeMethods为包含匹配的方法执行拦截器</li>
+<li>&lt;/interceptor>    - 生命周期</li>
+<li>部署时初始化，每次符合<action>的请求时，执行拦截器</action></li>
+</ul>
+</li>
+<li>拦截器Action 类
+<ul>
+<li>o<span>→</span> 继承Interceptor 接口</li>
+<li>o<span>→</span> 重写生命周期方法
+<ul>
+<li>String intercept(ActionInvocation invocation)方法中调用
+<ul>
+<li>invocation.invoke() 放行</li>
+<li>invocation.getAction()得到当前的Action类</li>
+<li>invocation.getStack()得到值栈中的栈
+<ul>
+<li>invocation用于调试18个拦截器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>具体拦截器
+<ul>
+<li>struts-default.xml 文件中定义了32种拦截器
+<ul>
+<li>alias</li>
+</ul>
+</li>
+<li>autowiring</li>
+<li>chain</li>
+<li>conversionError</li>
+<li>cookie</li>
+<li>clearSession</li>
+<li>createSession</li>
+<li>debugging</li>
+<li>execAndWait</li>
+<li>exception</li>
+<li>fileUpload                                # 只用来验证已经注入的文件是否合格，合格则通过，不合格则不执行action类中对应请求的方法</li>
+<li>i18n</li>
+<li>logger</li>
+<li>modelDriven                                # 用于检查action类是否实现ModelDriven<t>接口，然后调用getModel()方法注入得到的对象到栈的项端。</t></li>
+<li>scopedModelDriven</li>
+<li>params                                        # 注入参数用，包括注入文件（级联注入文件的ContentType与FileName）</li>
+<li>actionMappingParams</li>
+<li>prepare</li>
+<li>staticParams</li>
+<li>scope</li>
+<li>servletConfig                                # 向自定义的实现RequestAware等接口的Action类（一般是BaseAction类）中注入request等相应的map对象</li>
+<li>timer</li>
+<li>token                                                # 防止重复提交</li>
+<li>tokenSession</li>
+<li>validation                                # 验证</li>
+<li>workflow</li>
+<li>store</li>
+<li>checkbox</li>
+<li>profiling</li>
+<li>roles</li>
+<li>annotationWorkflow</li>
+<li>multiselect</li>
+</ul>
+</li>
+<li>数据传递
+<ul>
+<li>o<span>→</span> 拦截器不会向其它拦截器中注入参数，所以自定义拦截器中了参数要从request中获取</li>
+<li>o<span>→</span> 如果想 显式的引用了自己的拦截栈，默认的拦截栈就不引用了，要自己引用，其中的注入参数拦截器向action类中注入参数</li>
+</ul>
+</li>
+<li>技巧
+<ul>
+<li>&lt;interceptor-stack name=“defaultStack”>    # 对defaultStack进行替换，在它前面添加自定义的拦截器        - &lt;interceptor-ref name=“aloginInterceptor”/>        - &lt;interceptor-ref name=“defaultStack”/>    - 拦截器中的ActionInvocation对象</li>
+<li>可以得到ActionContext</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文件处理
+<ul>
+<li>上传
+<ul>
+<li>struts2文件上传步骤
+<ul>
+<li>1.编写jsp文件
+<ul>
+<li>1> post方式提交</li>
+<li>2> <input type="file" name="file1"/> 要添加name属性</li>
+<li>3> post表单上传的编码方式是enctype=“multipart/formdata”</li>
+</ul>
+</li>
+<li>2.创建Action类，不必继承任何类(但是如果不继承ActionSupport类的话，拦截器将不会返回提示消息)
+<ul>
+<li>1> 定义参数        # 如果不接收上传文件名字符串数组而从文件对象中获取文件名的话，得到的文件名将会是乱码
+<ul>
+<li>private File[] image;                                                # 字段名</li>
+<li>private String[] imageContentType;                        # 文件类型</li>
+<li>private String[] imageFileName;                                # 文件名</li>
+<li>private String uploadPath;
+<ul>
+<li>前三个参数可以不是数组，在 struts-default.xml配置文件fileUpload拦截器对应的源码中可以找到定义规则：
+<ul>
+<li>&lt;li>[File Name] : File - the actual File&lt;/li>                            - &lt;p/> &lt;li>[FileName]ContentType : String - the content type of the file&lt;/li>                            - &lt;p/>&lt;li>[File Name]FileName : String - the actual name of the file uploaded(not the HTML name)&lt;/li>                        - uploadPath是我们自定义的配置文件中注入过来的文件存储位置</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2> 写execute方法保存文件到路径，返回成功消息</li>
+</ul>
+</li>
+<li>3.Action类的配置文件，include到src/struts.xml文件中
+<ul>
+<li>1> <action>标签中配置name=“input”的标签<result>来返回出错消息</result></action></li>
+<li>2> <action>标签中用param标签注入文件存储路径：uploadPath 底层执行setUploadPath()方法</action></li>
+<li>3> <action>标签中通过<interceptor-ref name="fileUpload">标签对上传文件进行参数上的限定
+<ul>
+<li>1> <param name="maximumSize"/> 单个文件的最大尺寸(字节)</li>
+<li>2> <param name="allowedExtensions"/> 文件扩展名</li>
+<li>3> <param name="allowedTypes"/> 文件实际类型，如image/jpeg，可从tomcat配置文件web.xml中查找</li>
+</ul>
+</interceptor-ref></action></li>
+</ul>
+</li>
+<li>4.配置返回消息的信息
+<ul>
+<li>：src/struts.properties文件中
+<ul>
+<li>struts.custom.i18n.resources=struts                # 解锁自/org/apache/struts2/default.properties总配置文件
+<ul>
+<li>加载自己，=后面是参照src/目录的相对路径 ，省略掉.properties扩展名</li>
+</ul>
+</li>
+<li>struts.multipart.maxSize=2097152                #  解锁自/org/apache/struts2/default.properties总配置文件
+<ul>
+<li>设置上传文件总量的大小</li>
+</ul>
+</li>
+<li>struts.messages.error.file.too.large=\u6587\u4EF6\u592A\u5927: {0} “{1}” “{2}” {3}</li>
+<li>struts.messages.error.content.type.not.allowed=\u6587\u4EF6\u7C7B\u578B\u4E0D\u6B63\u786E: {0} “{1}” “{2}” {3}</li>
+<li>struts.messages.error.file.extension.not.allowed=\u6269\u5C55\u540D\u4E0D\u6B63\u786E: {0} “{1}” “{2}” {3}
+<ul>
+<li>覆盖/org/apache/struts2/default.properties总配置文件的响应消息,=后面是中文的unicode编码的iso8859-1的表示形式，通过视图可以直接配置，也可以用java/bin目录下的native2ascii.exe工具进行转码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多文件上传
+<ul>
+<li>出现有多个文件共同上传时，文件拦截器会出现一错全错的情况，这时我们利用struts的一个
+<ul>
+<li>小bug---文件拦截不成功也调用action类的setXxx方法传入文件，从set函数中对文件进行筛选和转存</li>
+<li>这时文件拦截器已经形同虚设，一点作用也不起了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原理过程
+<ul>
+<li>1.上传请求经过struts2的过滤器匹配扩展名</li>
+<li>2.按src/struts.xml文件中声明的配置包映射的名称空间映射到配置包</li>
+<li>3.根据action标签的name属性匹配名称空间与扩展名之间的“文件名”,映射到该action标签
+<ul>
+<li>1> 经过多层拦截器</li>
+<li>2> 用param标签注入文件存储路径</li>
+<li>3> 通过<interceptor-ref name="fileUpload">标签对上传文件进行参数上的限定</interceptor-ref></li>
+<li>2> 执行action标签对应类的方法，该方法返回的返回的字符串进行响应</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>默认配置
+<ul>
+<li>1.defaultStack拦截栈中的fileUpload拦截器进行处理</li>
+<li>2.default.properties配置文件中 对multipart的上传方式进行了配置
+<ul>
+<li>struts.multipart.parser=jakarta                  # struts使用了第三方的jakerta来给上传文件解码</li>
+<li>struts.multipart.saveDir=                      # 缓存文件的临时目录，不填默认是
+<ul>
+<li>work/catalina/localhost/web工程名/upload_…00000..tmp</li>
+</ul>
+</li>
+<li>struts.multipart.maxSize=2097152      # 默认支持的上传文件的大小 (字节，2m)，是总大小</li>
+</ul>
+</li>
+<li>3.多数服务器自己删除缓存文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>下载
+<ul>
+<li>用传递类型为stream 来返回要下载的文件</li>
+<li>写法
+<ul>
+<li>&lt;result name=“success” type=“stream”>            - &lt;!— 下载文件的类型 <span>⇒</span>            - &lt;param name=“contentType”>image/pjpeg&lt;/param>            - &lt;!— byte[]的大小，单位字节 <span>⇒</span>            - &lt;param name=“bufferSize”>2048&lt;/param>            - &lt;!— 设置下载响应头，${uuidFileName}是一个OGNL表达式，不是EL表达式 <span>⇒</span>            - &lt;param name=“contentDisposition”>attachment;filename=${uuidFileName}&lt;/param>            - &lt;!— 框架调用getXxx()方法，来获取InputStream流对象 <span>⇒</span>            - &lt;param name=“inputName”>imageStream&lt;/param>        - &lt;/result>            - 与其它同样，要注入的参数从stream类型对应的类中可以进行查看</li>
+</ul>
+</li>
+<li>显示与下载的编码问题
+<ul>
+<li>o<span>→</span> 设置tomcat/conf/server.xml
+<ul>
+<li>&lt;Connector port=“8080” .. URIEncoding=“utf-8”/>        - o<span>→</span> 提交下载请求用post方式，struts框架自动给post请求编码解码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./Java-库" class="internal">Java 库</a></li><li><a href="./JavaWeb" class="internal">JavaWeb</a></li><li><a href="./拦截器" class="internal">拦截器</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>

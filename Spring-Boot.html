@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>Spring Boot</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="Spring Boot"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Spring Boot"/><meta name="twitter:description" content="介绍 减少配置, 习惯大于配置 支持groovy, gradle 命令 java -jar xxx.jar -server.port=8080 # —后内容，相当于application.yml设置 -spring.profiles.active=two # 选择applicaton-two.yml配置 基础文件 目录 src main java com.outrun XxxApplication resources static/ templates/ application.properties application.yml webapp WEB-INF test java com.o..."/><meta property="og:description" content="介绍 减少配置, 习惯大于配置 支持groovy, gradle 命令 java -jar xxx.jar -server.port=8080 # —后内容，相当于application.yml设置 -spring.profiles.active=two # 选择applicaton-two.yml配置 基础文件 目录 src main java com.outrun XxxApplication resources static/ templates/ application.properties application.yml webapp WEB-INF test java com.o..."/><meta property="og:image:alt" content="介绍 减少配置, 习惯大于配置 支持groovy, gradle 命令 java -jar xxx.jar -server.port=8080 # —后内容，相当于application.yml设置 -spring.profiles.active=two # 选择applicaton-two.yml配置 基础文件 目录 src main java com.outrun XxxApplication resources static/ templates/ application.properties application.yml webapp WEB-INF test java com.o..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/Spring-Boot"/><meta property="twitter:url" content="https://ukeate.me/Spring-Boot"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="介绍 减少配置, 习惯大于配置 支持groovy, gradle 命令 java -jar xxx.jar -server.port=8080 # —后内容，相当于application.yml设置 -spring.profiles.active=two # 选择applicaton-two.yml配置 基础文件 目录 src main java com.outrun XxxApplication resources static/ templates/ application.properties application.yml webapp WEB-INF test java com.o..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="Spring-Boot"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-2016"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-2016" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">Spring Boot</h1></div></div><article class="popover-hint"><ul>
+<li>介绍
+<ul>
+<li>减少配置, 习惯大于配置</li>
+<li>支持groovy, gradle</li>
+</ul>
+</li>
+<li>命令
+<ul>
+<li>java -jar xxx.jar
+<ul>
+<li>-server.port=8080                                      # —后内容，相当于application.yml设置</li>
+<li>-spring.profiles.active=two                            # 选择applicaton-two.yml配置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基础文件
+<ul>
+<li>目录
+<ul>
+<li>src
+<ul>
+<li>main
+<ul>
+<li>java
+<ul>
+<li>com.outrun
+<ul>
+<li>XxxApplication</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>resources
+<ul>
+<li>static/</li>
+<li>templates/</li>
+<li>application.properties</li>
+<li>application.yml</li>
+</ul>
+</li>
+<li>webapp
+<ul>
+<li>WEB-INF</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>test
+<ul>
+<li>java
+<ul>
+<li>com.outrun
+<ul>
+<li>XxxApplicationTests</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pom.xml</li>
+</ul>
+</li>
+<li>XxxApplication.java                                     # 程序入口
+<ul>
+<li>@SpringBootApplication                              # 类，组合@Configuration, @EnableAutoConfiguration, @ComponentScan
+<ul>
+<li>@EnableAutoConfiguration根据jar包依赖自动配置</li>
+<li>扫描该注解同级下级包的Bean</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>application.yml                                         # application.yml或application.properties, 放在src/main/resources或config目录下</li>
+<li>pom.xml</li>
+</ul>
+</li>
+<li>配置
+<ul>
+<li>区分环境
+<ul>
+<li>application-{profile}.properties                                    # profile比如是dev, test, prod</li>
+<li>设置spring.profiles.active=dev来区分</li>
+</ul>
+</li>
+<li>加载顺序                                                                 # 为了外部人员维护，可覆盖定义
+<ul>
+<li>命令行</li>
+<li>SPRING_APPLICATION_JSON环境变量, json格式</li>
+<li>java:comp/env的JNDI属性</li>
+<li>java系统属性                                                         # System.getProperties()查看</li>
+<li>系统环境变量</li>
+<li>random.*配置的随机属性</li>
+<li>jar包外文件名, 如application-{profile}.properties</li>
+<li>jar包内文件名</li>
+<li>@Configuration注解类中，@PropertySource修改的属性</li>
+<li>SpringApplication.setDefaultProperties定义的内容</li>
+</ul>
+</li>
+<li>application.yml
+<ul>
+<li>—                                                 # ---分隔多个配置，这里相当于建立了application-two.yml文件</li>
+<li>spring:
+<ul>
+<li>profiles: two</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<ul>
+<li>spring:
+<ul>
+<li>profiles
+<ul>
+<li>active: dev                                 # 配置环境, 加载applicaton-dev.yml</li>
+</ul>
+</li>
+<li>application:
+<ul>
+<li>name: app1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pom.xml
+<ul>
+<li>&lt;packaging>jar&lt;/packaging>                          # 不用war包部署, 嵌入了tomcat, jar可服务        - &lt;parent>            - &lt;groupId>org.springframework.boot&lt;/groupId>            - &lt;artifactId>spring-boot-starter-parent&lt;/artifactId>             # 提供spring boot基础依赖和默认配置            - &lt;relativePath/>                                 # 从仓库查找parent        - &lt;/parent>        - &lt;properties>            - &lt;project.build.sourceEncoding>UTF-8&lt;/project.build.sourceEncoding>            - &lt;project.reporting.outputEncoding>UTF-8&lt;/project.reporting.outputEncoding>            - &lt;java.version>1.8&lt;/java.version>        - &lt;/properties>        - &lt;dependencies>        - &lt;/dependencies>        - &lt;build>            - &lt;plugins>                - &lt;plugin>                    - &lt;groupId>org.springframework.boot&lt;/groupId>                    - &lt;artifactId>spring-boot-maven-plugin&lt;/artifactId>       # 方便启动停止应用, 如mvn spring-boot:run                - &lt;/plugin>            - &lt;/plugins>        - &lt;/build>- 注解</li>
+</ul>
+</li>
+<li>@SpringBootApplication                      # spring boot 启动类
+<ul>
+<li>组合了@Configuration, @EnableAutoConfiguration, @ComponentScan</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>类
+<ul>
+<li>ApplicationRunner                           # 继承该类，注解@Component, 随容器启动运行
+<ul>
+<li>run()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>插件
+<ul>
+<li>maven
+<ul>
+<li>命令
+<ul>
+<li>mvn spring-boot:run</li>
+</ul>
+</li>
+<li>pom.xml
+<ul>
+<li>&lt;plugin>                - &lt;groupId>org.springframework.boot&lt;/groupId>                - &lt;artifactId>spring-boot-maven-plugin&lt;/artifactId>       # 方便启动停止应用, 如mvn spring-boot:run            - &lt;/plugin>- 组件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>starter POMs            # spring-boot-starter开头的组件</li>
+</ul>
+</li>
+<li>子域
+<ul>
+<li>NamedContextFactory
+<ul>
+<li>class Spec1 implements NamedContextFactory.Specification {
+<ul>
+<li>@Override</li>
+<li>public String getName(){}</li>
+<li>@Override</li>
+<li>public Class&lt;?>[] getConfiguration(){}</li>
+</ul>
+</li>
+<li>}</li>
+<li>public class MyFactory extends NamedContextFactory<specification1> {
+<ul>
+<li>public MyFactory(Class&lt;?> clazz) {
+<ul>
+<li>super(clazz, “my”, “my.name”)</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</specification1></li>
+<li>}</li>
+<li>@Configuration</li>
+<li>public class Config0 {
+<ul>
+<li>@Bean</li>
+<li>Bean0 getBean(){
+<ul>
+<li>return new Bean0()</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+<li>parent = new AnnotationConfigApplicationContext()</li>
+<li>parent.register(Config0.class)</li>
+<li>parent.refresh()</li>
+<li>factory = new MyFactory(Config00.class)</li>
+<li>factory.setApplicationContext(parent)</li>
+<li>spec1 = new Spec1(“1”, new Class[]{Config1.class})</li>
+<li>factory.setConfigurations(List.of(spec1))</li>
+<li>factory.getInstance(“1”, Bean0.class)   // 子域共享</li>
+<li>factory.getInstance(“1”, Bean00.class)  // 子域复制</li>
+<li>factory.getInstance(“1”, Bean1.class)</li>
+</ul>
+</li>
+<li>spring
+<ul>
+<li>配置
+<ul>
+<li>随机数用${random}
+<ul>
+<li>${random.value} 字符串</li>
+<li>${random.int} int</li>
+<li>${random.long} long</li>
+<li>${random.int(10)} 10以内int</li>
+<li>${random.int[10,20]} 10到20 int</li>
+</ul>
+</li>
+<li>pom.xml
+<ul>
+<li>&lt;dependency>                    - &lt;groupId>org.springframework.boot&lt;/groupId>                    - &lt;artifactId>spring-boot-configuration-processor&lt;/artifactId>                    - &lt;optional>true&lt;/optional>                - &lt;/dependency>            - application.yml</li>
+<li>aa
+<ul>
+<li>bb: 1                                           # 可用properties类管理属性</li>
+</ul>
+</li>
+<li>xxx: 1                                              # 自定义value
+<ul>
+<li>配置文件中用”${xxx}“引用</li>
+<li>类中用@Value(”${xxx}“)注入到属性</li>
+<li>SpEL中用”#{xxx}“引用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>AaProperties.java
+<ul>
+<li>@Component</li>
+<li>@ConfigurationProperties(prefix = “aa”)</li>
+<li>public class AaProperties {
+<ul>
+<li>private String bb;</li>
+<li>…getter和setter…</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@Configuration</li>
+<li>@PropertySource(value = “classpath:test.properties”)                    # 加载文件, 配合@ConfigurationProperties注入属性</li>
+<li>@EnableConfigurationProperties({ConfigBean.class, User.class})          # 加载bean, 配合@Autowired注入</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基础
+<ul>
+<li>注解
+<ul>
+<li>@Value(”${xxx}”)</li>
+<li>@Autowired                                  # 装载bean</li>
+<li>@Bean                                       # 实例化Bean, 属性名为方法名
+<ul>
+<li>@Bean</li>
+<li>public RestTemplate restTemplate() {
+<ul>
+<li>return new RestTemplate();</li>
+</ul>
+</li>
+<li>}</li>
+<li>相当于</li>
+<li>RestTemplate restTemplate = new RestTemplate();</li>
+</ul>
+</li>
+<li>@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)                         # 生命周期
+<ul>
+<li>singleton                               # 单例</li>
+<li>prototype                               # 多例</li>
+<li>request                                 # web程序ContextApplication用, 随请求创建</li>
+<li>session                                 # web程序ContextApplication用, 随session创建</li>
+<li>global session                          # porlet的global用, 其它用降级为session</li>
+</ul>
+</li>
+<li>@EventListener(XxxEvent.class)              # 修饰方法, 外部publishEvent()时触发</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实体
+<ul>
+<li>注解
+<ul>
+<li>@Entity                                     # 修饰bean类</li>
+<li>@Id                                         # id属性</li>
+<li>@GeneratedValue(strategy=GenerationType.AUTO)                           # 自增属性</li>
+<li>@Column(nullable = false, unique = true)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>组件
+<ul>
+<li>注解
+<ul>
+<li>@Component</li>
+<li>@ConfigurationProperties(prefix = “my”)     # 注入properties对应名称的属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>dao
+<ul>
+<li>注解
+<ul>
+<li>@Repository                                 # 修饰类</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>service
+<ul>
+<li>注解
+<ul>
+<li>@Service                                    # 修饰类</li>
+<li>@PostConstruct                              # 修饰方法, 加载servlet时, init()前执行</li>
+<li>@PreDestroy                                 # 修饰方法, 销毁servlet时, destroy()后执行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>controller
+<ul>
+<li>注解
+<ul>
+<li>@Controller                                 # 修饰类</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>测试
+<ul>
+<li>pom.xml
+<ul>
+<li>&lt;dependency>                - &lt;groupId>org.springframework.boot&lt;/groupId>                - &lt;artifactId>spring-boot-starter-test&lt;/artifactId>                - &lt;scope>test&lt;/scope>            - &lt;/dependency>        - 注解</li>
+<li>@Before</li>
+<li>@Test</li>
+<li>@RunWith(SpringRunner.class)                # 修饰类, 测试spring</li>
+<li>@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)                 # 修饰类, 测试spring boot</li>
+<li>@LocalServerPort                            # 注入端口号</li>
+<li>@AutoConfigureMockMvc                       # 使用mockMvc, 用@Autowired注入MockMvc</li>
+<li>@WebAppConfiguration                                # 模拟ServletContext</li>
+</ul>
+</li>
+<li>XxxApplicationTests.java                        # junit测试
+<ul>
+<li>@RunWith(SpringJUnit4ClassRunner.class)</li>
+<li>@SpringApplicationConfiguration(classes = XxxApplication.class)</li>
+<li>@WebAppConfiguration</li>
+<li>public class XxxApplicationTests {
+<ul>
+<li>private MockMvc mvc;</li>
+<li>@Before</li>
+<li>public void setUp() throws Exception {
+<ul>
+<li>mvc = MockMvcBuilders.standaloneSetup(new XxxController()).build();</li>
+</ul>
+</li>
+<li>}</li>
+<li>@Test</li>
+<li>public void hello() throws Exception {
+<ul>
+<li>mvc.perform(MockMvcRequestBuilders.get(“/hello”).accept(MediaType.APPLICATION_JSON))
+<ul>
+<li>.addExpect(status().isOk())</li>
+<li>.addExpect(content().string(equalTo(“hello”)));</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据库
+<ul>
+<li>pom.xml
+<ul>
+<li>spring-boot-starter-jdbc</li>
+<li>spring-boot-starter-data-jpa                            # spring data JPA</li>
+</ul>
+</li>
+<li>application.yml
+<ul>
+<li>jpa:
+<ul>
+<li>generate-ddl: false</li>
+<li>show-sql: true</li>
+<li>hibernate:
+<ul>
+<li>ddl-auto: none                          # create时, 第一次create之后update</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>datasource:
+<ul>
+<li>platform: h2</li>
+<li>schema: classpath:schema.sql                # 建表</li>
+<li>data: classpath:data.sql                    # 数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@Transactional                                  # 修饰方法，开启事务，或在事务中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>mybatis
+<ul>
+<li>pom.xml
+<ul>
+<li>&lt;!— mybatis <span>⇒</span>            - &lt;dependency>                - &lt;groupId>org.mybatis.spring.boot&lt;/groupId>                - &lt;artifactId>mybatis-spring-boot-starter&lt;/artifactId>                - &lt;version>1.1.1&lt;/version>            - &lt;/dependency>            - &lt;!— mysql <span>⇒</span>            - &lt;dependency>                - &lt;groupId>mysql&lt;/groupId>                - &lt;artifactId>mysql-connector-java&lt;/artifactId>                - &lt;version>5.1.21&lt;/version>            - &lt;/dependency>        - application.yml</li>
+<li>spring:
+<ul>
+<li>datasource:
+<ul>
+<li>url: jdbc:mysql://127.0.0.1:3306/outrun?characterEncoding=UTF-8</li>
+<li>username: root</li>
+<li>password: a</li>
+<li>driver-class-name: com.mysql.jdbc.Driver</li>
+</ul>
+</li>
+<li>jpa:</li>
+<li>hibernate:
+<ul>
+<li>ddl-auto: update  # 新建连接必要</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>mybatis:
+<ul>
+<li>mapper-locations: classpath:mapper/*.xml        # 指定mapper.xml位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>mapper.xml                      # 用mbg生成
+<ul>
+<li>&lt;?xml version=“1.0” encoding=“UTF-8”?>            - &lt;!DOCTYPE mapper PUBLIC ”-//mybatis.org//DTD Mapper 3.0//EN” “<a href="http://mybatis.org/dtd/mybatis-3-mapper.dtd" class="external">http://mybatis.org/dtd/mybatis-3-mapper.dtd<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>”>            - &lt;mapper namespace=“com.outrun.erp.mapper.UserMapper”>                - &lt;resultMap id=“BaseResultMap” type=“com.outrun.erp.entities.User”>                    - &lt;id column=“id” jdbcType=“BIGINT” property=“id” />                    - &lt;result column=“name” jdbcType=“VARCHAR” property=“name” />                - &lt;/resultMap>                - &lt;select id=“selectUserById” parameterType=“long” resultMap=“UserMap”>                    - SELECT name FROM user WHERE id=#{userId}
+<ul>
+<li>&lt;/select>                - &lt;insert id=“inserUser”>                    - &lt;selectKey keyProperty=“id” resultType=“int” order=“BEFORE”>                        - select field1 from seq1
+<ul>
+<li>&lt;/selectKey>                - &lt;/insert>                - &lt;sql id=“userColumns”>                    - ${alias}.id, ${alias}.username</li>
+</ul>
+</li>
+<li>&lt;/sql>                - &lt;select id=“selectColumns” resultType=“map”>                    - select
+- &lt;include refid=“userColumns”>&lt;property name=“alias” value=“tb1”/>&lt;/include>                    - from tb1</li>
+<li>&lt;/select>                - &lt;select id=“dynamicSql” resultType=“User”>                    - select * from user
+<ul>
+<li>where state = 0</li>
+<li>&lt;if test=“title != null”>                        - and title like #{title}</li>
+<li>&lt;/if>                    - &lt;choose>                        - &lt;when test=“title != null”>                            - and title like #{title}
+<ul>
+<li>&lt;/when>                        - &lt;when test=“author != null and author.name != null”>                            - and author_name like ${author.name}</li>
+<li>&lt;/when>                        - &lt;otherwise>                            - and featured = 1</li>
+<li>&lt;/otherwise>                    - &lt;/choose>                    - &lt;foreach item=“item” index=“index” collection=“list” open=”(” separator=”,” close=”)”>                        - #{item}</li>
+</ul>
+</li>
+<li>&lt;/foreach>                    - &lt;trim prefix=“where” prefixOverrides=“and | or”>                        - …</li>
+<li>&lt;/trim>                    - &lt;bind name=“a” value=”’%’ + _data.getTitle() + ’%’” />                    - select * from blog</li>
+<li>where title like #{a}</li>
+</ul>
+</li>
+<li>&lt;/select>                - &lt;update>                    - update User
+- &lt;set>                            - &lt;if test=“username != null”>username=#{username},&lt;/if>                        - &lt;/set>                - &lt;/update>                - &lt;cache>                 # 该命名空间缓存                - &lt;cache-ref>             # 引用其它命名空间缓存                - &lt;delete>                - &lt;resultMap>                    - &lt;constructor>       # 构造方法                        - &lt;idArg>         # id参数, 标记id帮助提高性能                        - &lt;arg>           # 普通参数                    - &lt;/constructor>                    - &lt;id>                # 标记id帮助提高性能                    - &lt;result>            # 普通字段                    - &lt;association>       # 关联                    - &lt;collection>        # 结构体                    - &lt;discriminator>     # 自动映射                - &lt;/resultMap>            - &lt;/mapper>        - mapper/UserMapper</li>
+</ul>
+</li>
+<li>@Mapper           # 如果扫描mapper.xml，不用加@Mapper</li>
+<li>public interface UserMapper {
+<ul>
+<li>List<user> selectUserById(@Param(“userId”) long userId)</user></li>
+<li>@Select(“select * from user”)</li>
+<li>List<user> findAll();</user></li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>entities/User
+<ul>
+<li>public class User {
+<ul>
+<li>private Integer id;</li>
+<li>private String name;</li>
+<li>…getter, setter…</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@Table(name = “user”)                   # 修饰类，指定表</li>
+<li>@Id                                     # 修饰属性, 指定主键</li>
+<li>@Column(name = “name”)                  # 修饰属性, 指定字段</li>
+<li>@Mapper                                 # 修饰类</li>
+<li>@Select(“select * from user”)           # 修饰方法</li>
+<li>@Param(“userId”)                        # 修饰参数</li>
+</ul>
+</li>
+<li>api
+<ul>
+<li>SqlSessionFactory
+<ul>
+<li>build</li>
+<li>openSession                         # 重载事务方法</li>
+</ul>
+</li>
+<li>SqlSesion
+<ul>
+<li>selectOne()</li>
+<li>selectList()</li>
+<li>selectMap()</li>
+<li>insert()</li>
+<li>update()</li>
+<li>delete()</li>
+<li>commit()</li>
+<li>rollback()</li>
+<li>clearCache()</li>
+<li>close()</li>
+</ul>
+</li>
+<li>Mapper
+<ul>
+<li>o<span>→</span></li>
+<li>@Insert(“insert into tb1(id, name) values(#{id}, #{name})”)</li>
+<li>@SelectKey(statement=“next value”, keyProperty=“id”, before=true, resultType=int.class)</li>
+<li>int insertTable1(String name)</li>
+</ul>
+</li>
+<li>SQL
+<ul>
+<li>INSERT_INTO()</li>
+<li>VALUES()</li>
+<li>o<span>→</span></li>
+<li>new SQL(){{
+<ul>
+<li>SELECT(“a.name”);</li>
+<li>SELECT(“a.age”);</li>
+<li>FROM(“tb1 a”);</li>
+<li>WHERE(“a.name like ?”);</li>
+</ul>
+</li>
+<li>}}.toString()</li>
+</ul>
+</li>
+<li>LogFactory
+<ul>
+<li>useSlf4jLogging()</li>
+<li>useLog4jLogging()</li>
+<li>useStdOutLogging()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>web
+<ul>
+<li>用的spring mvc</li>
+<li>pom.xml
+<ul>
+<li>&lt;dependency>                - &lt;groupId>org.springframework.boot&lt;/groupId>                 # web模块, 有tomcat, spring mvc                - &lt;artifactId>spring-boot-starter-web&lt;/artifactId>            # 测试模块, 有JUnit, Hamcrest, Mockito            - &lt;/dependency>        - application.yml</li>
+<li>server
+<ul>
+<li>port: 8080                                      # 默认8080</li>
+<li>servlet
+<ul>
+<li>context-path: /hello                        # uri前缀</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>静态资源
+<ul>
+<li>默认映射public, resources, static到/</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>控制器
+<ul>
+<li>@RestController                             # 修饰类, 组合@Controller与@responseBody</li>
+<li>@RequestMapping(“/index”)                   # 修改类或方法, url
+<ul>
+<li>@GetMapping(”/{id}”)                    # 相当于@RequestMapping(method=RequestMethod.GET)</li>
+<li>@PostMapping</li>
+<li>@PutMapping</li>
+<li>@DeleteMapping</li>
+<li>@PatchMapping</li>
+</ul>
+</li>
+<li>@CrossOrigin                                # 修饰方法, 允许跨域</li>
+<li>@RequestBody                                # 修饰方法, 解析body到参数</li>
+<li>@PathVariable Long id                       # 修饰参数, 接收url参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内置对象
+<ul>
+<li>ServerProperties                                # 单例可@Autowired, 存端口之类属性</li>
+</ul>
+</li>
+<li>自实现
+<ul>
+<li>XxxController.java
+<ul>
+<li>@RestController</li>
+<li>public class HelloController {
+<ul>
+<li>@RequestMapping(“/hello”)</li>
+<li>public String index() {
+<ul>
+<li>return “hello”;</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>日志
+<ul>
+<li>application.yml
+<ul>
+<li>logging:
+<ul>
+<li>level:
+<ul>
+<li>root: INFO</li>
+<li>org.hibernate: INFO</li>
+<li>org.hibernate.type.descriptor.sql.BasicBinder: TRACE</li>
+<li>org.hibernate.type.descriptor.sql.BasicExtractor: TRACE</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@Slf4j                                      # 修饰类，其中可直接用log变量</li>
+<li>@EnableSwagger2                             # 修饰类</li>
+<li>@Api(tags = &quot;&quot;)                             # 修饰类, 文档</li>
+<li>@ApiModel(&quot;&quot;)                               # 修饰类</li>
+<li>@ApiModelProperty(”)                        # 修饰属性</li>
+<li>@ApiOperation(value=&quot;&quot;, notes=&quot;&quot;)           # 修改方法, 文档</li>
+<li>@ApiIgnore                                  # 修饰方法, 文档忽略</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>jackson
+<ul>
+<li>注解
+<ul>
+<li>@JsonInclude                                # 修饰类, 序列化时包含
+<ul>
+<li>@JsonInclude(JsonInclude.Include.NON_EMPTY)                 # null或&quot;&quot;时不序列化</li>
+</ul>
+</li>
+<li>@JsonIgnore                                 # 修饰属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Scheduled
+<ul>
+<li>scheduled
+<ul>
+<li>注解
+<ul>
+<li>@Scheduled                                  # 修饰方法, 定时调度
+<ul>
+<li>@Scheduled(initialDelay = 1000, fixedRate = 1000)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>类
+<ul>
+<li>@Configuration</li>
+<li>implements SchedulingConfigurer             # 配置类
+<ul>
+<li>configureTasks(ScheduledTaskRegistrar)
+<ul>
+<li>registrar.setScheduler(Executors.newScheduledThreadPool(2));    # worker池</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>async
+<ul>
+<li>注解
+<ul>
+<li>@Async                                      # 修饰方法, 异步调用</li>
+</ul>
+</li>
+<li>类
+<ul>
+<li>implements AsyncUncaughtExceptionHandler    # 处理@Async异常
+<ul>
+<li>@Override</li>
+<li>public void handleUncaughtException()</li>
+</ul>
+</li>
+<li>@Configuration</li>
+<li>@EnableAsync</li>
+<li>implements AsyncConfigurer
+<ul>
+<li>@Bean</li>
+<li>@Override</li>
+<li>public Executor getAsyncExecutor()</li>
+<li>@Override</li>
+<li>public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler()             # 处理无返回值＠Async方法异常
+<ul>
+<li>return handler</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用</li>
+<li>@Async</li>
+<li>Future<string> fetch(){
+<ul>
+<li>return new AsyncResult<string>(&quot;&quot;)</string></li>
+</ul>
+</string></li>
+<li>}</li>
+<li>future = fetch()</li>
+<li>try{
+<ul>
+<li>future.get()</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>热部署
+<ul>
+<li>pom.xml
+<ul>
+<li>&lt;dependency>                - &lt;groupId>org.springframework.boot&lt;/groupId>                - &lt;artifactId>spring-boot-devtools&lt;/artifactId>                - &lt;optional>true&lt;/optional>                                       # 热部署            - &lt;/dependency>        - application.yml</li>
+<li>spring:
+<ul>
+<li>devtools:</li>
+<li>restart:
+<ul>
+<li>enabled: true</li>
+<li>additional-paths: src/main/java</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>jsp
+<ul>
+<li>pom.xml
+<ul>
+<li>&lt;!— servlet依赖. <span>⇒</span>            - &lt;dependency>                - &lt;groupId>javax.servlet&lt;/groupId>                - &lt;artifactId>javax.servlet-api&lt;/artifactId>                - &lt;scope>provided&lt;/scope>            - &lt;/dependency>            - &lt;dependency>                - &lt;groupId>javax.servlet&lt;/groupId>                - &lt;artifactId>jstl&lt;/artifactId>            - &lt;/dependency>            - &lt;!— tomcat的支持.<span>⇒</span>            - &lt;dependency>                - &lt;groupId>org.apache.tomcat.embed&lt;/groupId>                - &lt;artifactId>tomcat-embed-jasper&lt;/artifactId>                - &lt;scope>provided&lt;/scope>            - &lt;/dependency>        - application.yml</li>
+<li>spring:
+<ul>
+<li>mvc:</li>
+<li>view:
+<ul>
+<li>prefix: /WEB-INF/views/</li>
+<li>suffix: .jsp</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>controller类
+<ul>
+<li>@Controller</li>
+<li>public class XxxController {
+<ul>
+<li>@RequestMapping(“/xxx”)</li>
+<li>public String xxx(Model m) {
+<ul>
+<li>m.addAttribute(“a”, 1);</li>
+<li>return “view1”;</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>src/main/webapp/WEB-INF/views/view1.jsp
+<ul>
+<li>&lt;%@ page language=“java” contentType=“text/html; charset=utf-8” pageEncoding=“utf-8”%>            - jsp ${a}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>lombok
+<ul>
+<li>注解
+<ul>
+<li>@Builder                            # 修饰类, 可build方式设置属性</li>
+<li>@Getter                             # 修饰类, 生成getter</li>
+<li>@Setter                             # 修饰类, 生成setter</li>
+<li>@ToString                           # 修饰类, 生成toString方法</li>
+<li>@Data                               # 修饰类, 注入getter, setter, toString</li>
+<li>@NoArgsConstructor                  # 修饰类, 生成无参构造方法</li>
+<li>@AllArgsContructor                  # 修饰类, 生成带所有参数的构造方法</li>
+<li>@RequiredArgsConstructor            # 修饰类, 生成带常量、@NotNull修饰变量参数的构造方法
+<ul>
+<li>@RequiredArgsConstructor(onConstructor_ = @Autowired)               # 构造类时，自动对private final 属性@Autowire</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>remote shell
+<ul>
+<li>pom.xml
+<ul>
+<li>spring-boot-starter-remote-shell</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>actuator
+<ul>
+<li>pom.xml
+<ul>
+<li>&lt;dependency>                - &lt;groupId>org.springframework.boot&lt;/groupId>                - &lt;artifactId>spring-boot-starter-actuator&lt;/artifactId>            - &lt;/dependency>        - 原生端点</li>
+<li>应用配置类
+<ul>
+<li>/autoconfig                                 # 自动化配置详情
+<ul>
+<li>positiveMatches	                        # 成功</li>
+<li>negativeMatches</li>
+</ul>
+</li>
+<li>/beans                                      # 所有bean</li>
+<li>/configprops                                # 属性</li>
+<li>/env                                        # 环境属性</li>
+<li>/mappings                                   # spring mvc映射关系</li>
+<li>/info                                       # 自定义信息，默认为空，用info前缀定义</li>
+</ul>
+</li>
+<li>度量指标
+<ul>
+<li>/metrics                                    # 程序信息，内存、线程、gc等
+<ul>
+<li>nonheap.*                               # 非堆内存</li>
+<li>gauge.*                                 # http请求性能，如gauge.response表示上次延迟</li>
+<li>counter.*                               # 记录累计，如counter.status.200表示返回200的次数</li>
+</ul>
+</li>
+<li>/metrics/{name}                             # 查看某项
+<ul>
+<li>/metrics/mem.free</li>
+</ul>
+</li>
+<li>/health                                     # 启动状态，磁盘空间
+<ul>
+<li>DiskSpaceHealthIndicator                # 低磁盘空间</li>
+<li>DataSourceHealthIndicator               # DataSource连接是否可用</li>
+<li>MongoHealthIndicator</li>
+<li>RabbitHealthIndicator</li>
+<li>RedisHealthIndicator</li>
+<li>SolrHealthIndicator</li>
+</ul>
+</li>
+<li>/dump                                       # 线程信息</li>
+<li>/trace                                      # 跟踪信息</li>
+</ul>
+</li>
+<li>操作控制                                         # 用属性配置开启
+<ul>
+<li>/shutdown                                   # 关闭端点
+<ul>
+<li>通过endpoints.shutdown.enabled=true开启</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>自定义counter统计
+<ul>
+<li>@Autowired</li>
+<li>private CounterService counterService;</li>
+<li>counterService.increment(“didispace.hello.count”)</li>
+</ul>
+</li>
+<li>自定义health检测器
+<ul>
+<li>@Component</li>
+<li>public class RocketMQHealthIndicator implements HealthIndicator {
+<ul>
+<li>private int check(){}</li>
+<li>@Override</li>
+<li>public Health health() {
+<ul>
+<li>int errorCode = check();</li>
+<li>if (errorCode !=0) {
+<ul>
+<li>return Health.down().withDetail(“Error Code”, errorCode).build();</li>
+<li>return Health.up().build();</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>spring boot admin
+<ul>
+<li>application.yml
+<ul>
+<li>spring:
+<ul>
+<li>application:
+<ul>
+<li>name: erp-admin-server</li>
+</ul>
+</li>
+<li>boot:
+<ul>
+<li>admin:
+<ul>
+<li>routes:
+<ul>
+<li>endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>endpoints:
+<ul>
+<li>health:
+<ul>
+<li>sensitive: false</li>
+<li>enabled: true</li>
+</ul>
+</li>
+<li>actuator:
+<ul>
+<li>enabled: true</li>
+<li>sensitive: false</li>
+</ul>
+</li>
+<li>beans:
+<ul>
+<li>sensitive: false</li>
+<li>enabled: true</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>spring initializer
+<ul>
+<li>介绍
+<ul>
+<li>生成spring基础项目</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>spring security
+<ul>
+<li>配置
+<ul>
+<li>application.yml
+<ul>
+<li>security:
+<ul>
+<li>basic:
+<ul>
+<li>enabled: false                          # 禁用security</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@EnableWebSecurity                                  # 修饰WebSecurityConfigurerAdapter, 开启web验证</li>
+<li>@EnableGlobalMethodSecurity(prePostEnabled = true)  # 修饰WebSecurityConfigurerAdapter, 开启方法验证</li>
+<li>@PreAuthorize                                       # 修饰controller方法</li>
+</ul>
+</li>
+<li>api
+<ul>
+<li>Subject                                             # 主体数据结构, 如用户</li>
+<li>SecurityManager                                     # 安全管理器, 管理所有subject</li>
+<li>UserDetails
+<ul>
+<li>getAuthorities()</li>
+<li>getUsername()</li>
+<li>getPassword()</li>
+<li>isAccountNonExpired()</li>
+<li>isAccountNonLocked()</li>
+<li>isCredentialsNonExpired()</li>
+<li>isEnabled()</li>
+</ul>
+</li>
+<li>GrantedAuthority
+<ul>
+<li>getAuthority()</li>
+</ul>
+</li>
+<li>WebSecurityConfigurerAdapter
+<ul>
+<li>configure(HttpSecurity)                         # 验证请求</li>
+<li>configure(AuthenticationManagerBuilder)         # 验证数据，需要授权服务配置AuthenticationManager
+<ul>
+<li>userDetailService</li>
+<li>passwordEncoder</li>
+</ul>
+</li>
+<li>authenticationManagerBean()                     # 指定管理bean</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>spring security oauth2
+<ul>
+<li>pom.xml
+<ul>
+<li>spring-cloud-starter-oauth2</li>
+</ul>
+</li>
+<li>结构
+<ul>
+<li>OAuth2 Provider
+<ul>
+<li>Authorization Service                           # 授权服务</li>
+<li>Resource Service                                # 资源服务</li>
+<li>Spring Security过滤器
+<ul>
+<li>/oauth/authorize                            # 授权</li>
+<li>/oauth/token                                # 获取token</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>授权服务
+<ul>
+<li>applicatoin.yml                                     # server
+<ul>
+<li>security:
+<ul>
+<li>oauth2:
+<ul>
+<li>resource:
+<ul>
+<li>filter-order: 3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@EnableAuthorizationServer                      # 修饰AuthorizationServerConfigurerAdapter, 开启授权服务</li>
+</ul>
+</li>
+<li>api
+<ul>
+<li>AuthorizationServerConfigurerAdapter            # 授权服务配置
+<ul>
+<li>configure(ClientDetailsServiceConfigurer)                           # 客户端信息
+<ul>
+<li>clientId</li>
+<li>secret</li>
+<li>scope</li>
+<li>authorizedGrantTypes                    # password, refresh_token, client_credentials</li>
+<li>authorities                             # 具体权限</li>
+</ul>
+</li>
+<li>configure(AuthorizationServerEndpointsConfigurer)                   # 使用token的服务
+<ul>
+<li>authenticationManager                   # 密码认证
+<ul>
+<li>authenticate(Authentication)</li>
+</ul>
+</li>
+<li>userDetailService                       # 获取用户数据
+<ul>
+<li>loadUserByUsername(String)</li>
+</ul>
+</li>
+<li>authorizationCodeServices               # 验证码</li>
+<li>implicitGrantService</li>
+<li>tokenGranter</li>
+<li>tokenStore
+<ul>
+<li>InMemoryTokenStore</li>
+<li>JdbcTokenStore</li>
+<li>JwtTokenStore</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>configure(AuthorizationServerSecurityConfigurer)                    # 使用token服务的安全策略, 授权服务与资源服务分离时配置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>接口
+<ul>
+<li>Principal /users/current</li>
+</ul>
+</li>
+<li>测试
+<ul>
+<li>insert into user(username, password) values(‘outrun’, ‘$2a$10$l7.7AJEHtXukwUZiKAyVSO6lHJOyHhPxHvi7MHawe8SjlOKkCVbAe’)</li>
+<li>curl erp-auth-resource:a@localhost:9016/uaa/oauth/token -d grant_type=password -d username=outrun -d password=a</li>
+<li>浏览器
+<ul>
+<li>url: localhost:9016/uaa/oauth/token</li>
+<li>header
+<ul>
+<li>‘Authorization’: ‘Basic ’ + base64(‘erp-auth-resource:a’)</li>
+</ul>
+</li>
+<li>data
+<ul>
+<li>username: ‘outrun’</li>
+<li>password: ‘123456’</li>
+<li>grant_type: ‘password’</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>资源服务
+<ul>
+<li>application.yml                                     # client
+<ul>
+<li>security:
+<ul>
+<li>oauth2:
+<ul>
+<li>resource:
+<ul>
+<li>user-info-uri: <a href="http://localhost:9016/uaa/users/current" class="external">http://localhost:9016/uaa/users/current<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+</li>
+<li>client:
+<ul>
+<li>clientId: erp-auth-resource</li>
+<li>clientSecret: a</li>
+<li>accessTokenUri: <a href="http://localhost:9016/uaa/oauth/token" class="external">http://localhost:9016/uaa/oauth/token<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li>grant-type: client_credentials,password</li>
+<li>scope: server</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注解
+<ul>
+<li>@EnableResourceServer                           # 修饰ResourceServerConfigurerAdapter, 开启资源服务
+<ul>
+<li>修饰AuthorizationServerConfigurerAdapter, 因为授权服务提供token获取和验证接口</li>
+</ul>
+</li>
+<li>@PreAuthorize(“hasAuthority(‘ROLE_ADMIN’))      # 修饰controller方法，验证权限</li>
+</ul>
+</li>
+<li>api
+<ul>
+<li>ResourceServerConfigurerAdapter                 # 资源服务配置
+<ul>
+<li>configure(HttpSecurity)
+<ul>
+<li>authorizeRequests                       # 请求放行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>测试
+<ul>
+<li>curl -d “username=outrun&amp;password=a” “localhost:9017/user/registry”</li>
+<li>insert into role values(1, ‘ROLE_USER’), (2, ‘ROLE_ADMIN’)</li>
+<li>insert into ‘user_role’ values(user_id, 2)</li>
+<li>curl erp-auth-resource:a@localhost:9016/uaa/oauth/token -d grant_type=password -d username=outrun -d password=a</li>
+<li>curl -l -H “Authorization:Bearer 7df6669c-0c86-417b-827f-9a58297f57e5” -X GET “localhost:9017/hello”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>客户端
+<ul>
+<li>注解
+<ul>
+<li>@EnableOAuth2Client                             # 修饰[Oauth2ClientConfig], 客户端</li>
+</ul>
+</li>
+<li>api
+<ul>
+<li>[Oauth2ClientConfig]                            # 客户端配置, 自定义类，名称任意
+<ul>
+<li>ClientCredentialsResourceDetails            # bean, 资源信息</li>
+<li>RequestInterceptor                          # bean, 保存请求上下文</li>
+<li>OAuth2RestTemplate                          # bean, 用于向授权服务发送请求</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>表
+<ul>
+<li>clientdetails</li>
+<li>oauth_access_token</li>
+<li>oauth_approvals</li>
+<li>oauth_client_details</li>
+<li>oauth_client_token</li>
+<li>oauth_code</li>
+<li>oauth_refresh_token</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./Java-库" class="internal">Java 库</a></li><li><a href="./Spring-Cloud" class="internal">Spring Cloud</a></li><li><a href="./Spring" class="internal">Spring</a></li><li><a href="./para" class="internal">para</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>

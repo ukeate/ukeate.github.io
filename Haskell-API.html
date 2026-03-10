@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>Haskell API</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="Haskell API"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Haskell API"/><meta name="twitter:description" content="内置变量 pi 模块 :m Data.Char Data.Map 加载模块 chr chr :: Int -> Char ord ord :: Char -> Int toUpper toLower import Data.Char 导入到全局命名空间 import Data.List (nub, sort) import Data.List hiding (nub) import qualified Data.Map as M 这样其中命名冲突的filter, null函数，只能用Data.Map.filter或M.filter方式调用 可用模块 prelude 默认载入的模块..."/><meta property="og:description" content="内置变量 pi 模块 :m Data.Char Data.Map 加载模块 chr chr :: Int -> Char ord ord :: Char -> Int toUpper toLower import Data.Char 导入到全局命名空间 import Data.List (nub, sort) import Data.List hiding (nub) import qualified Data.Map as M 这样其中命名冲突的filter, null函数，只能用Data.Map.filter或M.filter方式调用 可用模块 prelude 默认载入的模块..."/><meta property="og:image:alt" content="内置变量 pi 模块 :m Data.Char Data.Map 加载模块 chr chr :: Int -> Char ord ord :: Char -> Int toUpper toLower import Data.Char 导入到全局命名空间 import Data.List (nub, sort) import Data.List hiding (nub) import qualified Data.Map as M 这样其中命名冲突的filter, null函数，只能用Data.Map.filter或M.filter方式调用 可用模块 prelude 默认载入的模块..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/Haskell-API"/><meta property="twitter:url" content="https://ukeate.me/Haskell-API"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="内置变量 pi 模块 :m Data.Char Data.Map 加载模块 chr chr :: Int -> Char ord ord :: Char -> Int toUpper toLower import Data.Char 导入到全局命名空间 import Data.List (nub, sort) import Data.List hiding (nub) import qualified Data.Map as M 这样其中命名冲突的filter, null函数，只能用Data.Map.filter或M.filter方式调用 可用模块 prelude 默认载入的模块..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="Haskell-API"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-798"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-798" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">Haskell API</h1></div></div><article class="popover-hint"><ul>
+<li>内置变量
+<ul>
+<li>pi</li>
+</ul>
+</li>
+<li>模块
+<ul>
+<li>:m Data.Char Data.Map
+<ul>
+<li>加载模块</li>
+<li>chr
+<ul>
+<li><code>chr :: Int -> Char</code></li>
+</ul>
+</li>
+<li>ord
+<ul>
+<li><code>ord :: Char -> Int</code></li>
+</ul>
+</li>
+<li>toUpper</li>
+<li>toLower</li>
+</ul>
+</li>
+<li>import Data.Char
+<ul>
+<li>导入到全局命名空间</li>
+<li>import Data.List (nub, sort)</li>
+<li>import Data.List hiding (nub)</li>
+<li>import qualified Data.Map as M
+<ul>
+<li>这样其中命名冲突的filter, null函数，只能用Data.Map.filter或M.filter方式调用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可用模块
+<ul>
+<li>prelude
+<ul>
+<li>默认载入的模块</li>
+</ul>
+</li>
+<li>Data
+<ul>
+<li>Char</li>
+<li>List</li>
+<li>Map</li>
+<li>Set</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>自定义模块
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">module</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Geometry.Sphere</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">sphereVolume</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">sphereArea</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">Shape</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(..)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    # 导出类型和其所有构造子</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">where</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">sphereVolum</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ::</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> Float</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> -></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> Float</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">sphereVolum radius </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4.0</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> /</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 3.0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> pi </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (radius </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">^</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内置函数
+<ul>
+<li>prelude
+<ul>
+<li>$
+<ul>
+<li>函数调用符，优先级最低。而空格是最高优先级</li>
+<li>$右结合。而空格左结合</li>
+<li>等价于在右而写一对括号</li>
+</ul>
+</li>
+<li>.
+<ul>
+<li>f . g = \x <span>→</span> f (g x)</li>
+<li>函数组合</li>
+</ul>
+</li>
+<li>main
+<ul>
+<li><code>main :: IO ()</code></li>
+<li>main = do</li>
+</ul>
+</li>
+<li>signum
+<ul>
+<li>根据数字返回 -1, 0, 1</li>
+</ul>
+</li>
+<li>not</li>
+<li>id
+<ul>
+<li>identity</li>
+</ul>
+</li>
+<li>unlines
+<ul>
+<li>unlines [“a”, “b”]
+<ul>
+<li>成为 “a\nb\n”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>unwords
+<ul>
+<li>unwords [“a”, “b”]
+<ul>
+<li>成为 “a b”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>show
+<ul>
+<li>接受各种类型，转换为String, 再转义打印</li>
+</ul>
+</li>
+<li>read
+<ul>
+<li><code>read &quot;5&quot; :: Int</code></li>
+<li>read “5” - 2</li>
+<li>read “[1,2,3]” ++ [4]</li>
+</ul>
+</li>
+<li>reads
+<ul>
+<li>读取失败返回[]而不报错</li>
+</ul>
+</li>
+<li>negate
+<ul>
+<li>取反数字</li>
+</ul>
+</li>
+<li>abs
+<ul>
+<li>绝对值</li>
+</ul>
+</li>
+<li>length
+<ul>
+<li>列表的长度, [a] <span>→</span> Int , a在这里是一个type variable, 以小写字母开头(具体类型都大写开头)</li>
+</ul>
+</li>
+<li>map</li>
+<li>compare
+<ul>
+<li>返回 LT, GT, EQ其中一个</li>
+</ul>
+</li>
+<li>min</li>
+<li>max</li>
+<li>compare
+<ul>
+<li>返回LT, GT, EQ</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;Abc&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> `compare`</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;Zyx&quot;</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>mod
+<ul>
+<li>取模</li>
+</ul>
+</li>
+<li>odd
+<ul>
+<li>奇数</li>
+</ul>
+</li>
+<li>even
+<ul>
+<li>偶数</li>
+</ul>
+</li>
+<li>succ
+<ul>
+<li>取Enum的后继</li>
+</ul>
+</li>
+<li>pred
+<ul>
+<li>取Enum的前置</li>
+</ul>
+</li>
+<li>minBound
+<ul>
+<li>取Bound下限</li>
+</ul>
+</li>
+<li>maxBound</li>
+<li>substract
+<ul>
+<li>减</li>
+</ul>
+</li>
+<li>head</li>
+<li>tail
+<ul>
+<li>除第一个</li>
+</ul>
+</li>
+<li>last</li>
+<li>init
+<ul>
+<li>除最后一个</li>
+</ul>
+</li>
+<li>null
+<ul>
+<li>检查list是否空</li>
+</ul>
+</li>
+<li>reverse
+<ul>
+<li>list反转</li>
+</ul>
+</li>
+<li>take
+<ul>
+<li>take 1 [1,2,3]</li>
+</ul>
+</li>
+<li>takeWhile
+<ul>
+<li>取list值，直到某条件</li>
+</ul>
+</li>
+<li>drop
+<ul>
+<li>drop 1 [1,2,3]</li>
+</ul>
+</li>
+<li>maximum
+<ul>
+<li>list中最大元素</li>
+</ul>
+</li>
+<li>minimun
+<ul>
+<li>list中最小元素</li>
+</ul>
+</li>
+<li>sum
+<ul>
+<li>list和</li>
+</ul>
+</li>
+<li>product
+<ul>
+<li>list积</li>
+</ul>
+</li>
+<li>elem
+<ul>
+<li>判断元素是否在list中</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> `elem`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>cycle
+<ul>
+<li>take 7 (cycle [1,2,3])
+<ul>
+<li>[1,2,3,1,2,3,1]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>repeat
+<ul>
+<li>repeat 5</li>
+</ul>
+</li>
+<li>replicate
+<ul>
+<li>replicate 3 10
+<ul>
+<li>[10, 10, 10]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fst (1, 2)
+<ul>
+<li>只适合2元组</li>
+</ul>
+</li>
+<li>snd (1, 2)
+<ul>
+<li>只适合2元组</li>
+</ul>
+</li>
+<li>zip
+<ul>
+<li>zip3, zip4 … zip7</li>
+<li>zip [1,2,3] [4,5,6]
+<ul>
+<li>[(1,4), (2,5), (3,6)]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>zipWith
+<ul>
+<li>zipWith1 … zipWith7</li>
+<li>zipWith (\x y <span>→</span> x + y) [1,2] [3,4]
+<ul>
+<li>[4,6]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fromIntegral
+<ul>
+<li>返回更通用的数字类型</li>
+</ul>
+</li>
+<li>error &quot;&quot;
+<ul>
+<li>抛错</li>
+</ul>
+</li>
+<li>flip
+<ul>
+<li>翻转两个参数调用</li>
+</ul>
+</li>
+<li>map</li>
+<li>filter</li>
+<li>foldl
+<ul>
+<li>foldl (\acc x <span>→</span> acc + x) 0 xs</li>
+</ul>
+</li>
+<li>foldr
+<ul>
+<li>foldr (\x acc <span>→</span> f x : acc) [] xs</li>
+</ul>
+</li>
+<li>foldl1
+<ul>
+<li>以第一个元素为初始值，空list报错</li>
+</ul>
+</li>
+<li>foldr1</li>
+<li>foldl’
+<ul>
+<li>foldl的strict版</li>
+</ul>
+</li>
+<li>foldr’</li>
+<li>scanl
+<ul>
+<li>返回累加过程的list</li>
+</ul>
+</li>
+<li>scanr</li>
+<li>scanl1</li>
+<li>scanr1</li>
+<li>o<span>→</span> I/O action
+<ul>
+<li>只有在main中执行</li>
+<li>类型为 IO a</li>
+<li>putStrLn
+<ul>
+<li>只接受String，不转义打印，加换行符</li>
+<li><code>putStrLn :: String -> IO () </code>, 表示接收String, 是IO动作, 结果类型是()。表示是一个”IO monad”动作</li>
+</ul>
+</li>
+<li>putStr
+<ul>
+<li>由putChar递归定义，边界条件是空字符串</li>
+</ul>
+</li>
+<li>putChar</li>
+<li>print
+<ul>
+<li>打印Show typeclass的值</li>
+</ul>
+</li>
+<li>getLine
+<ul>
+<li>控制台读一行</li>
+<li><code>getLine :: IO String</code></li>
+<li>name <span>←</span> getLine</li>
+</ul>
+</li>
+<li>getChar</li>
+<li>sequence
+<ul>
+<li>顺序执行I/O action</li>
+</ul>
+</li>
+<li>mapM
+<ul>
+<li>mapM print [1,2,3]
+<ul>
+<li>对list元素执行sequence f</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>mapM_
+<ul>
+<li>同mapM，不打印[(),()]</li>
+</ul>
+</li>
+<li>getContents
+<ul>
+<li>读直到 eof (ctrl + d)</li>
+</ul>
+</li>
+<li>interact
+<ul>
+<li>用函数处理输入，返回到输出</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data.List
+<ul>
+<li>每个元素存在thunk中</li>
+<li>\
+<ul>
+<li>差集</li>
+<li>[1..3] \ [2]
+<ul>
+<li>[1,3]</li>
+</ul>
+</li>
+<li>“Im a big baby” \ “big”
+<ul>
+<li>输出 “Im a baby”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>union</li>
+<li>intersection</li>
+<li>insert
+<ul>
+<li>插入一个元素到可排序list相对位置</li>
+</ul>
+</li>
+<li>nub
+<ul>
+<li>去重复元素,常用Set转换取代,提高很多效率</li>
+</ul>
+</li>
+<li>map
+<ul>
+<li>导出到了prelude</li>
+</ul>
+</li>
+<li>filter
+<ul>
+<li>导出到了prelude</li>
+</ul>
+</li>
+<li>intersperse
+<ul>
+<li>intersperse ’.’ “abc”
+<ul>
+<li>“a.b.c”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>intercalate
+<ul>
+<li>同intersperse, 但插入list</li>
+</ul>
+</li>
+<li>transpose
+<ul>
+<li>二元list列为行</li>
+</ul>
+</li>
+<li>foldl’
+<ul>
+<li>fold的严格版，直接计算出中间值，而非用惰性”承诺”塞满堆栈</li>
+</ul>
+</li>
+<li>foldl1’</li>
+<li>concat
+<ul>
+<li>移除一级嵌套</li>
+</ul>
+</li>
+<li>concatMap
+<ul>
+<li>先map再concat</li>
+<li>concatMap (replicate 2) [1..3]
+<ul>
+<li>[1,1,2,2,3,3]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>and
+<ul>
+<li>list中全true返回true</li>
+<li>and $ map (>4) [5,6,7,8]</li>
+</ul>
+</li>
+<li>or</li>
+<li>any</li>
+<li>iterate
+<ul>
+<li>无限迭代值到函数，结果形成list</li>
+<li>take 10 $ iterate (*2) 1</li>
+</ul>
+</li>
+<li>splitAt
+<ul>
+<li>断开list, 返回二元组</li>
+<li>splitAt 3 “abcdef”
+<ul>
+<li>(“abc”, “def”)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>takeWhile
+<ul>
+<li>取元素，直到不符合条件</li>
+</ul>
+</li>
+<li>dropWhile</li>
+<li>span
+<ul>
+<li>同takeWhile, 不过返回分割list的二元组</li>
+</ul>
+</li>
+<li>break
+<ul>
+<li>同span, 但在条件首次为true时断开</li>
+</ul>
+</li>
+<li>sort
+<ul>
+<li>list元素要求Ord类型，排序list</li>
+</ul>
+</li>
+<li>group
+<ul>
+<li>合并相邻并相等的list元素</li>
+</ul>
+</li>
+<li>inits
+<ul>
+<li>init递归调用自身</li>
+<li>inits “abc”
+<ul>
+<li>[&quot;&quot;, “a”, “ab”, “abc”]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tails
+<ul>
+<li>tail递归调用自身</li>
+<li>tails “abc”
+<ul>
+<li>[“abc”, “bc”, “c”, &quot;&quot;]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>isInfixOf
+<ul>
+<li>list中搜索子list, 有则返回true</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;cat&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> `isInfixOf`</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;im a cat&quot;</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>isPrefixOf
+<ul>
+<li>是否以某list开头</li>
+</ul>
+</li>
+<li>isSuffixOf
+<ul>
+<li>是否以某list结尾</li>
+</ul>
+</li>
+<li>elem
+<ul>
+<li>是否包含某元素</li>
+</ul>
+</li>
+<li>notElem</li>
+<li>partition
+<ul>
+<li>条件划分list为二元组</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">partition (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">`elem`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'A'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">..</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'Z'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]) </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;AbCD&quot;</span></span></code></pre></figure>
+<ul>
+<li>(“ACD”, “b”)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>find
+<ul>
+<li>条件查找list, 返回第一个符合元素的Maybe值</li>
+</ul>
+</li>
+<li>elemIndex
+<ul>
+<li>返回elem第一个元素的索引的Maybe值</li>
+</ul>
+</li>
+<li>elemIndices
+<ul>
+<li>返回所有匹配索引的list</li>
+</ul>
+</li>
+<li>findIndex</li>
+<li>findIndices</li>
+<li>lines
+<ul>
+<li>字符串分行到list</li>
+</ul>
+</li>
+<li>unlines</li>
+<li>words
+<ul>
+<li>字符串分词到list</li>
+</ul>
+</li>
+<li>unwords</li>
+<li>delete
+<ul>
+<li>删除list中第一个匹配元素</li>
+<li>delete ‘h’ “hha”
+<ul>
+<li>“ha”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>replace</li>
+<li>lookup
+<ul>
+<li>用a查找[(‘a’, ‘b’)]中的b</li>
+</ul>
+</li>
+<li>genericLength
+<ul>
+<li>换Int类型为Num类型</li>
+</ul>
+</li>
+<li>genericTake</li>
+<li>genericDrop</li>
+<li>genericSplitAt</li>
+<li>genericIndex</li>
+<li>genericReplicate</li>
+<li>nubBy
+<ul>
+<li>传递函数判断相等性，取代==</li>
+</ul>
+</li>
+<li>deleteBy</li>
+<li>unionBy</li>
+<li>intersectBy</li>
+<li>groupBy</li>
+<li>sortBy</li>
+<li>insertBy</li>
+<li>maximumBy</li>
+<li>minimumBy</li>
+</ul>
+</li>
+<li>Data.Monoid
+<ul>
+<li>Monoid</li>
+<li>Product</li>
+<li>Sum</li>
+<li>Any</li>
+<li>All</li>
+</ul>
+</li>
+<li>Data.Foldable
+<ul>
+<li>foldr</li>
+<li>foldl</li>
+<li>foldr1</li>
+<li>foldl1</li>
+</ul>
+</li>
+<li>Data.Function
+<ul>
+<li>on
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">((</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">==</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">`on`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">))</span></span></code></pre></figure>
+<ul>
+<li>判断相等性，等价于 (\x y <span>→</span> (x > 0) == (y > 0))</li>
+</ul>
+</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(compare </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">`on`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> length)</span></span></code></pre></figure>
+<ul>
+<li>判断大小</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data.Char
+<ul>
+<li>isControl
+<ul>
+<li>是否控制字符</li>
+</ul>
+</li>
+<li>isSpace
+<ul>
+<li>包括空格, tab, 换行等</li>
+</ul>
+</li>
+<li>isLower</li>
+<li>isUpper</li>
+<li>isAlpha
+<ul>
+<li>是否字母</li>
+</ul>
+</li>
+<li>isAlphaNum
+<ul>
+<li>字母或数字</li>
+</ul>
+</li>
+<li>isPrint
+<ul>
+<li>可打印</li>
+</ul>
+</li>
+<li>isDgit</li>
+<li>isOctDigit</li>
+<li>isHexDigit</li>
+<li>isLetter
+<ul>
+<li>同isAlpha</li>
+</ul>
+</li>
+<li>isMark
+<ul>
+<li>unicode注音字符</li>
+</ul>
+</li>
+<li>isNumber</li>
+<li>isPunctuation
+<ul>
+<li>是否标点符号</li>
+</ul>
+</li>
+<li>isSymbol
+<ul>
+<li>货币符号</li>
+</ul>
+</li>
+<li>isSeperater
+<ul>
+<li>unicode空格或分隔符</li>
+</ul>
+</li>
+<li>isAscii
+<ul>
+<li>unicode 前128位</li>
+</ul>
+</li>
+<li>isLatin1
+<ul>
+<li>unicode 前256位</li>
+</ul>
+</li>
+<li>isAsciiUpper</li>
+<li>isAsciiLower</li>
+<li>GeneralCategory
+<ul>
+<li>得到字符的分类，一共31类, 属于Eq类型</li>
+<li>generalCategory ’ ’
+<ul>
+<li>Space</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>toUpper</li>
+<li>toLower</li>
+<li>toTitle</li>
+<li>digitToInt
+<ul>
+<li>数字，大小写字母list 转成 int list</li>
+</ul>
+</li>
+<li>intToDigit</li>
+<li>ord</li>
+<li>char</li>
+</ul>
+</li>
+<li>Data.Map
+<ul>
+<li>用avl树实现</li>
+<li>fromList
+<ul>
+<li>重复键会忽略，要求key有相等性和排序性</li>
+</ul>
+</li>
+<li>fromListWith
+<ul>
+<li>重复键给函数处理</li>
+</ul>
+</li>
+<li>toList</li>
+<li>empty
+<ul>
+<li>返回空map</li>
+</ul>
+</li>
+<li>insert
+<ul>
+<li>insert 3 10 map</li>
+</ul>
+</li>
+<li>insertWith
+<ul>
+<li>已包含键时函数处理</li>
+</ul>
+</li>
+<li>null
+<ul>
+<li>检查map是否空</li>
+</ul>
+</li>
+<li>size
+<ul>
+<li>返回map的大小</li>
+</ul>
+</li>
+<li>singleton
+<ul>
+<li>singleton 3, 9
+<ul>
+<li>fromList [(3,9)]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>lookup</li>
+<li>member
+<ul>
+<li>key 是否在map中</li>
+</ul>
+</li>
+<li>map</li>
+<li>filter</li>
+<li>keys</li>
+<li>elems</li>
+</ul>
+</li>
+<li>Data.Set
+<ul>
+<li>要求元素可排序，自动排序、唯一</li>
+<li>用avl树实现</li>
+<li>fromList</li>
+<li>intersection</li>
+<li>difference
+<ul>
+<li>存在于第一集合而不在第二集合的元素</li>
+</ul>
+</li>
+<li>union</li>
+<li>null</li>
+<li>size</li>
+<li>member</li>
+<li>empty</li>
+<li>singleton</li>
+<li>insert</li>
+<li>delete</li>
+<li>isSubsetOf
+<ul>
+<li>子集</li>
+<li>fromList [1,2] isSubsetOf fromList [1,2]</li>
+</ul>
+</li>
+<li>isProperSubsetOf
+<ul>
+<li>真子集</li>
+</ul>
+</li>
+<li>filter</li>
+<li>map</li>
+</ul>
+</li>
+<li>Data.ByteString
+<ul>
+<li>strict bytestring</li>
+<li>Empty相当于[], cons相当于:</li>
+</ul>
+</li>
+<li>Data.ByteString.Lazy
+<ul>
+<li>每个元素存在chunk中，每个chunk 64k，每个chunk相当于一个strict bytestring</li>
+<li>cons在chunk不满的时候会新建chunk, cons’是strick版的cons, 会填充chunk</li>
+<li>pack
+<ul>
+<li><code>pack :: [Word8] -> ByteString</code></li>
+<li>pack [80,81]</li>
+</ul>
+</li>
+<li>unpack</li>
+<li>fromChunks
+<ul>
+<li>转换strick bytestring 到lazy</li>
+</ul>
+</li>
+<li>toChunks
+<ul>
+<li>lazy转strick</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data.Ratio</li>
+<li>Control.Applicative
+<ul>
+<li>Applicative
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">class</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">Functor</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> f) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> Applicative</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> f </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">where</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    pure</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ::</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> a </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> fa</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    (&lt;*>)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ::</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> f (a </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> b) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> f a </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> f b</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    f </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;$></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> x </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> fmap f x</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>ZipList
+<ul>
+<li>ZipList3</li>
+<li>ZipList7</li>
+</ul>
+</li>
+<li>getZipList</li>
+<li>liftA2
+<ul>
+<li>liftA2 f x y = f &lt;$> x &lt;*> y</li>
+</ul>
+</li>
+<li>sequenceA</li>
+</ul>
+</li>
+<li>Control.Monad
+<ul>
+<li>when
+<ul>
+<li>Bool true时，返回后面的I/O action, 否则return ()</li>
+</ul>
+</li>
+<li>forever
+<ul>
+<li>不断执行后面的I/O action</li>
+<li>forever $ do
+<ul>
+<li>putStr “a”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>forM
+<ul>
+<li>同mapM, 但两个参数顺序相反</li>
+</ul>
+</li>
+<li>liftM
+<ul>
+<li>monad中的fmap</li>
+</ul>
+</li>
+<li>liftM2 liftM3 liftM4 liftM5</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">`ap`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> </span></span></code></pre></figure>
+<ul>
+<li>monad中的&lt;*></li>
+</ul>
+</li>
+<li>join
+<ul>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">join</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ::</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">Monad</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> m) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> m (m a) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> m a</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    join mm </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> do</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        m </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mm</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        m</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>filterM</li>
+<li>foldM</li>
+</ul>
+</li>
+<li>Control.Monad.State
+<ul>
+<li>State
+<ul>
+<li><code>newtype State s a = State {runState :: s -> (a, s)}</code></li>
+</ul>
+</li>
+<li>get</li>
+<li>put</li>
+</ul>
+</li>
+<li>Control.Monad.Error</li>
+<li>System.IO
+<ul>
+<li>openFile
+<ul>
+<li><code>openFile :: FilePath -> IOMode -> IO Handle</code></li>
+<li>data IOMode = ReadMode | WriteMode | AppendMode | ReadWriteMode</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">do</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    handle </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> openFile </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;a.txt&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> ReadMode</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    contents </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> hGetContents handle</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    putStr contents</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    hClose handle</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>withFile
+<ul>
+<li><code>withFile :: FilePath -> IOMode -> (Handle -> IO a) -> IO a</code></li>
+<li>处理完关掉</li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">withFile </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;a.txt&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> ReadMode</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">\</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">handle </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> do</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    contents </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> hGetContents handle</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    putStr contents)</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>readFile
+<ul>
+<li><code>readFile :: FilePath -> IO String</code></li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">do</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    contents </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> readFile </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;a.txt&quot;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    putStr contents</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>wirteFile
+<ul>
+<li><code>writeFile :: FilePath -> String -> IO ()</code></li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">do</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    writeFile </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;a.txt&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> contents</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>appendFile</li>
+<li>hSetBuffering
+<ul>
+<li>读binary file时的buffer，默认是系统值</li>
+<li>data BufferMode = NoBuffering | LineBuffering | BlockBuffering (Maybe Int)</li>
+<li><code>hSetBuffering handle $ BlockBuffering (Just 2048)</code></li>
+</ul>
+</li>
+<li>hFlush
+<ul>
+<li>写入时自动Flush</li>
+</ul>
+</li>
+<li>openTempFile
+<ul>
+<li>(tempName, tempHandle) <span>←</span> openTempFile ”.” “temp”</li>
+</ul>
+</li>
+<li>hGetContents</li>
+<li>hClose</li>
+<li>hGetLine</li>
+<li>hPusStr</li>
+<li>hPutStrLn</li>
+<li>hGetChar</li>
+</ul>
+</li>
+<li>System.IO.Error
+<ul>
+<li>catch
+<ul>
+<li><code>catch :: IO a -> (IOError -> IO a) -> IO a</code></li>
+<li>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="haskell" data-theme="github-light github-dark"><code data-language="haskell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">toTry </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">`catch`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> handler</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    handler e</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        |</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> isDoesNotExistError e </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> </span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            case</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ioeGetFileName e </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">of</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> Just</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> path </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> putStrLn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">$</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;a&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ++</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> path</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">                Nothing</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> -></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> putStrLn </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;b&quot;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        |</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> otherwise </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ioError e</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+<li>isDoesNotExistError</li>
+<li>isAlreadyExistsError</li>
+<li>isFullError</li>
+<li>isEOFError</li>
+<li>isIllegalOperation</li>
+<li>isPermissionError</li>
+<li>isUserError</li>
+<li>ioeGetFileName
+<ul>
+<li><code>ioeGetFileName :: IOError -> Maybe FilePath</code></li>
+</ul>
+</li>
+<li>ioError
+<ul>
+<li>丢出接到的error</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>System.Directory
+<ul>
+<li>removeFile
+<ul>
+<li>removeFile “a.txt”</li>
+</ul>
+</li>
+<li>renameFile
+<ul>
+<li>renameFile tempName “a.txt”</li>
+</ul>
+</li>
+<li>copyFile</li>
+<li>doesFileExist</li>
+</ul>
+</li>
+<li>System.Environment
+<ul>
+<li>getArgs</li>
+<li>getProgName</li>
+</ul>
+</li>
+<li>System.Random
+<ul>
+<li>mkStdGen
+<ul>
+<li><code>mkStdGen :: Int -> StdGen</code></li>
+</ul>
+</li>
+<li>getStdGen
+<ul>
+<li>IO类型, 得到系统启动时的global generator</li>
+</ul>
+</li>
+<li>newStdGen
+<ul>
+<li>把现有的random generator分成两个新的generators, 其中一个指定成新的，返回另一个</li>
+</ul>
+</li>
+<li>random
+<ul>
+<li><code>random :: (RandomGen g, Random a) = g -> (a, g)</code></li>
+<li><code>random (mkStdGen 100) :: (Int, StdGen)</code></li>
+</ul>
+</li>
+<li>randoms
+<ul>
+<li><code>take 5 $ randoms (mkStdGen 11) :: [Int]</code></li>
+</ul>
+</li>
+<li>randomR
+<ul>
+<li>区间random</li>
+<li>randomR (1,6) (mkStdGen 2)</li>
+</ul>
+</li>
+<li>randomRs
+<ul>
+<li><code>take 10 $ randomRs ('a', 'z') (mkStdGen 3) :: [Char]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./Haskell" class="internal">Haskell</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr"><head><title>麦肯锡方法</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="outrun"/><meta property="og:title" content="麦肯锡方法"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="麦肯锡方法"/><meta name="twitter:description" content="思考问题 建立解决方案 以事实为基础的 详查搜遍所有内外部资料 事实为什么重要 弥补了直觉的缺陷 可以提高可信度 系统化的，MECE 直奔解决方案：初始假设。“大胆假设，小心求证” 定义初始假设 构造初始假设 首先将问题拆分，发现关键驱动因素 接下来，针对每个关键驱动因素提出可行性建议 下一步，将这些建议分解到各个层级的各项议题中 检验初始假设 探索分析问题的方法 不要被表面现象所迷惑 利用前辈经验，不要做重复劳动 避免千篇一律 不要盲目相信自己的直觉 不要寻找事实去支撑你的提案 抑制把初始假设作为答案，思想保持开放灵活 确保解决方案适合你的客户 有时，让解决方案来找你 有了充足的事实，用创..."/><meta property="og:description" content="思考问题 建立解决方案 以事实为基础的 详查搜遍所有内外部资料 事实为什么重要 弥补了直觉的缺陷 可以提高可信度 系统化的，MECE 直奔解决方案：初始假设。“大胆假设，小心求证” 定义初始假设 构造初始假设 首先将问题拆分，发现关键驱动因素 接下来，针对每个关键驱动因素提出可行性建议 下一步，将这些建议分解到各个层级的各项议题中 检验初始假设 探索分析问题的方法 不要被表面现象所迷惑 利用前辈经验，不要做重复劳动 避免千篇一律 不要盲目相信自己的直觉 不要寻找事实去支撑你的提案 抑制把初始假设作为答案，思想保持开放灵活 确保解决方案适合你的客户 有时，让解决方案来找你 有了充足的事实，用创..."/><meta property="og:image:alt" content="思考问题 建立解决方案 以事实为基础的 详查搜遍所有内外部资料 事实为什么重要 弥补了直觉的缺陷 可以提高可信度 系统化的，MECE 直奔解决方案：初始假设。“大胆假设，小心求证” 定义初始假设 构造初始假设 首先将问题拆分，发现关键驱动因素 接下来，针对每个关键驱动因素提出可行性建议 下一步，将这些建议分解到各个层级的各项议题中 检验初始假设 探索分析问题的方法 不要被表面现象所迷惑 利用前辈经验，不要做重复劳动 避免千篇一律 不要盲目相信自己的直觉 不要寻找事实去支撑你的提案 抑制把初始假设作为答案，思想保持开放灵活 确保解决方案适合你的客户 有时，让解决方案来找你 有了充足的事实，用创..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/麦肯锡方法"/><meta property="twitter:url" content="https://ukeate.me/麦肯锡方法"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="思考问题 建立解决方案 以事实为基础的 详查搜遍所有内外部资料 事实为什么重要 弥补了直觉的缺陷 可以提高可信度 系统化的，MECE 直奔解决方案：初始假设。“大胆假设，小心求证” 定义初始假设 构造初始假设 首先将问题拆分，发现关键驱动因素 接下来，针对每个关键驱动因素提出可行性建议 下一步，将这些建议分解到各个层级的各项议题中 检验初始假设 探索分析问题的方法 不要被表面现象所迷惑 利用前辈经验，不要做重复劳动 避免千篇一律 不要盲目相信自己的直觉 不要寻找事实去支撑你的提案 抑制把初始假设作为答案，思想保持开放灵活 确保解决方案适合你的客户 有时，让解决方案来找你 有了充足的事实，用创..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL3J1bm91dC9vcC9sb2MvY29kZS91a2VhdGUvcm9hbS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script></head><body data-slug="麦肯锡方法"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">outrun</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>搜索</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>{let pinned=[\&quot;arsenal\&quot;,\&quot;para\&quot;],ai=pinned.indexOf(a.displayName.toLowerCase()),bi=pinned.indexOf(b.displayName.toLowerCase());return ai!==bi?ai===-1?1:bi===-1?-1:ai-bi:!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):a.isFolder?-1:1}&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-3346"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-3346" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><h1 class="article-title">麦肯锡方法</h1></div></div><article class="popover-hint"><ul>
+<li>思考问题
+<ul>
+<li>建立解决方案
+<ul>
+<li>以事实为基础的
+<ul>
+<li>详查搜遍所有内外部资料</li>
+<li>事实为什么重要
+<ul>
+<li>弥补了直觉的缺陷</li>
+<li>可以提高可信度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>系统化的，<a href="./MECE" class="internal" data-slug="MECE">MECE</a></li>
+<li>直奔解决方案：初始假设。“大胆假设，小心求证”
+<ul>
+<li>定义初始假设</li>
+<li>构造初始假设
+<ul>
+<li>首先将问题拆分，发现关键驱动因素</li>
+<li>接下来，针对每个关键驱动因素提出可行性建议</li>
+<li>下一步，将这些建议分解到各个层级的各项议题中</li>
+</ul>
+</li>
+<li>检验初始假设</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>探索分析问题的方法
+<ul>
+<li>不要被表面现象所迷惑</li>
+<li>利用前辈经验，不要做重复劳动</li>
+<li>避免千篇一律
+<ul>
+<li>不要盲目相信自己的直觉</li>
+</ul>
+</li>
+<li>不要寻找事实去支撑你的提案
+<ul>
+<li>抑制把初始假设作为答案，思想保持开放灵活</li>
+</ul>
+</li>
+<li>确保解决方案适合你的客户</li>
+<li>有时，让解决方案来找你
+<ul>
+<li>有了充足的事实，用创造性的思维将它们结合在一起，就会得出解决方案</li>
+</ul>
+</li>
+<li>对于解决不了的问题，那就随遇而安吧
+<ul>
+<li>最大的阻碍来自政治</li>
+<li>遇到棘手问题的选择
+<ul>
+<li>对问题重新定义</li>
+<li>调整实施方案攻克政治难关</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>二八法则
+<ul>
+<li>不要妄想烧干大海
+<ul>
+<li>已经做得足够多的时候，就停下来。否则得不偿失，烧干大海只得到一点盐</li>
+</ul>
+</li>
+<li>找到关键驱动因素</li>
+<li>电梯法则</li>
+<li>先摘好摘的果实
+<ul>
+<li>是一条能长期取悦客户的法则</li>
+</ul>
+</li>
+<li>每天绘制一张图表
+<ul>
+<li>今天学到的最重要的三件事是什么，制成一两个图表
+<ul>
+<li>不能制成图表，就记成几点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一次只做一件事
+<ul>
+<li>做好本职工作 —— 不要试图去做整个团队的工作</li>
+</ul>
+</li>
+<li>以大局为重
+<ul>
+<li>现在所做的工作是 如何帮助解决问题的？它是如何推进思考的？眼下做的事情是不是最重要的？如果所做的工作对解决问题没有帮助，为何不要继续</li>
+</ul>
+</li>
+<li>如实相告，坦诚以对</li>
+<li>不接受“我没有想法”这种回答
+<ul>
+<li>只要稍加探究，就会发现人们总是有想法的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>解决问题
+<ul>
+<li>拓展客户
+<ul>
+<li>如何做到功夫在诗外
+<ul>
+<li>商业问题是悄无声息的，直到老鼠啃你的奶酪的时候才会出现。不是只要有了捕鼠器，顾客就来购买</li>
+<li>只要在适合的时间出来，确保合适的人知道你的存在，就可以了。
+<ul>
+<li>不推销的咨询业确实十分有效</li>
+</ul>
+</li>
+<li>营销
+<ul>
+<li>源源不断都推出书籍和文章</li>
+<li>维持与潜在客户进行非正式交流的庞大网络
+<ul>
+<li>参加行业研讨会，不仅可以检查过去麦肯锡项目的结果，而且可以保证客户出现新问题时，麦肯锡依然能保持自己在其心中的分量</li>
+<li>今天的竞争对手极有可能在换工作后成为你明天的客户，确保他认识你</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>谨慎承诺：严格规划项目
+<ul>
+<li>紧锣密鼓地开始寻找解决方案之前，要对问题的边界有一个整体的感觉
+<ul>
+<li>你和你的团队能在规定时间解决这个问题吗？如果不能，去争取更多的时间，或坐下来和老板商量一下，将大问题分解成容易解决的小问题</li>
+<li>搞清楚每个小问题的最终成果是什么</li>
+<li>算出完成任务需要多少资源，并从老板那里获得拥有这些资源的承诺</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>组建团队
+<ul>
+<li>合理选拔团队成员
+<ul>
+<li>考虑具备哪种技能和个性的人对你的项目最有帮助</li>
+</ul>
+</li>
+<li>一点联络感情的活动，会大有裨益</li>
+<li>掌握火候，保持团队士气
+<ul>
+<li>差劲的项目经理用蘑菇种植法进行管理：“在黑暗的环境下不断地施肥”
+<ul>
+<li>我们这些顾问始终不知道项目的进程，也始终没有感觉自己所做的事对客户或团队是有价值的</li>
+</ul>
+</li>
+<li>几条法则
+<ul>
+<li>掌握火候
+<ul>
+<li>了解他们是不是对自己现在的工作满意</li>
+</ul>
+</li>
+<li>稳步前进
+<ul>
+<li>假如你对团队的任务优先级或分析犹豫不定，团队就会感到困惑，甚至士气低落
+<ul>
+<li>你要了解前进方向，稳步前进</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>让队友知道手头工作的价值</li>
+<li>尊重你的队友
+<ul>
+<li>作为一名顾问，在工作到午夜时，如果知道项目经理也在工作，会感到很欣慰</li>
+</ul>
+</li>
+<li>人性化地了解你的队友
+<ul>
+<li>是不是结婚了，是不是有孩子，有哪些爱好</li>
+</ul>
+</li>
+<li>当工作遭遇困难时，用“比尔.克林顿法”
+<ul>
+<li>一些困难，除了告诉你的团队“你的痛苦我感同身受”之外，没有太多的话可说</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>层级管理
+<ul>
+<li>让老板脸上有光
+<ul>
+<li>如果你让老板脸上有光，老板也会让你很有面子。这就是层级制度中的交换</li>
+<li>在任何层级制组织中，每天，你的老板都是你世界里最重要的人
+<ul>
+<li>尽最大努力做好工作</li>
+<li>毫无保留地传递信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>层级管理的激进策略
+<ul>
+<li>在强调平等的组织里，想做某件事就尽力去做，直到有人阻止你</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>进行研究
+<ul>
+<li>利用前辈经验，不要做重复劳动</li>
+<li>专题研究的秘诀
+<ul>
+<li>从年报开始</li>
+<li>寻找异常值</li>
+<li>寻找最佳经验</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>展开访谈
+<ul>
+<li>有备而来：准备一份访谈提纲
+<ul>
+<li>需要明确知道所问的问题是什么</li>
+<li>真正需要获得的是什么</li>
+<li>步骤
+<ul>
+<li>从一般性的问题问起</li>
+<li>加入一些知道答案的问题，从而对被访者的诚实程度或知识水平有了解</li>
+<li>一旦完成了提纲，检查一下，最想知道的3件事是什么，竭尽全力找到答案</li>
+<li>结尾，问被访者还有什么想告诉你的</li>
+</ul>
+</li>
+<li>访谈中要注意倾听和引导
+<ul>
+<li>让被访者知道你一直在倾听</li>
+<li>想知道更多时，沉默一会，大多数人害怕沉默</li>
+</ul>
+</li>
+<li>访谈成功的七个秘诀
+<ul>
+<li>让被访者的上司安排会面</li>
+<li>两人一组进行访谈
+<ul>
+<li>自己展开有效的访谈并不是容易的事，两人可以在访谈时轮流提问和记笔记</li>
+<li>在访谈发生情况时，有两种不同的观点也很重要</li>
+</ul>
+</li>
+<li>倾听，不要引导
+<ul>
+<li>还有一个让信息流动起来的技巧，部一个开放式问题</li>
+</ul>
+</li>
+<li>复述、复述、复述</li>
+<li>善用旁敲侧击法
+<ul>
+<li>时刻关注被访者的感觉，了解被访者是否感觉受到了威胁，不要单刀直入地问刁钻的问题</li>
+</ul>
+</li>
+<li>切勿问得太多</li>
+<li>采用“哥伦波策略”：我有个问题忘了问
+<ul>
+<li>结束时每个人都会变得松懈</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>尊重被访者的感受</li>
+<li>棘手的访谈
+<ul>
+<li>“消极型激进派”叫做“沙袋”，他们会告诉你已经知晓的事情，但不会告诉你任何实质性的内容
+<ul>
+<li>用间接法，找其他人。如果只有“沙袋”知道，就要请他上司了</li>
+</ul>
+</li>
+<li>他知道你很可能让他丢掉饭碗，除了扮演“好战士”别无他法</li>
+</ul>
+</li>
+<li>一定要写感谢信</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>头脑风暴
+<ul>
+<li>适当的事前准备</li>
+<li>为思想留一片空白
+<ul>
+<li>准则
+<ul>
+<li>没有坏点子</li>
+<li>没有不值得回答的问题</li>
+<li>时刻准备扼杀你的观点</li>
+<li>知道适可而止</li>
+<li>好记性不如烂笔头</li>
+</ul>
+</li>
+<li>头脑风暴练习
+<ul>
+<li>记事贴练习</li>
+<li>翻面挂图练习</li>
+<li>先下手为强
+<ul>
+<li>对付牢骚鬼和煽动者
+<ul>
+<li>让领导或主持人站在他旁边，让他知道自己一直被关注</li>
+<li>主持人让他大声讲出来“为什么不让全班都听听呢”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>推介解决方案
+<ul>
+<li>演示汇报
+<ul>
+<li>把汇报系统化
+<ul>
+<li>一种结构是“告诉别人你要告诉他们什么，然后反复强调”</li>
+</ul>
+</li>
+<li>记住：努力的边际收益也是递减的
+<ul>
+<li>不要让“最好”成为优秀的敌人，睡个好觉</li>
+<li>学会在会议开始之前掌握好质变的突破点</li>
+</ul>
+</li>
+<li>未雨绸缪，事先沟通
+<ul>
+<li>一次好的商业汇报应该在内容上让听众感觉不陌生
+<ul>
+<li>否则汇报会变成吵架比赛</li>
+<li>实际上，汇报已经变成了艺术表演</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>用图表说明问题
+<ul>
+<li>简单为上：一图明一事
+<ul>
+<li>左下角有资料来源</li>
+</ul>
+</li>
+<li>用瀑布图来描述流量
+<ul>
+<li><img src="https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2Foutrun%2F6CuWsoMhhf.jpeg?alt=media&amp;token=95debfa4-fe68-4d86-ac3a-7b5f737a390b" alt/></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>管理公司的内部沟通
+<ul>
+<li>让信息流动起来
+<ul>
+<li>蘑菇法是双向的，它也可能使你的上司蒙在鼓里
+<ul>
+<li>要保证团队至少知道项目框架</li>
+</ul>
+</li>
+<li>两种基本方法，传递信息和会议</li>
+<li>还有一种内部沟通的独特方式：通过“走来走去”来学习
+<ul>
+<li>一些很有价值的谈话就产生于偶遇中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>有效信息的三个关键因素
+<ul>
+<li>简洁、全面、系统</li>
+</ul>
+</li>
+<li>谨言慎行
+<ul>
+<li>如果你不能做到保密，你就不是一个称职的咨询顾问</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>与客户合作
+<ul>
+<li>让客户团队站到你这边
+<ul>
+<li>把我们的目标变成他们的目标
+<ul>
+<li>他们必须知道，假如自己的任务失败了，麦肯锡的任务也就失败了；反之亦然</li>
+</ul>
+</li>
+<li>让客户团队意识到和麦肯锡一起工作对他们来说是一次不错的经历，至少可以学到一些在其他地方学不到的东西</li>
+<li>与他们开展社交活动，可以使工作变得容易
+<ul>
+<li>一起打棒球或去餐馆</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如何与客户团队中的“讨债鬼”打交道
+<ul>
+<li>一种是毫无用处型，另一种是敌意型</li>
+<li>从团队里调走，这通常不可行
+<ul>
+<li>避开这些间谍和破坏者，在可能的地方利用他们的天赋，在必要的时候避免他们接触到敏感的信息</li>
+</ul>
+</li>
+<li>让客户参与工作
+<ul>
+<li>要理解他们的打算和意图
+<ul>
+<li>客户只有认为你的工作对他们来说有意义时才会支持你</li>
+<li>要记住他们的利益是随时变化的，频繁的接触和定期的更新</li>
+<li>让你的项目成为他们工作的重要内容</li>
+</ul>
+</li>
+<li>早期的“胜利”会为大家的工作带来更多的热情和信心</li>
+<li>你不会因为工作做得好而受到好评。
+<ul>
+<li>假如你的解决方案真的奏效，客户会认为那是他们自己的功劳</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>获得整个公司的支持
+<ul>
+<li>把解决方案推介到公司的不同层面</li>
+<li>实施要严谨
+<ul>
+<li>要明确说明会发生什么、什么时间发生 —— 要写得尽可能详细</li>
+<li>一定要找能够“胜任“的人</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>生存之道
+<ul>
+<li>找到自己的导师</li>
+<li>出差：乐在其中
+<ul>
+<li>试着看成一次探险</li>
+<li>适当做计划
+<ul>
+<li>在客户那的时间做一个安排，保证周五或周一能回家</li>
+<li>要知道需要在路上带什么</li>
+<li>对目的地有清晰准确的认识</li>
+</ul>
+</li>
+<li>不要让出差成为纯粹的消耗，找到一种工作以外的娱乐活动
+<ul>
+<li>与朋友共进晚餐看看演出，或打场球</li>
+</ul>
+</li>
+<li>对每个人都要非常尊重
+<ul>
+<li>他们愿意帮助那些对他们表示尊重 人，尊重他们也会减少你的压力</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>出差必带的三件宝
+<ul>
+<li>把旅行的需求降低到必需的几件东西上</li>
+<li>PTM：护照（passport）、机票（ticket）、钱（money）</li>
+</ul>
+</li>
+<li>好助手是你的生命线
+<ul>
+<li>他是为你捎口信的人，为你安排进度的人，为你打字、复印、整理文件的人。还负责其他很多办公室工作</li>
+</ul>
+</li>
+<li>麦肯锡式招聘
+<ul>
+<li>分析能力最强的人
+<ul>
+<li>就是可以把复杂议题分解为子议题的人，知道如何将解决问题系统化</li>
+</ul>
+</li>
+<li>有商业判断力的人
+<ul>
+<li>知道他的解决方案的真正含义</li>
+</ul>
+</li>
+<li>性格也很重要</li>
+<li>想看大家如何处理一个复杂问题，有大量信息一下子涌向他们
+<ul>
+<li>一些人不知所措，一些人越挖越深。挖的深的人是想要的人</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>紧张工作之外，如何拥有私生活
+<ul>
+<li>没有制定足够的规则，因为太害怕它影响事业</li>
+<li>三条规则
+<ul>
+<li>一周中有一天不要工作</li>
+<li>不要把工作带回家</li>
+<li>事前做计划</li>
+</ul>
+</li>
+<li>最后一条规则
+<ul>
+<li>当一切都失去的时候，家里要有一个人在等你，那样，至少你可以回家洗衣服</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>麦肯锡的校友忠告
+<ul>
+<li>最有价值的一课
+<ul>
+<li>永远保持你的正直
+<ul>
+<li>在商业生活中你会遇到无数的灰色区域 —— 永远要堂堂正正</li>
+</ul>
+</li>
+<li>咨询最好是被当成一种职业来看。把客户放在第一位</li>
+<li>关注资源和减少层级有助于做最好的决策
+<ul>
+<li>公司的客户在尝试变革时做到二者之一都非常困难</li>
+</ul>
+</li>
+<li>最重要的就是谦虚</li>
+<li>任何一个问题，不论多么令人生畏，都可以被分解然后得以解决
+<ul>
+<li>太阳底下没有任何新鲜事，不论你在做什么，都有人之前已经做过了</li>
+</ul>
+</li>
+<li>没有明星，只有经营管理制度</li>
+<li>执行和实施是关键</li>
+<li>我学会把诚实和谦虚当成商业领域里最重要的东西</li>
+<li>不要害怕最终的结果，它们还需证实与检验，尽管去制定最终方案</li>
+<li>当遭遇难以解决的问题时，把它分解然后再分析</li>
+<li>所有事都有价值，很难选择</li>
+<li>我更愿意和一大群聪明人一起工作，而不是给我一大笔预算。聪明人会让你更快达到目的</li>
+<li>任何阻碍有效沟通的行为都是对强大公司的诅咒
+<ul>
+<li>模糊的想法、模糊的术语、难以渗透的公司层级，还有唯唯诺诺的人</li>
+<li>系统化的思考、清晰的语言，以及有责任心同时鼓励异议的精英管理制度，还有职业化的目标</li>
+<li>即“职业化”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>关于麦肯锡的回忆
+<ul>
+<li>严格的信息标准和分析标准，对每个议题的求证与再求证</li>
+<li>高标准和追求卓越的不懈努力</li>
+<li>以团队方式解决问题</li>
+<li>系统、MECE、大胆假设，小心求证</li>
+<li>同事高素质、聪明、积极向上</li>
+<li>招聘和保留人才的政策</li>
+<li>人很聪明，而且相处很愉快</li>
+<li>员工的智慧；平易近人</li>
+<li>学院式的氛围</li>
+<li>员工的平均能力远远高于一般员工</li>
+<li>那里的人致力于客户服务和关心客户的需求</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.8,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="backlinks"><h3>反向链接</h3><ul id="list-1" class="overflow"><li><a href="./麦肯锡" class="internal">麦肯锡</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="./postscript.js" type="module" data-persist="true"></script></html>
