@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr"><head><title>性能估算</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Ukeate笔记"/><meta property="og:title" content="性能估算"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="性能估算"/><meta name="twitter:description" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 {{table}} 中间件 并发 资源占用 测试方法 Jetty 2k-3k Nginx 1w 200,3ms响应 LVS 100w F5 + LVS、深信服 400w-800w MySQL 1k Oracle 1.5k-2k Tomcat 1k MongoDB 查询4w, 5s响应 Node.js 300 mem: 512m mem: 66.7% cpu: 1% 5秒循环mongo数据: 17w条 5w 数据量 CSS与JS会..."/><meta property="og:description" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 {{table}} 中间件 并发 资源占用 测试方法 Jetty 2k-3k Nginx 1w 200,3ms响应 LVS 100w F5 + LVS、深信服 400w-800w MySQL 1k Oracle 1.5k-2k Tomcat 1k MongoDB 查询4w, 5s响应 Node.js 300 mem: 512m mem: 66.7% cpu: 1% 5秒循环mongo数据: 17w条 5w 数据量 CSS与JS会..."/><meta property="og:image:alt" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 {{table}} 中间件 并发 资源占用 测试方法 Jetty 2k-3k Nginx 1w 200,3ms响应 LVS 100w F5 + LVS、深信服 400w-800w MySQL 1k Oracle 1.5k-2k Tomcat 1k MongoDB 查询4w, 5s响应 Node.js 300 mem: 512m mem: 66.7% cpu: 1% 5秒循环mongo数据: 17w条 5w 数据量 CSS与JS会..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/性能估算"/><meta property="twitter:url" content="https://ukeate.me/性能估算"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 {{table}} 中间件 并发 资源占用 测试方法 Jetty 2k-3k Nginx 1w 200,3ms响应 LVS 100w F5 + LVS、深信服 400w-800w MySQL 1k Oracle 1.5k-2k Tomcat 1k MongoDB 查询4w, 5s响应 Node.js 300 mem: 512m mem: 66.7% cpu: 1% 5秒循环mongo数据: 17w条 5w 数据量 CSS与JS会..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+<html lang="zh" dir="ltr"><head><title>性能估算</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Ukeate笔记"/><meta property="og:title" content="性能估算"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="性能估算"/><meta name="twitter:description" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 中间件并发资源占用测试方法Jetty2k-3kNginx- 200,3ms响应1wLVS100wF5 + LVS、深信服400w-800wMySQL1kOracle1.5k-2kTomcat1kMongoDB查询4w, 5s响应Node.js- 5w300yaml&lt;br>mem: 512m&lt;br>mem: 66.7%&lt;br>cpu: 1%&lt;br>5秒循环mongo数据: 17w条 ..."/><meta property="og:description" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 中间件并发资源占用测试方法Jetty2k-3kNginx- 200,3ms响应1wLVS100wF5 + LVS、深信服400w-800wMySQL1kOracle1.5k-2kTomcat1kMongoDB查询4w, 5s响应Node.js- 5w300yaml&lt;br>mem: 512m&lt;br>mem: 66.7%&lt;br>cpu: 1%&lt;br>5秒循环mongo数据: 17w条 ..."/><meta property="og:image:alt" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 中间件并发资源占用测试方法Jetty2k-3kNginx- 200,3ms响应1wLVS100wF5 + LVS、深信服400w-800wMySQL1kOracle1.5k-2kTomcat1kMongoDB查询4w, 5s响应Node.js- 5w300yaml&lt;br>mem: 512m&lt;br>mem: 66.7%&lt;br>cpu: 1%&lt;br>5秒循环mongo数据: 17w条 ..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/性能估算"/><meta property="twitter:url" content="https://ukeate.me/性能估算"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="计算 QPS=DAU(日活)/200 1并发=10在线用户=100注册用户 1用户=20pv 最大访问量=平均值2-4倍 访问时段一般8点 - 23点 服务组件并发 中间件并发资源占用测试方法Jetty2k-3kNginx- 200,3ms响应1wLVS100wF5 + LVS、深信服400w-800wMySQL1kOracle1.5k-2kTomcat1kMongoDB查询4w, 5s响应Node.js- 5w300yaml&lt;br>mem: 512m&lt;br>mem: 66.7%&lt;br>cpu: 1%&lt;br>5秒循环mongo数据: 17w条 ..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
   position: absolute;
   display: flex;
   float: right;
@@ -126,355 +126,257 @@ pre:hover > .expand-button {
 </ul>
 </li>
 <li>服务组件并发
-<ul>
-<li>{{table}}
-<ul>
-<li>中间件
-<ul>
-<li>并发
-<ul>
-<li>资源占用
-<ul>
-<li>测试方法</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Jetty
-<ul>
-<li>2k-3k</li>
-</ul>
-</li>
-<li>Nginx
-<ul>
-<li>1w</li>
-<li>200,3ms响应</li>
-</ul>
-</li>
-<li>LVS
-<ul>
-<li>100w</li>
-</ul>
-</li>
-<li>F5 + LVS、深信服
-<ul>
-<li>400w-800w</li>
-</ul>
-</li>
-<li>MySQL
-<ul>
-<li>1k</li>
-</ul>
-</li>
-<li>Oracle
-<ul>
-<li>1.5k-2k</li>
-</ul>
-</li>
-<li>Tomcat
-<ul>
-<li>1k</li>
-</ul>
-</li>
-<li>MongoDB
-<ul>
-<li>查询4w, 5s响应</li>
-</ul>
-</li>
-<li>Node.js
-<ul>
-<li>300
-<ul>
-<li>
-<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">mem</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">512m</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">mem</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">66.7%</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">cpu</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">1%</span></span></code></pre></figure>
-<ul>
-<li>5秒循环mongo数据: 17w条</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>5w</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>中间件</th><th>并发</th><th>资源占用</th><th>测试方法</th></tr></thead><tbody><tr><td>Jetty</td><td>2k-3k</td><td></td><td></td></tr><tr><td>Nginx<br/>- 200,3ms响应</td><td>1w</td><td></td><td></td></tr><tr><td>LVS</td><td>100w</td><td></td><td></td></tr><tr><td>F5 + LVS、深信服</td><td>400w-800w</td><td></td><td></td></tr><tr><td>MySQL</td><td>1k</td><td></td><td></td></tr><tr><td>Oracle</td><td>1.5k-2k</td><td></td><td></td></tr><tr><td>Tomcat</td><td>1k</td><td></td><td></td></tr><tr><td>MongoDB</td><td>查询4w, 5s响应</td><td></td><td></td></tr><tr><td>Node.js<br/>- 5w</td><td>300</td><td><code>yaml&lt;br>mem: 512m&lt;br>mem: 66.7%&lt;br>cpu: 1%&lt;br></code></td><td>5秒循环mongo数据: 17w条</td></tr></tbody></table></div>
 </li>
 <li>数据量
 <ul>
-<li>CSS与JS会缓存</li>
-<li>{{table}}
-<ul>
-<li>资源
-<ul>
-<li>大小</li>
-</ul>
-</li>
-<li>每个HTML页面
-<ul>
-<li>20k</li>
-</ul>
-</li>
-<li>CSS
-<ul>
-<li>40k</li>
-</ul>
-</li>
-<li>JS
-<ul>
-<li>50k</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>CSS与JS会缓存
+| 资源 | 大小 |
+| --- | --- |
+| 每个HTML页面 | 20k |
+| CSS | 40k |
+| JS | 50k |</li>
 </ul>
 </li>
 <li>系统
-<ul>
-<li>{{table}}
-<ul>
-<li>项
-<ul>
-<li>空间
-<ul>
-<li>时间</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>一个进程
-<ul>
-<li>13M左右
-<ul>
-<li>最早的Apache，10G内存787多并发</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>一个线程
-<ul>
-<li>2M内存
-<ul>
-<li>10G内存5120并发</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<h2 id="cpu一级缓存取数据">CPU一级缓存取数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cpu一级缓存取数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
-<pre><code>  - 3tick(时钟周期)
-</code></pre>
-</li>
-<li>
-<h2 id="cpu二级缓存取数据">CPU二级缓存取数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cpu二级缓存取数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
-<pre><code>  - 14 tick
-</code></pre>
-</li>
-<li>
-<h2 id="内存取数据">内存取数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#内存取数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
-<pre><code>  - 250 tick
-</code></pre>
-</li>
-<li>
-<h2 id="磁盘取数据">磁盘取数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#磁盘取数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
-<pre><code>  - 4100w tick
-</code></pre>
-</li>
-<li>
-<h2 id="网络取数据">网络取数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#网络取数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
-<pre><code>  - 24000w tick
-</code></pre>
-</li>
-</ul>
-</li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>项</th><th>空间</th><th>时间</th></tr></thead><tbody><tr><td>一个进程</td><td>13M左右</td><td>最早的Apache，10G内存787多并发</td></tr><tr><td>一个线程</td><td>2M内存</td><td>10G内存5120并发</td></tr><tr><td>CPU一级缓存取数据</td><td></td><td>3tick(时钟周期)</td></tr><tr><td>CPU二级缓存取数据</td><td></td><td>14 tick</td></tr><tr><td>内存取数据</td><td></td><td>250 tick</td></tr><tr><td>磁盘取数据</td><td></td><td>4100w tick</td></tr><tr><td>网络取数据</td><td></td><td>24000w tick</td></tr></tbody></table></div>
 </li>
 <li>ALU
-<ul>
-<li>{{table}}
-<ul>
-<li>类型
-<ul>
-<li>访问速度</li>
-</ul>
-</li>
-<li>Registers
-<ul>
-<li>&lt; 1ns        - L1 cache(核内)</li>
-<li>1ns</li>
-</ul>
-</li>
-<li>L2 cache(核内)
-<ul>
-<li>3ns</li>
-</ul>
-</li>
-<li>L3 cache(CPU内)
-<ul>
-<li>15ns</li>
-</ul>
-</li>
-<li>memory
-<ul>
-<li>80ns</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>类型</th><th>访问速度</th></tr></thead><tbody><tr><td>Registers<br/>- 1ns</td><td>&lt; 1ns        - L1 cache(核内)</td></tr><tr><td>L2 cache(核内)</td><td>3ns</td></tr><tr><td>L3 cache(CPU内)</td><td>15ns</td></tr><tr><td>memory</td><td>80ns</td></tr></tbody></table></div>
 </li>
 <li>存储
-<ul>
-<li>{{table}}
-<ul>
-<li>类型
-<ul>
-<li>时间
-<ul>
-<li>描述</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>L1 cache
-<ul>
-<li>0.5ns</li>
-</ul>
-</li>
-<li>branch mispredict(分支、转移)
-<ul>
-<li>5ns</li>
-</ul>
-</li>
-<li>L2 cache
-<ul>
-<li>7ns
-<ul>
-<li>14x L1 cache</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Mutex lock/unlock
-<ul>
-<li>25ns</li>
-</ul>
-</li>
-<li>Main memory
-<ul>
-<li>100ns
-<ul>
-<li>20x L2 cache, 200x L1 cache</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>1k字节压缩Zippy
-<ul>
-<li>3,000ns = 3us</li>
-</ul>
-</li>
-<li>在1Gbps网络上发送1k字节
-<ul>
-<li>10,000ns = 10us</li>
-</ul>
-</li>
-<li>SSD随机读4k
-<ul>
-<li>150,000ns = 150us
-<ul>
-<li>1GB/秒</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>内存顺序读1MB
-<ul>
-<li>250,000ns = 250us</li>
-</ul>
-</li>
-<li>同一数据中心往返
-<ul>
-<li>500,000ns = 500us</li>
-</ul>
-</li>
-<li>SSD顺序读1MB
-<ul>
-<li>1,000,000ns = 1000us = 1ms
-<ul>
-<li>1GB/秒, 4x 内存</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>磁盘搜索
-<ul>
-<li>10,000,000ns = 10,000us = 10ms
-<ul>
-<li>20x 数据中心往返</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>磁盘顺序读1MB
-<ul>
-<li>20,000,000ns = 20,000us = 20ms
-<ul>
-<li>80x 内存, 20x SSD</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>发包: 美国 <span>→</span> 荷兰 <span>→</span> 加拿大
-<ul>
-<li>150,000,000ns = 150,000us = 150ms</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>类型</th><th>时间</th><th>描述</th></tr></thead><tbody><tr><td>L1 cache</td><td>0.5ns</td><td></td></tr><tr><td>branch mispredict(分支、转移)</td><td>5ns</td><td></td></tr><tr><td>L2 cache</td><td>7ns</td><td>14x L1 cache</td></tr><tr><td>Mutex lock/unlock</td><td>25ns</td><td></td></tr><tr><td>Main memory</td><td>100ns</td><td>20x L2 cache, 200x L1 cache</td></tr><tr><td>1k字节压缩Zippy</td><td>3,000ns = 3us</td><td></td></tr><tr><td>在1Gbps网络上发送1k字节</td><td>10,000ns = 10us</td><td></td></tr><tr><td>SSD随机读4k</td><td>150,000ns = 150us</td><td>1GB/秒</td></tr><tr><td>内存顺序读1MB</td><td>250,000ns = 250us</td><td></td></tr><tr><td>同一数据中心往返</td><td>500,000ns = 500us</td><td></td></tr><tr><td>SSD顺序读1MB</td><td>1,000,000ns = 1000us = 1ms</td><td>1GB/秒, 4x 内存</td></tr><tr><td>磁盘搜索</td><td>10,000,000ns = 10,000us = 10ms</td><td>20x 数据中心往返</td></tr><tr><td>磁盘顺序读1MB</td><td>20,000,000ns = 20,000us = 20ms</td><td>80x 内存, 20x SSD</td></tr><tr><td>发包: 美国 <span>→</span> 荷兰 <span>→</span> 加拿大</td><td>150,000,000ns = 150,000us = 150ms</td><td></td></tr></tbody></table></div>
 </li>
 <li>案例
-<ul>
-<li>{{table}}
-<ul>
-<li>小米论坛2014年
-<ul>
-<li>
-<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">pv 2000w</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">热门并发300</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">20k/页面</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">300k/图片(未压缩)</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">70k/无图帖子</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">500k-3M/有图帖子</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">动态服务器最小带宽</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">48Mbps</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">静态服务器最小带宽</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">1440Mbps</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">实际购买带宽</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">800M</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">带宽费用</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">8.7w/month</span></span></code></pre></figure>
-</li>
-</ul>
-</li>
-<li>糗事百科2014年
-<ul>
-<li>
-<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">pv 1000w</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">热门并发150</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">10k/页面</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">70k/图</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">4图/页</span></span>
-<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">90k-400k/综合页</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">动态服务器带宽</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">12Mbps</span></span>
-<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">静态服务器带宽</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">336Mbps</span></span></code></pre></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>小米论坛2014年</th><th><code>yaml&lt;br>pv 2000w&lt;br>热门并发300&lt;br>20k/页面&lt;br>300k/图片(未压缩)&lt;br>70k/无图帖子&lt;br>500k-3M/有图帖子&lt;br>动态服务器最小带宽: 48Mbps&lt;br>静态服务器最小带宽: 1440Mbps&lt;br>实际购买带宽: 800M&lt;br>带宽费用: 8.7w/month&lt;br></code></th></tr></thead><tbody><tr><td>糗事百科2014年</td><td><code>yaml&lt;br>pv 1000w&lt;br>热门并发150&lt;br>10k/页面&lt;br>70k/图&lt;br>4图/页&lt;br>90k-400k/综合页&lt;br>动态服务器带宽: 12Mbps&lt;br>静态服务器带宽: 336Mbps&lt;br></code></td></tr></tbody></table></div>
 </li>
 </ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:2,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
                 s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
