@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr"><head><title>LLM</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Ukeate笔记"/><meta property="og:title" content="LLM"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="LLM"/><meta name="twitter:description" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa | 模型 | 结构 | 位置编码 | 激活函数 | layer norm方法 | | --- | --- | --- | --- | --- | | 原生Transformer | Encoder-Decoder | Sinusoida编码 | ReLU | Post layer norm | | BERT | Encoder | 绝对位置编码 | GeLU | Post layer norm | | LLaMA ..."/><meta property="og:description" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa | 模型 | 结构 | 位置编码 | 激活函数 | layer norm方法 | | --- | --- | --- | --- | --- | | 原生Transformer | Encoder-Decoder | Sinusoida编码 | ReLU | Post layer norm | | BERT | Encoder | 绝对位置编码 | GeLU | Post layer norm | | LLaMA ..."/><meta property="og:image:alt" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa | 模型 | 结构 | 位置编码 | 激活函数 | layer norm方法 | | --- | --- | --- | --- | --- | | 原生Transformer | Encoder-Decoder | Sinusoida编码 | ReLU | Post layer norm | | BERT | Encoder | 绝对位置编码 | GeLU | Post layer norm | | LLaMA ..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/LLM"/><meta property="twitter:url" content="https://ukeate.me/LLM"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa | 模型 | 结构 | 位置编码 | 激活函数 | layer norm方法 | | --- | --- | --- | --- | --- | | 原生Transformer | Encoder-Decoder | Sinusoida编码 | ReLU | Post layer norm | | BERT | Encoder | 绝对位置编码 | GeLU | Post layer norm | | LLaMA ..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+<html lang="zh" dir="ltr"><head><title>LLM</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Sans:wght@400;700&amp;family=IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Ukeate笔记"/><meta property="og:title" content="LLM"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="LLM"/><meta name="twitter:description" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa 模型结构位置编码激活函数layer norm方法原生TransformerEncoder-DecoderSinusoida编码ReLUPost layer normBERTEncoder绝对位置编码GeLUPost layer normLLaMACasual-decoderRoPESwiGLUPre RMS NormChatGLM-6BPrefix decoderRoPEGeGLUPost Deep NormBlo..."/><meta property="og:description" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa 模型结构位置编码激活函数layer norm方法原生TransformerEncoder-DecoderSinusoida编码ReLUPost layer normBERTEncoder绝对位置编码GeLUPost layer normLLaMACasual-decoderRoPESwiGLUPre RMS NormChatGLM-6BPrefix decoderRoPEGeGLUPost Deep NormBlo..."/><meta property="og:image:alt" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa 模型结构位置编码激活函数layer norm方法原生TransformerEncoder-DecoderSinusoida编码ReLUPost layer normBERTEncoder绝对位置编码GeLUPost layer normLLaMACasual-decoderRoPESwiGLUPre RMS NormChatGLM-6BPrefix decoderRoPEGeGLUPost Deep NormBlo..."/><meta property="og:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:url" content="https://ukeate.me/static/og-image.png"/><meta name="twitter:image" content="https://ukeate.me/static/og-image.png"/><meta property="og:image:type" content="image/.png"/><meta property="twitter:domain" content="ukeate.me"/><meta property="og:url" content="https://ukeate.me/LLM"/><meta property="twitter:url" content="https://ukeate.me/LLM"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="Large Language Model, 大模型，大模型本质 发展 RNN,LSTM,GRU CNN Transformer 分类 GPT BERT XLNet RoBERTa 模型结构位置编码激活函数layer norm方法原生TransformerEncoder-DecoderSinusoida编码ReLUPost layer normBERTEncoder绝对位置编码GeLUPost layer normLLaMACasual-decoderRoPESwiGLUPre RMS NormChatGLM-6BPrefix decoderRoPEGeGLUPost Deep NormBlo..."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
   position: absolute;
   display: flex;
   float: right;
@@ -129,16 +129,59 @@ pre:hover > .expand-button {
 <li><a href="./GPT" class="internal" data-slug="GPT">GPT</a></li>
 <li><a href="./BERT" class="internal" data-slug="BERT">BERT</a></li>
 <li><a href="./XLNet" class="internal" data-slug="XLNet">XLNet</a></li>
-<li>RoBERTa
-| 模型 | 结构 | 位置编码 | 激活函数 | layer norm方法 |
-| --- | --- | --- | --- | --- |
-| 原生Transformer | Encoder-Decoder | Sinusoida编码 | ReLU | Post layer norm |
-| BERT | Encoder | 绝对位置编码 | GeLU | Post layer norm |
-| LLaMA | Casual-decoder | <a href="./RoPE" class="internal" data-slug="RoPE">RoPE</a> | SwiGLU | Pre RMS Norm |
-| ChatGLM-6B | Prefix decoder | <a href="./RoPE" class="internal" data-slug="RoPE">RoPE</a> | GeGLU | Post Deep Norm |
-| Bloom | Casual decoder | ALiBi | GeLU | Pre Layer Norm |</li>
+<li>RoBERTa</li>
 </ul>
 </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>模型</th><th>结构</th><th>位置编码</th><th>激活函数</th><th>layer norm方法</th></tr></thead><tbody><tr><td>原生Transformer</td><td>Encoder-Decoder</td><td>Sinusoida编码</td><td>ReLU</td><td>Post layer norm</td></tr><tr><td>BERT</td><td>Encoder</td><td>绝对位置编码</td><td>GeLU</td><td>Post layer norm</td></tr><tr><td>LLaMA</td><td>Casual-decoder</td><td><a href="./RoPE" class="internal" data-slug="RoPE">RoPE</a></td><td>SwiGLU</td><td>Pre RMS Norm</td></tr><tr><td>ChatGLM-6B</td><td>Prefix decoder</td><td><a href="./RoPE" class="internal" data-slug="RoPE">RoPE</a></td><td>GeGLU</td><td>Post Deep Norm</td></tr><tr><td>Bloom</td><td>Casual decoder</td><td>ALiBi</td><td>GeLU</td><td>Pre Layer Norm</td></tr></tbody></table></div>
+<ul>
 <li>决定效果
 <ul>
 <li>模型参数量、数据集大小、计算量</li>
